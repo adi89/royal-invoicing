@@ -1,0 +1,730 @@
+  [1m[36m (7.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.5ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateGroups (20131018163703)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.5ms)[0m  [1mCREATE TABLE "groups" ("id" serial primary key, "name" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (1.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131018163703"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to CreateContacts (20131018164318)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (4.2ms)[0m  [1mCREATE TABLE "contacts" ("id" serial primary key, "name" character varying(255), "email" character varying(255), "job_title" character varying(255), "phone_number" character varying(255), "website" character varying(255), "address" character varying(255), "twitter_handle" character varying(255), "photo" character varying(255), "company_id" integer, "user_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131018164318"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to CreateCompanies (20131018164406)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (3.0ms)[0m  [1mCREATE TABLE "companies" ("id" serial primary key, "name" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131018164406"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateLineItems (20131018164515)
+  [1m[35m (0.6ms)[0m  BEGIN
+  [1m[36m (5.5ms)[0m  [1mCREATE TABLE "line_items" ("id" serial primary key, "quantity" integer, "price" decimal, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131018164515"]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+Migrating to CreateBillingDocs (20131018164529)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (4.3ms)[0m  [1mCREATE TABLE "billing_docs" ("id" serial primary key, "total" decimal, "note" text, "state" character varying(255), "kind" character varying(255), "contact_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131018164529"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to DeviseCreateUsers (20131018175550)
+  [1m[35m (0.6ms)[0m  BEGIN
+  [1m[36m (5.4ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying(255) DEFAULT '' NOT NULL, "encrypted_password" character varying(255) DEFAULT '' NOT NULL, "reset_password_token" character varying(255), "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" character varying(255), "last_sign_in_ip" character varying(255), "group_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.1ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131018175550"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.5ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (10.3ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:38:12 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:38:12 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:38:12 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:38:12 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.3ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:40:54 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:40:54 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:40:54 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:40:54 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.3ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:41:01 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:41:01 UTC +00:00]]
+  [1m[36m (0.3ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:41:01 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:41:01 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.8ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:43:17 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:43:17 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:43:18 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:43:18 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddBillingDocIdToLineItems (20131018184440)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.8ms)[0m  [1mALTER TABLE "line_items" ADD COLUMN "billing_doc_id" integer[0m
+  [1m[35m (2.8ms)[0m  CREATE INDEX "index_line_items_on_billing_doc_id" ON "line_items" ("billing_doc_id")
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131018184440"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.4ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (2.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$.xuYZwGtD6ohr8u1Adk7Cui4vYSpsfZzLcVsEG6AaE6Pdg4YVmYvG"], ["group_id", 9], ["updated_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["company_id", 1], ["created_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00], ["user_id", 1]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "billing_docs" ("contact_id", "created_at", "kind", "state", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["contact_id", 1], ["created_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00], ["kind", "estimate"], ["state", "sent"], ["updated_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$doBW.8csyS0mguiQ7jniXuLqHWwPH81lI/0FaxDiDnBkRs1izblS6"], ["group_id", 10], ["updated_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["company_id", 2], ["created_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00], ["user_id", 2]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "billing_docs" ("contact_id", "created_at", "kind", "state", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["contact_id", 2], ["created_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00], ["kind", "estimate"], ["state", "sent"], ["updated_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:53:10 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (8.5ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00]]
+  [1m[36m (0.3ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.1ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$exISc3Uz0yOuJYaIMnTPpOgD.QNB8NVZPXpFk.Uylt67eX7URxah2"], ["group_id", 12], ["updated_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["company_id", 3], ["created_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00], ["user_id", 3]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "billing_docs" ("contact_id", "created_at", "kind", "state", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["contact_id", 3], ["created_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00], ["kind", "estimate"], ["state", "sent"], ["updated_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$vBXpmS5H5WiWdfRqIqcgjufA1WgDTHEbdHm9q5KipQU/WCtDYepo6"], ["group_id", 13], ["updated_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["company_id", 4], ["created_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00], ["user_id", 4]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "billing_docs" ("contact_id", "created_at", "kind", "state", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["contact_id", 4], ["created_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00], ["kind", "estimate"], ["state", "sent"], ["updated_at", Fri, 18 Oct 2013 18:54:07 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:54:53 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:54:53 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.5ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$BTGrgH1cQZqY4x5s0AK7J.a3S1GTt3ZuoY.orVxgoWIgQjp2M3eN2"], ["group_id", 15], ["updated_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["company_id", 5], ["created_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00], ["user_id", 5]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "billing_docs" ("contact_id", "created_at", "kind", "state", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["contact_id", 5], ["created_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00], ["kind", "estimate"], ["state", "sent"], ["updated_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$xIQDleHwb7cXNwLhwpH1hOuRlB/TjtgF05f2J/Flok2xWUBRiFB0e"], ["group_id", 16], ["updated_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["company_id", 6], ["created_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00], ["user_id", 6]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "billing_docs" ("contact_id", "created_at", "kind", "state", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["contact_id", 6], ["created_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00], ["kind", "estimate"], ["state", "sent"], ["updated_at", Fri, 18 Oct 2013 18:55:01 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.5ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$KImJBZuZQ2bfRc5JQeo7lugb45HpLsrknsLdB.8PoeSmkO1lbalrS"], ["group_id", 17], ["updated_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["company_id", 7], ["created_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00], ["user_id", 7]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "billing_docs" ("contact_id", "created_at", "kind", "state", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["contact_id", 7], ["created_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00], ["kind", "estimate"], ["state", "sent"], ["updated_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$sHy5dg55Ye8EpDVX7Bvp4OXtWJhHH22TBHIF4J6gAYibdNaxgXjU."], ["group_id", 18], ["updated_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["company_id", 8], ["created_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00], ["user_id", 8]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "billing_docs" ("contact_id", "created_at", "kind", "state", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["contact_id", 8], ["created_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00], ["kind", "estimate"], ["state", "sent"], ["updated_at", Fri, 18 Oct 2013 18:55:31 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (8.9ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00]]
+  [1m[36m (0.3ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.5ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.8ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$Yy3zmrAbFfcTfcVWjvrRGu9bHXU/bUw1ckb2n4ZmheozhwMgRHA4C"], ["group_id", 19], ["updated_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00]]
+  [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["company_id", 9], ["created_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00], ["user_id", 9]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "billing_docs" ("contact_id", "created_at", "kind", "state", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["contact_id", 9], ["created_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00], ["kind", "estimate"], ["state", "sent"], ["updated_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$8M4nlR/QIFQ5GAhz1xRYeeUtGdvt1KQeShqpdotkbvh9UmXWjqfkO"], ["group_id", 20], ["updated_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["company_id", 10], ["created_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00], ["user_id", 10]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "billing_docs" ("contact_id", "created_at", "kind", "state", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["contact_id", 10], ["created_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00], ["kind", "estimate"], ["state", "sent"], ["updated_at", Fri, 18 Oct 2013 18:55:39 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (10.3ms)[0m  INSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:58:06 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:58:06 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mContact Load (0.9ms)[0m  SELECT "contacts".* FROM "contacts" WHERE "contacts"."company_id" = $1  [["company_id", 11]]
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:58:06 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:58:06 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.3ms)[0m  INSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:59:11 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:59:11 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:59:11 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:59:11 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.7ms)[0m  INSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:59:34 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:59:34 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:59:34 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:59:34 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:59:34 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:59:34 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.1ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:59:34 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$rDNAyr.KEj3xYH.Ljzi9buAZRRq9tGB4Lpm709nIy6Rd42vCnrE6."], ["group_id", 21], ["updated_at", Fri, 18 Oct 2013 18:59:34 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:59:34 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 18:59:34 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.4ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["company_id", 17], ["created_at", Fri, 18 Oct 2013 18:59:34 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 18:59:34 UTC +00:00], ["user_id", 11]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mCompany Load (0.8ms)[0m  SELECT "companies".* FROM "companies" WHERE "companies"."id" = $1 ORDER BY "companies"."id" ASC LIMIT 1  [["id", 16]]
+  [1m[36mSQL (0.8ms)[0m  [1mUPDATE "contacts" SET "company_id" = $1, "updated_at" = $2 WHERE "contacts"."id" = 11[0m  [["company_id", 16], ["updated_at", Fri, 18 Oct 2013 18:59:34 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mContact Load (0.4ms)[0m  [1mSELECT "contacts".* FROM "contacts" WHERE "contacts"."company_id" = $1[0m  [["company_id", 16]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.4ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00]]
+  [1m[36m (0.3ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$CeYpGK19zMJh0ThbwmcxYuooOrNOOtRcLg3WBF6mxtbNrcLdU/Fsq"], ["group_id", 22], ["updated_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["company_id", 18], ["created_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00], ["user_id", 12]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$k9rWHVAIllfeQoYOxmrmGufKU/LZtLOlLNSttOnBa9uTvGSibs7L6"], ["group_id", 23], ["updated_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["company_id", 19], ["created_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00], ["user_id", 13]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$IFgC.igyAugZsRsq4Krfy.lQVXAmlz/7y1p4QEft4dcUHTgj7yb.W"], ["group_id", 24], ["updated_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["company_id", 20], ["created_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 19:01:37 UTC +00:00], ["user_id", 14]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.5ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:03:35 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:03:35 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:03:35 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:03:35 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:03:35 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:03:35 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.1ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:03:35 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$6qmA9zdr9RDKi0viQ.kmq.oHjxiLF97w/H/OZaFCgDqcU8UFYx71K"], ["group_id", 27], ["updated_at", Fri, 18 Oct 2013 19:03:35 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mGroup Load (0.8ms)[0m  SELECT "groups".* FROM "groups" WHERE "groups"."id" = $1 ORDER BY "groups"."id" ASC LIMIT 1  [["id", 26]]
+  [1m[36mSQL (0.9ms)[0m  [1mUPDATE "users" SET "group_id" = $1, "updated_at" = $2 WHERE "users"."id" = 15[0m  [["group_id", 26], ["updated_at", Fri, 18 Oct 2013 19:03:35 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."group_id" = $1[0m  [["group_id", 26]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.8ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:05:10 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:05:10 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:05:10 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$eqrpKTlgzVjXEe5GSZU6i.XH4VM85WiymQ.DYtlkkQDWm7O2ZLVMG"], ["group_id", 28], ["updated_at", Fri, 18 Oct 2013 19:05:10 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:05:10 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 19:05:10 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["company_id", 21], ["created_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00], ["user_id", 16]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "billing_docs" ("contact_id", "created_at", "kind", "state", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["contact_id", 15], ["created_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00], ["kind", "estimate"], ["state", "sent"], ["updated_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (3.1ms)[0m  [1mINSERT INTO "line_items" ("billing_doc_id", "created_at", "price", "quantity", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["billing_doc_id", 11], ["created_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00], ["price", #<BigDecimal:7f87badb9630,'0.4E2',9(45)>], ["quantity", 2], ["updated_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.9ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$EVyWtjW94ShlgwoFK0ngnesHkT7WhRzL.b2ex.ANEPI2YjyFxbAwu"], ["group_id", 29], ["updated_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "companies" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00], ["name", "Subvrt"], ["updated_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "contacts" ("company_id", "created_at", "email", "job_title", "name", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["company_id", 22], ["created_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00], ["email", "kurt_russell@yahoo.com"], ["job_title", "Pliskin"], ["name", "Kurt Russell"], ["updated_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00], ["user_id", 17]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "billing_docs" ("contact_id", "created_at", "kind", "state", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["contact_id", 16], ["created_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00], ["kind", "estimate"], ["state", "sent"], ["updated_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "line_items" ("billing_doc_id", "created_at", "price", "quantity", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["billing_doc_id", 12], ["created_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00], ["price", #<BigDecimal:7f87be1377c8,'0.4E2',9(45)>], ["quantity", 2], ["updated_at", Fri, 18 Oct 2013 19:05:11 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (8.6ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:07:51 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:07:51 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:07:51 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$VZ5iROZnp6HJV/4YFNjMyuB8f3SU3Lf1UiEUIXynBCS6OAsAuVyiu"], ["group_id", 30], ["updated_at", Fri, 18 Oct 2013 19:07:51 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:07:51 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:07:51 UTC +00:00]]
+  [1m[36m (0.3ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:07:51 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:07:51 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:07:51 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$BReRMiMnMvzPbwcsOzVP0OyIHA/NmalNEhKUML6HUXlpmMJIeQyNq"], ["group_id", 32], ["updated_at", Fri, 18 Oct 2013 19:07:51 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:07:51 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:07:51 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:07:51 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$/glZsE2Ch1bRprb2090g5O5fvldWzA5uByj1zu3kihK7elw9320VK"], ["group_id", 33], ["updated_at", Fri, 18 Oct 2013 19:07:51 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (7.2ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:08:58 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:08:58 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.1ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:08:58 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$OWBW2y0Nr9HRwMfPQJCdLedjd4cqlLMsdwLyYKR5pFKvF8dXnne82"], ["group_id", 34], ["updated_at", Fri, 18 Oct 2013 19:08:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:08:58 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:08:58 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:08:58 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$xUJCc4Yp/5NkCBKCU2rw3.BNAHBlzc4Q/svCJbLVxtMBtMm4BFlRe"], ["group_id", 35], ["updated_at", Fri, 18 Oct 2013 19:08:58 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:08:58 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:08:58 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:08:58 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$oLtAJWlqcmxV5Bbt51WgR.x9/iWXuxjHp0KoApEiXrxWrWOlgXhrC"], ["group_id", 36], ["updated_at", Fri, 18 Oct 2013 19:08:58 UTC +00:00]]
+  [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mContact Load (0.6ms)[0m  [1mSELECT "contacts".* FROM "contacts" WHERE "contacts"."user_id" = $1[0m  [["user_id", 23]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.2ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:09:13 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:09:13 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.1ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:09:13 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$G9vNc9Ro1.ki9RwXNZwA5es5QW0tClvcrdYXb3X5lJ2FNlRL4cDIK"], ["group_id", 37], ["updated_at", Fri, 18 Oct 2013 19:09:13 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:09:13 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:09:13 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:09:13 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$ExxUUS.X4pXLhUVvqkniIep2PCICr28Tn/BvxVLGLRsYYVp/4HdxC"], ["group_id", 38], ["updated_at", Fri, 18 Oct 2013 19:09:13 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:09:13 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:09:13 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:09:13 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$mudeNVQvC.s06be4gGrQY.FwNnmw19VehOvR9qLyXHnI/1j7es5Ri"], ["group_id", 39], ["updated_at", Fri, 18 Oct 2013 19:09:13 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mContact Load (1.0ms)[0m  [1mSELECT "contacts".* FROM "contacts" WHERE "contacts"."user_id" = $1[0m  [["user_id", 26]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.8ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:13:48 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:13:48 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:13:48 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$gxhiOcGGUvtrWAEz9c6Ni.qlhOj6IXIsTcuhNKA5r2ykrAa3mCLlG"], ["group_id", 40], ["updated_at", Fri, 18 Oct 2013 19:13:48 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:13:48 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:13:48 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:13:48 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$opEcRxWfR0.FwWli8VOCYulBynSz/fS8cCKv9TjEjPU8HPvbhARea"], ["group_id", 41], ["updated_at", Fri, 18 Oct 2013 19:13:48 UTC +00:00]]
+  [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:13:48 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:13:48 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:13:48 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$7SuzIESKahzKUv05sq9qj.nVHt5ArtFGceDMa3V4Foo1xr.YsdMyq"], ["group_id", 42], ["updated_at", Fri, 18 Oct 2013 19:13:48 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:13:48 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:13:48 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (5.9ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:14:03 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:14:03 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:14:04 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$GQ8sLIUGhpuJk7wmavtRNezfMvJUXcB5T.5DpXSDyARYDgP6Jw8/i"], ["group_id", 44], ["updated_at", Fri, 18 Oct 2013 19:14:04 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:14:04 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:14:04 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:14:04 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$O5bOxtKNo2669i7ELOAlM.sjgf3UB5fxpgEwBPYfxRzCC7tHX1LvO"], ["group_id", 45], ["updated_at", Fri, 18 Oct 2013 19:14:04 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:14:04 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:14:04 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:14:04 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$MazFdEImiTE9O9w1YbGdoenr9008HbGLG.xQRlWua4qZnHV2I0Wce"], ["group_id", 46], ["updated_at", Fri, 18 Oct 2013 19:14:04 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:14:04 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:14:04 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.4ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (6.3ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:15:10 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:15:10 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:15:10 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$My/urYC6JJSK8xLGOX4RqulRFLneNMzZTQTFA6k4ZJIdEDaRTAiJq"], ["group_id", 48], ["updated_at", Fri, 18 Oct 2013 19:15:10 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:15:10 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:15:10 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:15:10 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$Z8Fo4bIJu0eZ2wJcf2L2r.w1AV6ssIp9zAbMv6HFYoz54mPEWS0uy"], ["group_id", 49], ["updated_at", Fri, 18 Oct 2013 19:15:10 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:15:10 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:15:10 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:15:10 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$GkrjU0/NekjGb8oBULpO1.p.B/CES92UcfQ0c8n4UG1R1DLuqAn6K"], ["group_id", 50], ["updated_at", Fri, 18 Oct 2013 19:15:10 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "contacts" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:15:10 UTC +00:00], ["email", "alf@alfworld.com"], ["updated_at", Fri, 18 Oct 2013 19:15:10 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.9ms)[0m  [1mUPDATE "contacts" SET "user_id" = $1, "updated_at" = $2 WHERE "contacts"."id" = 17[0m  [["user_id", 35], ["updated_at", Fri, 18 Oct 2013 19:15:10 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mContact Load (0.5ms)[0m  [1mSELECT "contacts".* FROM "contacts" WHERE "contacts"."user_id" = $1[0m  [["user_id", 35]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (7.2ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:15:52 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:15:52 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:15:52 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$zeyqIhI7UzLNfX9xbigndus68vYzocqWfDHJemBvw.Q0CC83oSeA6"], ["group_id", 51], ["updated_at", Fri, 18 Oct 2013 19:15:52 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:15:52 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:15:52 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:15:52 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$7/xspDmJccemQ1JwCy0hJubbeLORdqTnpigIJXwXNeI5Y3v6b7osW"], ["group_id", 52], ["updated_at", Fri, 18 Oct 2013 19:15:52 UTC +00:00]]
+  [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:15:52 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 19:15:52 UTC +00:00]]
+  [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mUser Exists (0.4ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'adityasingh89@gmail.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "encrypted_password", "group_id", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 19:15:52 UTC +00:00], ["email", "adityasingh89@gmail.com"], ["encrypted_password", "$2a$04$E2KGrLIKT6IHXVBi9Yxf/.hjH218z14X3Ca9KXSgK0HOuE50xOSdS"], ["group_id", 53], ["updated_at", Fri, 18 Oct 2013 19:15:52 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36m (0.4ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "contacts" ("created_at", "email", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 19:15:52 UTC +00:00], ["email", "alf@alfworld.com"], ["updated_at", Fri, 18 Oct 2013 19:15:52 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+  [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.8ms)[0m  [1mUPDATE "contacts" SET "user_id" = $1, "updated_at" = $2 WHERE "contacts"."id" = 18[0m  [["user_id", 38], ["updated_at", Fri, 18 Oct 2013 19:15:52 UTC +00:00]]
+  [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mContact Load (0.5ms)[0m  [1mSELECT "contacts".* FROM "contacts" WHERE "contacts"."user_id" = $1[0m  [["user_id", 38]]
+  [1m[35m (0.2ms)[0m  ROLLBACK

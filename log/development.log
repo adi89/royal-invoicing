@@ -1,0 +1,50 @@
+  [1m[36m (14.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (2.7ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateGroups (20131018163703)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (5.3ms)[0m  [1mCREATE TABLE "groups" ("id" serial primary key, "name" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (3.5ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131018163703"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateContacts (20131018164318)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (3.9ms)[0m  [1mCREATE TABLE "contacts" ("id" serial primary key, "name" character varying(255), "email" character varying(255), "job_title" character varying(255), "phone_number" character varying(255), "website" character varying(255), "address" character varying(255), "twitter_handle" character varying(255), "photo" character varying(255), "company_id" integer, "user_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131018164318"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateCompanies (20131018164406)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (2.6ms)[0m  [1mCREATE TABLE "companies" ("id" serial primary key, "name" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131018164406"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateLineItems (20131018164515)
+  [1m[35m (0.8ms)[0m  BEGIN
+  [1m[36m (3.9ms)[0m  [1mCREATE TABLE "line_items" ("id" serial primary key, "quantity" integer, "price" decimal, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131018164515"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateBillingDocs (20131018164529)
+  [1m[35m (0.9ms)[0m  BEGIN
+  [1m[36m (4.1ms)[0m  [1mCREATE TABLE "billing_docs" ("id" serial primary key, "total" decimal, "note" text, "state" character varying(255), "kind" character varying(255), "contact_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131018164529"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to DeviseCreateUsers (20131018175550)
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36m (6.5ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying(255) DEFAULT '' NOT NULL, "encrypted_password" character varying(255) DEFAULT '' NOT NULL, "reset_password_token" character varying(255), "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" character varying(255), "last_sign_in_ip" character varying(255), "group_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.9ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (1.0ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20131018175550"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.4ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (6.4ms)[0m  INSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["created_at", Fri, 18 Oct 2013 18:39:49 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:39:49 UTC +00:00]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "groups" ("created_at", "name", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", Fri, 18 Oct 2013 18:40:15 UTC +00:00], ["name", "Playaz Klub"], ["updated_at", Fri, 18 Oct 2013 18:40:15 UTC +00:00]]
+  [1m[35m (2.0ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddBillingDocIdToLineItems (20131018184440)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (3.4ms)[0m  [1mALTER TABLE "line_items" ADD COLUMN "billing_doc_id" integer[0m
+  [1m[35m (1.2ms)[0m  CREATE INDEX "index_line_items_on_billing_doc_id" ON "line_items" ("billing_doc_id")
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20131018184440"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
