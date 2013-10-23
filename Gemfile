@@ -23,9 +23,11 @@ gem 'carrierwave'
 
 gem 'rmagick'
 
-gem 'statemachine'
+gem 'state_machine'
 
 gem 'figaro'
+
+gem 'binding_of_caller'
 
 gem 'haml'
 

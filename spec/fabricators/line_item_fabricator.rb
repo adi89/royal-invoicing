@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: line_items
+#
+#  id             :integer          not null, primary key
+#  quantity       :integer
+#  price          :decimal(, )
+#  created_at     :datetime
+#  updated_at     :datetime
+#  billing_doc_id :integer
+#
+
 
 # == Schema Information
 #
