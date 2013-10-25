@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131023221258) do
+ActiveRecord::Schema.define(version: 20131024214156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20131023221258) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
+    t.string   "due_date"
   end
 
   create_table "companies", force: true do |t|
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(version: 20131023221258) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "billing_doc_id"
+    t.text     "note"
   end
 
   add_index "line_items", ["billing_doc_id"], name: "index_line_items_on_billing_doc_id", using: :btree

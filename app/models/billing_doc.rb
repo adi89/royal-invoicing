@@ -11,11 +11,15 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  title      :string(255)
+#  due_date   :string(255)
 #
 
 class BillingDoc < ActiveRecord::Base
   belongs_to :contact
   has_many :line_items
+
+  accepts_nested_attributes_for :contact
+  accepts_nested_attributes_for :line_items
 
   state_machine :state, initial: :unpaid do
   event :pay do
@@ -35,7 +39,7 @@ class BillingDoc < ActiveRecord::Base
     end
   end
 
-accepts_nested_attributes_for :line_items
+
 end
 
 

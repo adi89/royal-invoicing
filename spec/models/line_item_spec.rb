@@ -8,6 +8,7 @@
 #  created_at     :datetime
 #  updated_at     :datetime
 #  billing_doc_id :integer
+#  note           :text
 #
 
 require 'spec_helper'

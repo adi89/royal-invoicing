@@ -4,3 +4,67 @@ margin-right: 20%;
 margin-top: 2.5%;
 }
 
+.contact-labelz{
+  display: block;
+}
+
+
+#contact-addition{
+display: inline-block!important;
+}
+
+#contact-addition-box{
+display: inline-block!important;
+padding: 2px;
+border: 1px solid grey;
+background-color: pink;
+text-align: center;
+margin: 10px;
+}
+
+#line-items-table th{
+  font-size: 1em;
+  margin-right: 10px;
+  text-align: center;
+}
+.add-line-item{
+  display: inline-block;
+}
+.line-item-title{
+  display: inline-block;
+}
+
+.due-date-label{
+  display: block;
+}
+
+/*#line-items-table .remove-button-table{
+  text-align: center!important;
+}*/
+#line-items-table td{
+  font-size: .75em;
+  margin-right: 10px;
+}
+
+#line-items-table input{
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+#line-items-table td:nth-child(5n){
+  text-align: center;
+  top: -2px;
+  position: relative!important;
+}
+
+#sum{
+  float: right;
+  margin-top: 0;
+}
+#sum h3{
+  margin-top: 0;
+}
+
+.post-buttons{
+  display: block;
+}

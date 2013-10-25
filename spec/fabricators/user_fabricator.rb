@@ -19,7 +19,7 @@
 #
 
 Fabricator(:user) do
-  email "adityasingh89@gmail.com"
+  email "eternalglow769@yahoo.com"
   password "FourtheWinner"
   group
 end
