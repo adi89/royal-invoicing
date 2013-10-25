@@ -29,8 +29,6 @@
 #  updated_at :datetime
 #
 Fabricator(:billing_doc) do
-  kind "estimate"
-  state "sent"
-  contact
+  kind "invoice"
 end
 

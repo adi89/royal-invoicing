@@ -1,18 +1,18 @@
 $ ->
 
-  $("#billing_doc_contact_attributes_name").keyup (e) ->
-    name = $("#billing_doc_contact_attributes_name").val()
-    path = $('form').attr('action')
-    $.post path, {"name": name}, (data) ->
-      $("#contact-addition").toggleClass('hide')
-      $("#contact-addition").empty().append(data).show()
-      $("#add-contact-to-field").click (e) ->
-        e.preventDefault()
-        name = $("#add-contact-to-field").data("name")
-        email = $("#add-contact-to-field").data("email")
-        $('#contact-addition').fadeOut('slow').empty()
-        $("#billing_doc_contact_attributes_name").empty().val("#{name}")
-        $("#billing_doc_contact_attributes_email").empty().val("#{email}")
+  # $("#billing_doc_contact_attributes_name").keyup (e) ->
+  #   name = $("#billing_doc_contact_attributes_name").val()
+  #   path = $('form').attr('action')
+  #   $.post path, {"name": name}, (data) ->
+  #     $("#contact-addition").toggleClass('hide')
+  #     $("#contact-addition").empty().append(data).show()
+  #     $("#add-contact-to-field").click (e) ->
+  #       e.preventDefault()
+  #       name = $("#add-contact-to-field").data("name")
+  #       email = $("#add-contact-to-field").data("email")
+  #       $('#contact-addition').fadeOut('slow').empty()
+  #       $("#billing_doc_contact_attributes_name").empty().val("#{name}")
+  #       $("#billing_doc_contact_attributes_email").empty().val("#{email}")
 
   $('body').on 'keyup ', ".quantity-field, .price-field", (e) ->
     e.preventDefault()

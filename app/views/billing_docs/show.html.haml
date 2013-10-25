@@ -1,0 +1,25 @@
+.row
+  .col-md-7.col-md-offset-2
+    .billing-doc
+      .billing-doc-show-title
+        %h2= @billing_doc.kind.capitalize
+      .billing-doc-header
+        %p= "To : #{@billing_doc.contacts.map{|i| i.name}.first}"
+        %p= "From : #{current_user.email}"
+        %p= "Date : #{@billing_doc.created_at.strftime("%m-%d-%Y")}"
+        %p= "Subject : #{@billing_doc.title}"
+      .show-description
+        %p= "description - #{@billing_doc.note}"
+      %table#line-items-show-table
+        %tr
+          %th note
+          %th quantity
+          %th price
+          %th total
+        -@billing_doc.line_items.each do |line_item|
+          %tr.line-item-show-row
+            %td= line_item.note
+            %td= line_item.quantity
+            %td= line_item.price
+            %td= line_item.price * line_item.quantity
+            %br

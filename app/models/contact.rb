@@ -20,5 +20,6 @@
 class Contact < ActiveRecord::Base
   belongs_to :company
   belongs_to :user
-  has_many :billing_docs
+  has_many :billing_docs_contacts
+  has_many :billing_docs, through: :billing_docs_contacts
 end

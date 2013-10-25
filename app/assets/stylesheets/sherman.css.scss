@@ -68,3 +68,28 @@ margin: 10px;
 .post-buttons{
   display: block;
 }
+.billing-doc{
+  background-image: url('airmail-top.png'), url('airmail-bottom.png');
+  background-repeat: no-repeat;
+  background-position: 0 0, 0 bottom;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  float: left;
+  width: 100%
+}
+.billing-doc-header{
+float: left;
+position: relative;
+}
+.show-description{
+  clear: both;
+  margin: 2%;
+  padding: 2%;
+}
+
+.line-item-show-row td{
+  margin: 5%;
+}
+#line-items-show-table{
+  border-spacing: 10px;
+}

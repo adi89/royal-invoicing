@@ -28,8 +28,9 @@ describe BillingDoc do
   end
 
   describe "associations" do
-    it 'belongs to a contact' do
-      expect(@billing_doc.contact.present?).to eq true
+    it 'has and belongs to a contact' do
+      @billing_doc.contacts << Fabricate(:contact)
+      expect(@billing_doc.contacts.first.present?).to eq true
     end
   end
 end

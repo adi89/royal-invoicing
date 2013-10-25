@@ -13,11 +13,10 @@
           = f.hidden_field :kind, value: @kind
           %br
         .form-group
-          = f.fields_for :contact do |contact|
-            = contact.label :name, "Contact Name", class: "contact-labelz"
-            = contact.text_field :name, as: "Contact:"
-            = contact.label :email, "Contact Email", class: "contact-labelz"
-            = contact.text_field :email
+          = fields_for(@billing_docs_contacts) do |bd|
+            = bd.label :name, "Contact Name"
+            %br
+            = collection_select(:billing_doc, :id, @contacts, :id, :name, {}, {:multiple => true} )
           #contact-addition
         %h4.line-item-title Line Items
         = link_to 'Add Line Item', '#', class: 'btn btn-success btn-xs add-line-item'

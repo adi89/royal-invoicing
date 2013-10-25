@@ -15,10 +15,11 @@
 #
 
 class BillingDoc < ActiveRecord::Base
-  belongs_to :contact
+  has_many :billing_docs_contacts
+  has_many :contacts, through: :billing_docs_contacts
   has_many :line_items
 
-  accepts_nested_attributes_for :contact
+  accepts_nested_attributes_for :contacts
   accepts_nested_attributes_for :line_items
 
   state_machine :state, initial: :unpaid do
@@ -38,6 +39,8 @@ class BillingDoc < ActiveRecord::Base
       transition :pending => :estimate
     end
   end
+
+
 
 
 end
