@@ -17,29 +17,31 @@ $ ->
   $('body').on 'keyup ', ".quantity-field, .price-field", (e) ->
     e.preventDefault()
     if $(this).hasClass('quantity-field') == true
-      quantity = parseInt($(this).val())
-      price = parseInt($(this).parent().next().children().first().val())
-      total = quantity * price
-      if total % 1 == 0
+      quantity = parseFloat($(this).val())
+      price = parseFloat($(this).parent().next().children().first().val())
+      total = (quantity * price).toFixed(2)
+      console.log(total)
+      if isNaN(total) == false
         input = $(this).parent().next().next().children().first()
         $(input).empty().val(total).prop('disabled', true)
         sumTotal = 0
         $(".total-field").each (index, element) =>
-          sumTotal += parseInt($(element).val())
+          sumTotal += parseFloat($(element).val())
           console.log(sumTotal)
-        $("#sum").empty().append("<h3>Total : $#{sumTotal}</h3>")
+        $("#sum").empty().append("<h3>Total : $#{sumTotal.toFixed(2)}</h3>")
     else
-      price = parseInt($(this).val())
-      quantity = parseInt($(this).parent().prev().children().first().val())
-      total = quantity * price
-      if total % 1 == 0
+      price = parseFloat($(this).val())
+      quantity = parseFloat($(this).parent().prev().children().first().val())
+      total = (quantity * price).toFixed(2)
+      console.log(total)
+      if isNaN(total) == false
         input = $(this).parent().next().children().first()
         $(input).empty().val(total).prop('disabled', true)
         sumTotal = 0
         $(".total-field").each (index, element) =>
-          console.log($(element).val())
-          sumTotal += parseInt($(element).val())
-        $("#sum").empty().append("<h3>Total : $#{sumTotal}</h3>")
+          sumTotal += parseFloat($(element).val())
+          console.log(sumTotal)
+        $("#sum").empty().append("<h3>Total : $#{sumTotal.toFixed(2)}</h3>")
     console.log(quantity + " " + price)
 
   $('.due-date-field').datepicker()
@@ -50,6 +52,7 @@ $ ->
     lineItemRow = $('.line-item-row').first().clone()
     console.log($(lineItemRow).parent())
     $(lineItemRow).find('.note-field').attr('name', "billing_doc[line_items_attributes][#{index}][note]")
+    $(lineItemRow).find('.note-field').val("")
     $(lineItemRow).find('.quantity-field').attr('name', "billing_doc[line_items_attributes][#{index}][quantity]").val("")
     $(lineItemRow).find('.price-field').attr('name', "billing_doc[line_items_attributes][#{index}][price]").val("")
     $(lineItemRow).find("#total").val("")
@@ -61,10 +64,26 @@ $ ->
     e.preventDefault()
     if $('.line-item-row').size() > 1
       console.log('remove')
-      total = parseInt($("#sum h3").text().replace( /^\D+/g, ''))
-      itemVal = parseInt($(this).parent().prev().children().val())
+      total = parseFloat($("#sum h3").text().replace( /^\D+/g, ''))
+      itemVal = parseFloat($(this).parent().prev().children().val())
       console.log(total - itemVal)
       $(this).parent().parent().remove()
       $("#sum h3").empty().append("<h3>Total : $#{total-itemVal}</h3>")
 
+
+  $('.show-mailer-button').click (e) ->
+    e.preventDefault()
+    $(this).text('Sent').removeClass('btn btn-default').addClass('sent-show-mailer')
+    path = $(this).attr('href')
+    $.get path, (data) ->
+      console.log(data)
+
+  $('.due-date-sort , .contact-sort, .total-sort, .status.sort').click (e) ->
+    e.preventDefault()
+    dataType = $(this).data('type')
+    category = $(this).data('category')
+    path = '/billing_docs/sort'
+    $.post path, data:{'type':dataType, 'category':category}, (data) ->
+      $(".line-item-show-row").empty()
+      $("#invoices-index-table tbody").append($(data))
 

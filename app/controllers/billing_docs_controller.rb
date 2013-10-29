@@ -1,6 +1,18 @@
 class BillingDocsController < ApplicationController
 
   def index
+    @invoices = BillingDoc.where(kind: "invoice").sort_by(&:due_date)
+    @estimates = BillingDoc.where(kind: "estimate").sort_by(&:due_date)
+    if request.xhr?
+      attribute = params["data"]["type"]
+      attribute_array = "i.#{attribute}"
+      if params["data"]["category"] == "invoice"
+      @invoices =  @invoices.sort_by{|i| attribute_array}
+      binding.pry
+      render :_invoice_table, content_type: "text/html", layout: false
+      end
+    end
+
   end
 
   def new
@@ -14,9 +26,10 @@ class BillingDocsController < ApplicationController
 
   def show
     @billing_doc = BillingDoc.find(params['id'])
+    if request.xhr?
+        InvoicesPostEmailersWorker.perform_async(@billing_doc.id, {:user_id => current_user.id})
+    end
   end
-
-
 
 
   def create

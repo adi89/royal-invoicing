@@ -3,15 +3,16 @@
     .billing-doc
       .billing-doc-show-title
         %h2= @billing_doc.kind.capitalize
+        = link_to 'Mail It', billing_doc_path(@billing_doc), class: "btn btn-default show-mailer-button"
       .billing-doc-header
-        %p= "To : #{@billing_doc.contacts.map{|i| i.name}.first}"
+        %p= "To : #{@billing_doc.contacts.map{|i| i.name}.join(' , ')}"
         %p= "From : #{current_user.email}"
         %p= "Date : #{@billing_doc.created_at.strftime("%m-%d-%Y")}"
         %p= "Subject : #{@billing_doc.title}"
       .show-description
         %p= "description - #{@billing_doc.note}"
       %table#line-items-show-table
-        %tr
+        %tr.table-show-header
           %th note
           %th quantity
           %th price
@@ -23,3 +24,5 @@
             %td= line_item.price
             %td= line_item.price * line_item.quantity
             %br
+      .total-cost
+        = "Total Cost: $#{@billing_doc.total.round(2)}"

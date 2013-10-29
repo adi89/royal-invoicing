@@ -1,6 +1,5 @@
 .call-to-action-invoice-estimate {
 float: right;
-margin-right: 20%;
 margin-top: 2.5%;
 }
 
@@ -71,6 +70,7 @@ margin: 10px;
 .billing-doc{
   background-image: url('airmail-top.png'), url('airmail-bottom.png');
   background-repeat: no-repeat;
+  background-color: lightgoldenrodyellow;
   background-position: 0 0, 0 bottom;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -88,8 +88,80 @@ position: relative;
 }
 
 .line-item-show-row td{
+  padding-right: 5%;
   margin: 5%;
 }
 #line-items-show-table{
+  width: 100%;
   border-spacing: 10px;
 }
+table {
+  border-spacing: 10px;
+}
+.table-show-header{
+  border-bottom: 1px solid grey;
+}
+
+.total-cost{
+  float:  right;
+  padding: 2%;
+  font-size: 150%;
+  font-weight: bold;
+}
+
+.show-mailer-button{
+float: right;
+display: inline-block;
+position: relative;
+top: -40px;
+margin-right: 20px;
+}
+
+.sent-show-mailer{
+    display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
+  color: #333333;
+  background-color: lightpink;
+  border-color: #cccccc;
+}
+
+.invoices{
+  clear: both;
+  color: purple;
+  font-weight: 200;
+  width: 100%;
+}
+.invoices td{
+  padding: 10px;
+  width: 128px;
+}
+
+#invoices-title{
+clear: both;
+margin-top: 15%;
+border-bottom: 1px dashed black;
+font-style: italic;
+font-weight: 100;
+}
+
+#invoices-row td:first-child{
+  padding-left: 0;
+  padding-right: 5%!important;
+}
+
+

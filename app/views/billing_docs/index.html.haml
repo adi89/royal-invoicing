@@ -1,3 +1,28 @@
-.call-to-action-invoice-estimate
-  = link_to 'Create Invoice', new_billing_doc_path(kind:  'invoice'), class: 'btn-success btn'
-  = link_to 'Make Estimate', new_billing_doc_path(kind:  'estimate'), class: 'btn-info btn'
+.row
+  .col-md-7.col-md-offset-2
+    .call-to-action-invoice-estimate
+      = link_to 'Create Invoice', new_billing_doc_path(kind:  'invoice'), class: 'btn-success btn'
+      = link_to 'Make Estimate', new_billing_doc_path(kind:  'estimate'), class: 'btn-info btn'
+      %br
+    .invoices
+      %h3#invoices-title Invoices
+      %table#invoices-index-table
+        %tr.invoice-index-table-header
+          %th= link_to 'Due', '#', class: 'due-date-sort', data: {type: 'due_date', category: 'invoice'}
+          %th Title
+          %th Note
+          %th= link_to " Contact(s)", "#", class: 'contact-sort', data: {type: 'contacts', category: 'invoice'}
+          %th= link_to 'Total', '#', class: 'total-sort', data: {type: 'total', category: 'invoice'}
+          %th= link_to 'Status', '#', class: 'status-sort', data: {type: 'state', category: 'invoice'}
+        #invoice-table-entries
+          = render partial: "invoice_table"
+        / -@invoices.each do |invoice|
+        /   %tr.line-item-show-row#invoices-row
+        /     %td= invoice.due_date
+        /     %td= link_to invoice.title, billing_doc_path(invoice)
+        /     %td= invoice.note
+        /     %td
+        /       - invoice.contacts.each do |contact|
+        /         = link_to(contact.name, contact_path(contact))
+        /     %td= invoice.total
+        /     %td= invoice.state

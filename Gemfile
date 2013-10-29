@@ -27,6 +27,11 @@ gem 'state_machine'
 
 gem 'figaro'
 
+gem 'sidekiq'
+
+gem 'sinatra', require: false
+gem 'slim'
+
 gem 'binding_of_caller'
 
 gem 'haml'

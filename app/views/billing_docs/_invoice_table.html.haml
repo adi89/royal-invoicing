@@ -1,0 +1,10 @@
+-@invoices.each do |invoice|
+  %tr.line-item-show-row#invoices-row
+    %td= invoice.due_date
+    %td= link_to invoice.title, billing_doc_path(invoice)
+    %td= invoice.note
+    %td
+      - invoice.contacts.each do |contact|
+        = link_to(contact.name, contact_path(contact))
+    %td= invoice.total
+    %td= invoice.state
