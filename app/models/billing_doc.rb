@@ -40,8 +40,28 @@ class BillingDoc < ActiveRecord::Base
     end
   end
 
+  def self.contacts_sort(attribute, category, forward)
+    forward == "true" ? category.sort_by{|i| i.contacts.map{|j| j.name}} : category.sort_by{|i| i.contacts.map{|j| j.name}} .reverse
+  end
 
+  def self.total_sort(attribute, category, forward)
+    forward == "true" ? category.sort_by{|i| i.total} : category.sort_by{|i| i.total}.reverse
+  end
 
+  def self.state_sort(attribute, category, forward)
+    forward == "true" ? category.sort_by{|i| i.state} : category.sort_by{|i| i.state}.reverse
+  end
+
+  def self.due_date_sort(attribute, category, forward)
+    forward == "true" ? category.sort_by(&:due_date) :  category.sort_by(&:due_date).reverse
+  end
+
+def self.attribute_sort(attribute, category, forward)
+attribute_method = "#{attribute}_sort"
+BillingDoc.send(attribute_method.to_sym, attribute, category, forward)
+end
+#category will give either @estimates or @invoices
+#attribute will give... no shit.
 
 end
 

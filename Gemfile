@@ -29,6 +29,8 @@ gem 'figaro'
 
 gem 'sidekiq'
 
+gem 'kaminari'
+
 gem 'sinatra', require: false
 gem 'slim'
 

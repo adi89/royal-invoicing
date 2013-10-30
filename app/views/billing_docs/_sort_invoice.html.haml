@@ -1,0 +1,10 @@
+-@billing_docs.each do |billing_doc|
+  %tr.line-item-show-row#invoices-row{data: {id: billing_doc.id}}
+    %td= billing_doc.due_date
+    %td= link_to billing_doc.title, billing_doc_path(billing_doc)
+    %td= billing_doc.note
+    %td
+      - billing_doc.contacts.each do |contact|
+        = link_to(contact.name, contact_path(contact))
+    %td= billing_doc.total
+    %td= billing_doc.state

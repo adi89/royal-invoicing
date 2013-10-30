@@ -1,18 +1,22 @@
 class BillingDocsController < ApplicationController
 
   def index
-    @invoices = BillingDoc.where(kind: "invoice").sort_by(&:due_date)
-    @estimates = BillingDoc.where(kind: "estimate").sort_by(&:due_date)
+    @billing_docs = BillingDoc.order(:due_date).page(params[:page]).per(5).where("total IS NOT NULL")
+  end
+
+  def sort
     if request.xhr?
+      @billing_docs = params["data"]["ids"].map{|i| BillingDoc.find(i)}
       attribute = params["data"]["type"]
-      attribute_array = "i.#{attribute}"
-      if params["data"]["category"] == "invoice"
-      @invoices =  @invoices.sort_by{|i| attribute_array}
-      binding.pry
-      render :_invoice_table, content_type: "text/html", layout: false
+      category = params["data"]["category"] == "billing_docs" ? @billing_docs : @estimates
+      forward = params['data']['forward']
+      instance_variable_set("@#{params['data']['category']}", BillingDoc.attribute_sort(attribute, category, forward))
+      if params["data"]["category"] == "billing_docs"
+        render :_sort_invoice, content_type: "text/html", layout: false
+      else
+        render :_estimate_table, content_type: "text/html", layout: false
       end
     end
-
   end
 
   def new
@@ -31,6 +35,19 @@ class BillingDocsController < ApplicationController
     end
   end
 
+  def see_all
+    if request.xhr?
+      invoices_array = BillingDoc.where(kind: "invoice").where("total IS NOT NULL").sort_by(&:due_date).map{|i| i.id}
+      @billing_ids = params["data"]["invoice_ids"].map{|i| i.to_i}
+      @billing_ids.each do |i|
+        if invoices_array.include? i
+          invoices_array.delete(i)
+        end
+    end
+      @invoices = invoices_array.map{|i| BillingDoc.find(i)}
+      render :_invoice_table, content_type: "text/html", layout: false
+  end
+end
 
   def create
     if request.xhr?

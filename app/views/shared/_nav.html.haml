@@ -12,7 +12,9 @@
         = link_to "+ Sherman Collabo", "#"
       - if user_signed_in?
         %li
-          =link_to 'Invoice/Estimates', billing_docs_path
+          =link_to 'Invoices', billing_docs_path
+        %li
+          =link_to 'Estimates', billing_docs_path
         %li.dropdown
           %a.dropdown-toggle{href: '#', data: {toggle: 'dropdown'}}
             ="#{current_user.email}"

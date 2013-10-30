@@ -1,3 +1,5 @@
+#invoices-paginate
+  = paginate @billing_docs, :remote => true
 .row
   .col-md-7.col-md-offset-2
     .call-to-action-invoice-estimate
@@ -5,17 +7,19 @@
       = link_to 'Make Estimate', new_billing_doc_path(kind:  'estimate'), class: 'btn-info btn'
       %br
     .invoices
-      %h3#invoices-title Invoices
+      %h3
+        #invoices-title
+          Invoices
       %table#invoices-index-table
-        %tr.invoice-index-table-header
-          %th= link_to 'Due', '#', class: 'due-date-sort', data: {type: 'due_date', category: 'invoice'}
+        %thead.invoice-index-table-header
+          %th= link_to 'Due', '#', class: 'due-date-sort forward', data: {type: 'due_date', category: 'billing_docs'}
           %th Title
           %th Note
-          %th= link_to " Contact(s)", "#", class: 'contact-sort', data: {type: 'contacts', category: 'invoice'}
-          %th= link_to 'Total', '#', class: 'total-sort', data: {type: 'total', category: 'invoice'}
-          %th= link_to 'Status', '#', class: 'status-sort', data: {type: 'state', category: 'invoice'}
-        #invoice-table-entries
-          = render partial: "invoice_table"
+          %th= link_to " Contact(s)", "#", class: 'contact-sort forward', data: {type: 'contacts', category: 'billing_docs'}
+          %th= link_to 'Total', '#', class: 'total-sort forward', data: {type: 'total', category: 'billing_docs'}
+          %th= link_to 'Status', '#', class: 'status-sort forward', data: {type: 'state', category: 'billing_docs'}
+        %tbody#invoice-table-entries
+          = render @billing_docs
         / -@invoices.each do |invoice|
         /   %tr.line-item-show-row#invoices-row
         /     %td= invoice.due_date
