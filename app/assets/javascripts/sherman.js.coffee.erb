@@ -1,21 +1,7 @@
 $ ->
-
-  # $("#billing_doc_contact_attributes_name").keyup (e) ->
-  #   name = $("#billing_doc_contact_attributes_name").val()
-  #   path = $('form').attr('action')
-  #   $.post path, {"name": name}, (data) ->
-  #     $("#contact-addition").toggleClass('hide')
-  #     $("#contact-addition").empty().append(data).show()
-  #     $("#add-contact-to-field").click (e) ->
-  #       e.preventDefault()
-  #       name = $("#add-contact-to-field").data("name")
-  #       email = $("#add-contact-to-field").data("email")
-  #       $('#contact-addition').fadeOut('slow').empty()
-  #       $("#billing_doc_contact_attributes_name").empty().val("#{name}")
-  #       $("#billing_doc_contact_attributes_email").empty().val("#{email}")
-
   $('body').on 'keyup ', ".quantity-field, .price-field", (e) ->
     e.preventDefault()
+    console.log('hi')
     if $(this).hasClass('quantity-field') == true
       quantity = parseFloat($(this).val())
       price = parseFloat($(this).parent().next().children().first().val())
@@ -51,10 +37,10 @@ $ ->
     index = $('.line-item-row').size()
     lineItemRow = $('.line-item-row').first().clone()
     console.log($(lineItemRow).parent())
-    $(lineItemRow).find('.note-field').attr('name', "billing_doc[line_items_attributes][#{index}][note]")
+    $(lineItemRow).find('.note-field').attr('name', "invoice[line_items_attributes][#{index}][note]")
     $(lineItemRow).find('.note-field').val("")
-    $(lineItemRow).find('.quantity-field').attr('name', "billing_doc[line_items_attributes][#{index}][quantity]").val("")
-    $(lineItemRow).find('.price-field').attr('name', "billing_doc[line_items_attributes][#{index}][price]").val("")
+    $(lineItemRow).find('.quantity-field').attr('name', "invoice[line_items_attributes][#{index}][quantity]").val("")
+    $(lineItemRow).find('.price-field').attr('name', "invoice[line_items_attributes][#{index}][price]").val("")
     $(lineItemRow).find("#total").val("")
     console.log($(lineItemRow))
     $("#line-items-table tbody").append($(lineItemRow))
@@ -78,6 +64,16 @@ $ ->
     $.get path, (data) ->
       console.log(data)
 
+  $('.make-invoice').click (e) ->
+    e.preventDefault()
+    console.log("made invoice")
+    $(this).removeClass('btn btn-default').addClass('sent-show-mailer')
+    id = $(this).data('id')
+    path = $(this).attr('href')
+    console.log(id)
+    $.post path, data:{'estimate-id': id}, (data) ->
+      console.log(data)
+
   $('.due-date-sort , .contact-sort, .total-sort, .status-sort').click (e) ->
     e.preventDefault()
     console.log('hit')
@@ -90,7 +86,7 @@ $ ->
     forward = $(this).hasClass('forward')
     console.log(dataType)
     category = $(this).data('category')
-    path = '/billing_docs/sort'
+    path = '/invoices/sort'
     $.post path, data:{'type':dataType, 'category':category, 'forward': forward, 'ids': ids}, (data) ->
       $(".line-item-show-row").empty().remove()
       $("#invoices-index-table tbody").append($(data))

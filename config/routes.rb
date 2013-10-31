@@ -11,13 +11,19 @@ root :to => 'home#index'
 #   end
 # end
 
-resources :billing_docs
+resources :invoices
+resources :estimates
+# post '/estimates/sort' => 'estimates#sort'
+# post '/see_all_estimates' => 'estimates#see_all'
+get '/add_line_item_estimates' => 'estimates#add_line_item'
 
-post '/billing_docs/sort' => 'billing_docs#sort'
-post '/see_all' => 'billing_docs#see_all'
+post '/make-invoice' => 'estimates#make_invoice', :as => :make_invoice
+
+post '/invoices/sort' => 'invoices#sort'
+# post '/see_all' => 'invoices#see_all'
 resources :contacts
 
-get '/add_line_item' => 'billing_docs#add_line_item'
+get '/add_line_item' => 'invoices#add_line_item'
 
 mount Sidekiq::Web, at: "/sidekiq"
 end

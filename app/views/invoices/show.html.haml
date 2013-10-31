@@ -1,0 +1,28 @@
+.row
+  .col-md-7.col-md-offset-2
+    .billing-doc
+      .billing-doc-show-title
+        %h2= @invoice.kind.capitalize
+        = link_to 'Mail It', invoice_path(@invoice), class: "btn btn-default show-mailer-button"
+      .billing-doc-header
+        %p= "To : #{@invoice.contacts.map{|i| i.name}.join(' , ')}"
+        %p= "From : #{current_user.email}"
+        %p= "Date : #{@invoice.created_at.strftime("%m-%d-%Y")}"
+        %p= "Subject : #{@invoice.title}"
+      .show-description
+        %p= "description - #{@invoice.note}"
+      %table#line-items-show-table
+        %tr.table-show-header
+          %th note
+          %th quantity
+          %th price
+          %th total
+        -@invoice.line_items.each do |line_item|
+          %tr.line-item-show-row
+            %td= line_item.note
+            %td= line_item.quantity
+            %td= line_item.price
+            %td= line_item.price * line_item.quantity
+            %br
+      .total-cost
+        = "Total Cost: $#{@invoice.total.round(2)}"

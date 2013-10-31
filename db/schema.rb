@@ -11,26 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131025170105) do
+ActiveRecord::Schema.define(version: 20131030194003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "billing_docs", force: true do |t|
-    t.decimal  "total"
-    t.text     "note"
-    t.string   "state"
-    t.string   "kind"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "title"
-    t.string   "due_date"
-  end
-
-  create_table "billing_docs_contacts", force: true do |t|
-    t.integer "billing_doc_id"
-    t.integer "contact_id"
-  end
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -53,10 +37,42 @@ ActiveRecord::Schema.define(version: 20131025170105) do
     t.datetime "updated_at"
   end
 
+  create_table "estimates", force: true do |t|
+    t.decimal  "total"
+    t.text     "note"
+    t.string   "title"
+    t.string   "state"
+    t.string   "kind"
+    t.string   "due_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "estimates_contacts", force: true do |t|
+    t.integer "estimate_id"
+    t.integer "contact_id"
+  end
+
   create_table "groups", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "invoices", force: true do |t|
+    t.decimal  "total"
+    t.text     "note"
+    t.string   "state"
+    t.string   "kind"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+    t.string   "due_date"
+  end
+
+  create_table "invoices_contacts", force: true do |t|
+    t.integer "invoice_id"
+    t.integer "contact_id"
   end
 
   create_table "line_items", force: true do |t|
@@ -64,11 +80,11 @@ ActiveRecord::Schema.define(version: 20131025170105) do
     t.decimal  "price"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "billing_doc_id"
+    t.integer  "invoice_id"
     t.text     "note"
   end
 
-  add_index "line_items", ["billing_doc_id"], name: "index_line_items_on_billing_doc_id", using: :btree
+  add_index "line_items", ["invoice_id"], name: "index_line_items_on_invoice_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

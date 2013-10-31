@@ -2,13 +2,13 @@
 #
 # Table name: line_items
 #
-#  id             :integer          not null, primary key
-#  quantity       :integer
-#  price          :decimal(, )
-#  created_at     :datetime
-#  updated_at     :datetime
-#  billing_doc_id :integer
-#  note           :text
+#  id         :integer          not null, primary key
+#  quantity   :integer
+#  price      :decimal(, )
+#  created_at :datetime
+#  updated_at :datetime
+#  invoice_id :integer
+#  note       :text
 #
 
 require 'spec_helper'
