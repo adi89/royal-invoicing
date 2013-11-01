@@ -19,9 +19,13 @@ gem 'devise'
 
 gem 'annotate'
 
+gem 'remotipart', '~> 1.2'
+
 gem 'carrierwave'
 
 gem 'rmagick'
+
+gem 'jeditable-rails'
 
 gem 'state_machine'
 

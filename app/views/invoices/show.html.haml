@@ -1,9 +1,11 @@
 .row
   .col-md-7.col-md-offset-2
+    = link_to 'Edit', edit_invoice_path, class: 'edit-invoice'
     .billing-doc
       .billing-doc-show-title
         %h2= @invoice.kind.capitalize
         = link_to 'Mail It', invoice_path(@invoice), class: "btn btn-default show-mailer-button"
+        = link_to 'Paid?', paid_invoice_path, class:   "btn btn-default paid-invoice", data: {id: @invoice.id}
       .billing-doc-header
         %p= "To : #{@invoice.contacts.map{|i| i.name}.join(' , ')}"
         %p= "From : #{current_user.email}"
@@ -26,3 +28,4 @@
             %br
       .total-cost
         = "Total Cost: $#{@invoice.total.round(2)}"
+    = link_to 'See All Invoices', invoices_path

@@ -1,0 +1,6 @@
+console.log("create page");
+$('#create').hide();
+
+$('#added-contact').empty().append('<%= j render(:partial => 'added_contact') %>');
+
+$('#added-contact').show();

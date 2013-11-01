@@ -1,0 +1,39 @@
+.row
+  .col-md-7.col-md-offset-2
+    #basic-bio-container
+      #contact-pic
+        = image_tag @contact.photo.url
+      #contact-name
+        %h2="#{@contact.name.titleize}"
+        = link_to('edit', edit_contact_path(@contact), class: "edit-contact-form")
+      %ul.contact-details
+        %li
+          %b
+            Email :
+          = editable_field @contact, :email
+        %li
+          %b
+            Job Title :
+          = editable_field @contact, :job_title
+          at
+          #company-biz
+            = link_to @company.name, company_ajax_path, class: 'contact-show-company', data: {company_id: @company.id, contact_id: @contact.id}
+        - if @contact.phone_number.present?
+          %li
+            %b
+              Phone Number :
+            = editable_field @contact, :phone_number
+
+        %li
+          %b
+            Website :
+          = editable_field @contact, :website
+        %li
+          %b
+            Address :
+          = editable_field @contact, :address
+        %li
+          %b
+            Twitter Handle
+          = editable_field @contact, :twitter_handle
+

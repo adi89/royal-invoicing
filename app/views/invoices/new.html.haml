@@ -14,9 +14,9 @@
           %br
         .form-group
           = fields_for(@invoices_contacts) do |bd|
-            = bd.label :name, "Contact Name"
+            = bd.label :name, "Contact Name: <em>(Cmd+Click for multiple)</em>".html_safe
             %br
-            = collection_select(:invoice, :id, @contacts, :id, :name, {}, {:multiple => true} )
+            = collection_select(:invoice, :id, @contacts, :id, :name, {:selected => @invoice.contacts.map{|i| i.id}}, {:prompt => 'cmd click', :multiple => true} )
           #contact-addition
         %h4.line-item-title Line Items
         = link_to 'Add Line Item', '#', class: 'btn btn-success btn-xs add-line-item'

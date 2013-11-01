@@ -27,10 +27,44 @@ class InvoicesController < ApplicationController
     @invoices_contacts = @invoice.contacts.build
   end
 
+  def edit
+    @invoice = Invoice.find(params[:id])
+    @kind = @invoice.kind
+    @invoices_contacts = @invoice.contacts.build
+    @contacts = current_user.contacts
+    render :new
+  end
+
+
+  def update
+    invoice = Invoice.find(params[:id])
+      flash[:notice] = "Successfully updated #{invoice.title.capitalize}"
+      invoice.update(invoice_params)
+      invoice.contacts.delete_all
+      params["invoice"]["id"].shift #take out the first empty string
+      params["invoice"]["id"].each do |i|
+        invoice.contacts << Contact.find(i)
+      end
+      invoice.line_items.delete_all
+      invoice_params["line_items_attributes"].values.select{|i| i if !i.empty?}.each do |i|
+        invoice.line_items << LineItem.create(i)
+      end
+      invoice.total = invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)
+      if invoice.save
+        if invoice.kind == "invoice"
+           redirect_to(invoice_path(invoice))
+         else
+           render :js => "window.location = '/estimates/#{invoice.id}'"
+         end
+      else
+        render :new
+      end
+  end
+
   def show
     @invoice = Invoice.find(params['id'])
     if request.xhr?
-        InvoicesPostEmailersWorker.perform_async(@invoice.id, {:user_id => current_user.id})
+      InvoicesPostEmailersWorker.perform_async(@invoice.id, {:user_id => current_user.id})
     end
   end
 
@@ -42,37 +76,32 @@ class InvoicesController < ApplicationController
         if invoices_array.include? i
           invoices_array.delete(i)
         end
-    end
+      end
       @invoices = invoices_array.map{|i| Invoice.find(i)}
       render :_invoice_table, content_type: "text/html", layout: false
+    end
   end
-end
 
   def create
-    if request.xhr?
-      contact_name = params["name"].downcase
-      string = "name LIKE ? OR name LIKE?", "#{contact_name}", "#{contact_name.titleize}"
-      @contact = Contact.where(string).first
-        if @contact.present?
-          render :contact_addition, content_type: 'text/html', layout: false
-        else
-          render nothing: true
-        end
-    else
       invoice  = Invoice.new(invoice_params)
       params["invoice"]["id"].shift #take out the first empty string
       params["invoice"]["id"].each do |i|
-          invoice.contacts << Contact.find(i)
+        invoice.contacts << Contact.find(i)
       end
       invoice.total = invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)
       invoice.save
       redirect_to invoice_path(invoice)
     end
+
+  def paid_invoice
+    invoice = Invoice.find(params["data"]["invoice-id"])
+    invoice.pay
+    render  nothing: true, layout: false
   end
 
   private
-    def invoice_params
-      params.require(:invoice).permit(:title, :note, :due_date, :kind, :contact_attributes => [:id, :name, :email], :line_items_attributes => [:quantity, :price, :note, :invoice_id],  :invoice_contacts_attributes => [:contact_id, :invoice_id])
-    end
+  def invoice_params
+    params.require(:invoice).permit(:title, :note, :due_date, :kind, :contact_attributes => [:id, :name, :email], :line_items_attributes => [:quantity, :price, :note, :invoice_id],  :invoice_contacts_attributes => [:contact_id, :invoice_id])
+  end
 
 end

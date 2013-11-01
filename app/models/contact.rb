@@ -24,4 +24,6 @@ class Contact < ActiveRecord::Base
   has_many :invoices, through: :invoices_contacts
   has_many :estimates_contacts
   has_many :estimates, through: :estimates_contacts
+  accepts_nested_attributes_for :company
+  mount_uploader :photo, ContactUploader
 end

@@ -1,0 +1,29 @@
+.add-contact-button
+  = link_to "Add Contact", new_contact_path, title: 'Add Contact', data: {gmodal: true}, class: 'btn btn-warning'
+%br
+.scrollbar
+  .handle
+    .mousearea
+#frame.frame
+  %ul.slidee
+    %li
+      1
+    %li
+      2
+    %li
+      3
+%br
+#contact
+  %table#contact-table.table-striped.table-hover
+    %tr
+      %th{colspan: "2"} name
+      %th{colspan: "2"} company
+      %th{colspan: "2"} email
+      %th{colspan: "2"} phone-number
+    %tbody
+      -@contacts.each do |contact|
+        %tr.space_under
+          %td{colspan: "2"}= link_to(contact.name, contact_path(contact))
+          %td{colspan: "2"}= contact.company.try(:name)
+          %td{colspan: "2"}= contact.email
+          %td{colspan: "2"}= contact.phone_number

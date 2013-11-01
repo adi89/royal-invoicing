@@ -13,6 +13,10 @@
 //= require jquery
 //= require jquery.ui.all
 //= require jquery_ujs
-//- require bootstrap
+//= require jquery.remotipart
+//= require jquery.jeditable.mini
+//= require bootstrap
+//= requre modals
+//= require sherman
 //= require turbolinks
 //= require_tree .

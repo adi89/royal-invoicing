@@ -22,7 +22,7 @@ class Invoice < ActiveRecord::Base
   accepts_nested_attributes_for :line_items
 
   state_machine :state, initial: :unpaid do
-  event :pay do
+    event :pay do
       transition all => :paid
     end
     event :unpay do
@@ -55,12 +55,12 @@ class Invoice < ActiveRecord::Base
     forward == "true" ? category.sort_by(&:due_date) :  category.sort_by(&:due_date).reverse
   end
 
-def self.attribute_sort(attribute, category, forward)
-attribute_method = "#{attribute}_sort"
-Invoice.send(attribute_method.to_sym, attribute, category, forward)
-end
-#category will give either @estimates or @invoices
-#attribute will give... no shit.
+  def self.attribute_sort(attribute, category, forward)
+    attribute_method = "#{attribute}_sort"
+    Invoice.send(attribute_method.to_sym, attribute, category, forward)
+  end
+  #category will give either @estimates or @invoices
+  #attribute will give... no shit.
 
 end
 

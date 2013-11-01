@@ -1,5 +1,6 @@
 class EstimatesController < ApplicationController
-def index
+
+  def index
     @invoices = Invoice.order(:due_date).page(params[:page]).per(5).where(kind: 'estimate').where("total IS NOT NULL")
   end
 
@@ -26,6 +27,14 @@ def index
     @invoices_contacts = @invoice.contacts.build
   end
 
+  def edit
+    @invoice = Invoice.find(params[:id])
+    @kind = @invoice.kind
+    @invoices_contacts = @invoice.contacts.build
+    @contacts = current_user.contacts
+    render :new
+  end
+
   def make_invoice
     binding.pry
     estimate = Invoice.find(params["data"]["estimate-id"])
@@ -38,7 +47,7 @@ def index
   def show
     @invoice = Invoice.find(params['id'])
     if request.xhr?
-        InvoicesPostEmailersWorker.perform_async(@invoice.id, {:user_id => current_user.id})
+      InvoicesPostEmailersWorker.perform_async(@invoice.id, {:user_id => current_user.id})
     end
   end
 
@@ -50,38 +59,30 @@ def index
         if invoices_array.include? i
           invoices_array.delete(i)
         end
-    end
+      end
       @invoices = invoices_array.map{|i| Invoice.find(i)}
       render :_invoice_table, content_type: "text/html", layout: false
+    end
   end
-end
 
   def create
-    if request.xhr?
-      contact_name = params["name"].downcase
-      string = "name LIKE ? OR name LIKE?", "#{contact_name}", "#{contact_name.titleize}"
-      @contact = Contact.where(string).first
-        if @contact.present?
-          render :contact_addition, content_type: 'text/html', layout: false
-        else
-          render nothing: true
-        end
-    else
       invoice  = Invoice.new(invoice_params)
       params["invoice"]["id"].shift #take out the first empty string
       params["invoice"]["id"].each do |i|
-          invoice.contacts << Contact.find(i)
+        invoice.contacts << Contact.find(i)
       end
       invoice.total = invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)
-      invoice.save
-      redirect_to estimate_path(invoice)
-    end
+      if invoice.save
+        render :js => "window.location = '/estimates/#{invoice.id}'"
+      else
+        render :new
+      end
   end
 
   private
-    def invoice_params
-      params.require(:invoice).permit(:title, :note, :due_date, :kind, :contact_attributes => [:id, :name, :email], :line_items_attributes => [:quantity, :price, :note, :invoice_id],  :invoice_contacts_attributes => [:contact_id, :invoice_id])
-    end
+  def invoice_params
+    params.require(:invoice).permit(:title, :note, :due_date, :kind, :contact_attributes => [:id, :name, :email], :line_items_attributes => [:quantity, :price, :note, :invoice_id],  :invoice_contacts_attributes => [:contact_id, :invoice_id])
+  end
 
 
 end

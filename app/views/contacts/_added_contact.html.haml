@@ -1,0 +1,4 @@
+%h2
+  = "You sucessfully added #{@contact.name}."
+.added-contact-show-link
+  = link_to("{@contact.name} page", contact_path(@contact)).html_safe

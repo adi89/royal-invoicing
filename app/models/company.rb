@@ -10,4 +10,5 @@
 
 class Company < ActiveRecord::Base
   has_many :contacts
+  # accepts_nested_attributes_for :contact
 end

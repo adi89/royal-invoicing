@@ -32,6 +32,31 @@ $ ->
 
   $('.due-date-field').datepicker()
 
+  $(".contact-show-company").click (e) ->
+    e.preventDefault()
+    console.log("gonna pass some ajax")
+    path = $(this).attr('href')
+    companyId = $(this).data("company-id")
+    contactId = $(this).data("contact-id")
+    $.post path, data:{'company-id': companyId, 'contact-id': contactId}, (data) ->
+      console.log(data)
+      $('#company-biz').append(data)
+      $('.contact-show-company').attr('href', "javascript:void(0)")
+      $('.save-company-data').click (e) ->
+        e.preventDefault()
+        console.log('saving company data')
+        form = $('form#new_contact')
+        id = $(this).data('contact_id')
+        path = '/save_company_data'
+        $.post path, form.serialize(), (data) ->
+         # data = JSON.parse(data)
+          console.log(data)
+
+          # $('#company-form-addition').remove()
+          # $('.contact-show-company').attr('href', '/contact_company')
+          # $('.contact-show-company').text(data)
+
+
   $('.add-line-item').click (e) ->
     e.preventDefault()
     index = $('.line-item-row').size()
@@ -45,9 +70,9 @@ $ ->
     console.log($(lineItemRow))
     $("#line-items-table tbody").append($(lineItemRow))
 
-
   $('body').on 'click',  '.remove-line-item', (e) ->
     e.preventDefault()
+    console.log('hit remove line item')
     if $('.line-item-row').size() > 1
       console.log('remove')
       total = parseFloat($("#sum h3").text().replace( /^\D+/g, ''))
@@ -55,7 +80,6 @@ $ ->
       console.log(total - itemVal)
       $(this).parent().parent().remove()
       $("#sum h3").empty().append("<h3>Total : $#{total-itemVal}</h3>")
-
 
   $('.show-mailer-button').click (e) ->
     e.preventDefault()
@@ -74,6 +98,16 @@ $ ->
     $.post path, data:{'estimate-id': id}, (data) ->
       console.log(data)
 
+  $('.paid-invoice').click (e) ->
+    e.preventDefault()
+    console.log("paid invoice")
+    $(this).removeClass('btn btn-default').addClass('sent-show-mailer')
+    id = $(this).data('id')
+    path = $(this).attr('href')
+    console.log(path)
+    $.post path, data:{'invoice-id': id}, (data) ->
+      console.log(data)
+
   $('.due-date-sort , .contact-sort, .total-sort, .status-sort').click (e) ->
     e.preventDefault()
     console.log('hit')
@@ -90,6 +124,22 @@ $ ->
     $.post path, data:{'type':dataType, 'category':category, 'forward': forward, 'ids': ids}, (data) ->
       $(".line-item-show-row").empty().remove()
       $("#invoices-index-table tbody").append($(data))
+
+  $('.create-estimate-button').click (e) ->
+    e.preventDefault()
+    console.log('create estimate')
+    if $(this).data('id') == null
+      form = $('form#new_invoice')
+      path = '/estimates'
+      $.post path, form.serialize(), (data) ->
+        console.log(data)
+    else
+      estimateId = $(this).data('id')
+      path = "/invoices/#{estimateId}"
+      form = $('form.edit_invoice')
+      console.log(path)
+      $.post path, form.serialize(), (data) ->
+        console.log(data)
 
   $('body').on 'click', '.back-all', (e) ->
     e.preventDefault()

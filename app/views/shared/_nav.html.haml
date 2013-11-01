@@ -9,7 +9,7 @@
   .collapse.navbar-collapse.navbar-ex1-collapse
     %ul.nav.navbar-nav.navbar-right
       %li
-        = link_to "+ Sherman Collabo", "#"
+        = link_to "Manage Contacts",contacts_path
       - if user_signed_in?
         %li
           =link_to 'Invoices', invoices_path
