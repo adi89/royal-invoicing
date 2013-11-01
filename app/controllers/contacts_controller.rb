@@ -23,7 +23,7 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params["contact_id"])
     @contact.company = Company.find(params["contact"]["company_attributes"]["id"])
     @contact.save
-    render :text => @contact.company
+    render :json => @contact.company
   end
 
   def update

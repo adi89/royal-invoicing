@@ -51,10 +51,10 @@ $ ->
         $.post path, form.serialize(), (data) ->
          # data = JSON.parse(data)
           console.log(data)
-
-          # $('#company-form-addition').remove()
-          # $('.contact-show-company').attr('href', '/contact_company')
-          # $('.contact-show-company').text(data)
+          console.log(data.name)
+          $('#company-form-addition').remove()
+          $('.contact-show-company').attr('href', '/contact_company')
+          $('.contact-show-company').text(data.name)
 
 
   $('.add-line-item').click (e) ->
