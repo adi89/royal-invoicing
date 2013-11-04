@@ -9,6 +9,7 @@
 #
 
 class Company < ActiveRecord::Base
-  has_many :contacts
+  has_many :contacts, :inverse_of => :company
+  validates :name, presence: true
   # accepts_nested_attributes_for :contact
 end

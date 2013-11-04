@@ -15,6 +15,7 @@ get '/add_line_item_estimates' => 'estimates#add_line_item'
 post '/paid_invoice' => 'invoices#paid_invoice', :as => :paid_invoice
 post '/make_invoice' => 'estimates#make_invoice', :as => :make_invoice
 
+post '/contacts/sort' => 'contacts#sort'
 post '/invoices/sort' => 'invoices#sort'
 # post '/see_all' => 'invoices#see_all'
 resources :contacts

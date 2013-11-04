@@ -301,3 +301,65 @@ background: pink;
 #new_contact input{
   margin-bottom: 10px;
 }
+
+#flash-validation-contact{
+text-align: center;
+margin-bottom: 20px;
+background-color: pink;
+}
+
+.add-contact-button{
+  float: right;
+}
+#contact{
+  clear: both;
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  font-size: 120%;
+}
+
+#contact table{
+  width: 100%;
+  white-space: nowrap;
+}
+
+#contact-header{
+  border-bottom: 1px dashed black;
+  clear: both;
+  font-style: italic;
+}
+
+.contact-photo-index{
+  width: 150px;
+  opacity: 0.7;
+  height: 150px;
+  border: 1px solid grey;
+}
+
+.contact-photo-index:hover{
+  opacity: 1;
+}
+.contact-profile{
+width: 300px;
+height: 300px;
+font-size: 80%;
+}
+.contact-container{
+  height: 250px;
+}
+#contacts-paginate{
+  float: right;
+}
+
+#edit-body{
+  text-align: center;
+}
+.edit-button{
+  clear: both;
+  margin-top: 4%;
+}
+#contact{
+  color: purple
+}

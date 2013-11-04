@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
-
   def index
-    @contacts = Contact.all
+    @contacts = Contact.order(:name).page(params[:page]).per(3)
+    @top_contacts = Contact.top_contacts
   end
 
   def new
@@ -9,6 +9,20 @@ class ContactsController < ApplicationController
     @contact.build_company
     if request.xhr?
       render layout: false
+    end
+  end
+
+  def sort
+    if request.xhr?
+      @contacts = params["data"]["ids"].map{|i| Contact.find(i)}
+      attribute = params["data"]["type"]
+      forward = params['data']['forward']
+      if forward == "false"
+        @contacts = @contacts.sort_by{|i| i.company.name}.reverse
+      else
+        @contacts = @contacts.sort_by{|i| i.company.name}
+      end
+      render :_sort_contact, content_type: "text/html", layout: false
     end
   end
 
@@ -29,7 +43,7 @@ class ContactsController < ApplicationController
 
   def update
     if request.xhr?
-      if params[:_method]
+      if params[:_method] == "patch"
         @contact = Contact.find(params[:id])
         @contact.update_attributes(contacts_params)
         @company = @contact.company
@@ -63,11 +77,12 @@ class ContactsController < ApplicationController
 
 
   def create
-    if remotipart_submitted?
-      @contact = Contact.create(contacts_params)
-      current_user.contacts << @contact if @contact.valid?
-      # render :added_contact, layout: false, content_type: 'text/html'
-    end
+    @contact = Contact.new(contacts_params)
+      if @contact.save
+        current_user.contacts << @contact if @contact.valid?
+      else
+        @errors = @contact.errors.full_messages
+      end
   end
 
 

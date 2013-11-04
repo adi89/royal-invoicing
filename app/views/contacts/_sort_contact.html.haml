@@ -1,0 +1,6 @@
+-@contacts.each do |contact|
+  %tr.space_under.contact-item-row{data: {id: contact.id}}
+    %td{colspan: "2"}= link_to(contact.name, contact_path(contact))
+    %td{colspan: "2"}= contact.company.try(:name)
+    %td{colspan: "2"}= contact.email
+    %td{colspan: "2"}= contact.phone_number

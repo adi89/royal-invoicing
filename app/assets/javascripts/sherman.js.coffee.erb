@@ -1,6 +1,4 @@
 $ ->
-
-
   $('.landing-one').hide().fadeIn(2000)
   $('.landing-invoice').hide().fadeIn(3500)
   $('#flash_notice').fadeOut(4000)
@@ -113,6 +111,22 @@ $ ->
     console.log(path)
     $.post path, data:{'invoice-id': id}, (data) ->
       console.log(data)
+
+  $('.company-sort').click (e) ->
+    e.preventDefault()
+    console.log('hit')
+    dataType = $(this).data('type')
+    ids = []
+    $.map $(".contact-item-row"), (n) ->
+      ids.push($(n).data "id")
+    console.log(ids)
+    $(this).toggleClass('forward')
+    forward = $(this).hasClass('forward')
+    category = $(this).data('category')
+    path = '/contacts/sort'
+    $.post path, data:{'type':dataType, 'category':category, 'forward': forward, 'ids': ids}, (data) ->
+      $(".contact-item-row").empty().remove()
+      $("#contact-table tbody").append($(data))
 
   $('.due-date-sort , .contact-sort, .total-sort, .status-sort').click (e) ->
     e.preventDefault()

@@ -1,5 +1,6 @@
 .row
   .col-md-7.col-md-offset-2
+    =link_to 'See All Contacts', contacts_path
     #basic-bio-container
       #contact-pic
         = image_tag @contact.photo.url
@@ -18,11 +19,10 @@
           at
           #company-biz
             = link_to @company.name, company_ajax_path, class: 'contact-show-company', data: {company_id: @company.id, contact_id: @contact.id}
-        - if @contact.phone_number.present?
-          %li
-            %b
-              Phone Number :
-            = editable_field @contact, :phone_number
+        %li
+          %b
+            Phone Number :
+          = editable_field @contact, :phone_number
 
         %li
           %b

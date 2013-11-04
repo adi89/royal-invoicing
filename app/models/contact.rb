@@ -24,6 +24,19 @@ class Contact < ActiveRecord::Base
   has_many :invoices, through: :invoices_contacts
   has_many :estimates_contacts
   has_many :estimates, through: :estimates_contacts
-  accepts_nested_attributes_for :company
+  accepts_nested_attributes_for :company, :reject_if => :no_company
   mount_uploader :photo, ContactUploader
+  # validates :photo, presence: true
+  validates_associated :company
+  validates_presence_of :company_id, :unless => Proc.new() {|r| r.company}
+  validates_presence_of :name
+  validates_presence_of :email
+
+  def no_company(attributes)
+    attributes["name"].blank?
+  end
+
+  def self.top_contacts
+    Contact.all.sort_by{|i| i.invoices.count}.reverse.first(4)
+  end
 end

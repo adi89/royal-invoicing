@@ -12,7 +12,7 @@
           %br
         .form-group
           = fields_for(@invoices_contacts) do |bd|
-            = bd.label :name, "Contact Name"
+            = bd.label :name, "Contact Name <em>(Cmd+Click)</em>".html_safe
             %br
             = collection_select(:invoice, :id, @contacts, :id, :name, {:selected => @invoice.contacts.map{|i| i.id}}, {:prompt => 'cmd click', :multiple => true} )
           #contact-addition
@@ -37,4 +37,4 @@
         #sum
         .form-group
           .post-buttons
-            = f.submit "Create #{@invoice.kind.capitalize}", :class => 'btn btn-info create-estimate-button', data: {id: @invoice.id}
+            = f.submit "Create #{@kind.capitalize}", :class => 'btn btn-info create-estimate-button', data: {id: @invoice.id}
