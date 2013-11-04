@@ -1,13 +1,12 @@
 #estimates-paginate
   = paginate @invoices, :remote => true
 .row
-  .col-md-7.col-md-offset-2
+  .col-md-10.col-md-offset-1
     .call-to-action-invoice-estimate
-      = link_to 'Create Estimate', new_estimate_path(kind:  'estimate'), class: 'btn-success btn'
-      / = link_to 'Make Estimate', new_billing_doc_path(kind:  'estimate'), class: 'btn-info btn'
+      = link_to 'Create Estimate', new_estimate_path(kind:  'estimate'), class: 'btn-success btn btn-lg'
       %br
     .invoices
-      %h3
+      %h2
         #invoices-title
           Estimates
       %table#invoices-index-table.table-striped.table-hover
@@ -16,7 +15,7 @@
           %th Title
           %th Note
           %th= link_to " Contact(s)", "#", class: 'contact-sort forward', data: {type: 'contacts', category: 'invoices'}
-          %th= link_to 'Total', '#', class: 'total-sort forward', data: {type: 'total', category: 'invoices'}
+          %th= link_to 'Total ($)', '#', class: 'total-sort forward', data: {type: 'total', category: 'invoices'}
         %tbody#invoice-table-entries
           = render @invoices
         / -@invoices.each do |invoice|

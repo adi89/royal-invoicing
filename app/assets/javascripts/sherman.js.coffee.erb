@@ -1,4 +1,10 @@
 $ ->
+
+
+  $('.landing-one').hide().fadeIn(2000)
+  $('.landing-invoice').hide().fadeIn(3500)
+  $('#flash_notice').fadeOut(4000)
+
   $('body').on 'keyup ', ".quantity-field, .price-field", (e) ->
     e.preventDefault()
     console.log('hi')

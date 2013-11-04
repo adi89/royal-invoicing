@@ -1,7 +1,7 @@
 class InvoicesController < ApplicationController
 
   def index
-    @invoices = Invoice.order(:due_date).page(params[:page]).per(5).where(kind: 'invoice').where("total IS NOT NULL")
+    @invoices = Invoice.order(:due_date).page(params[:page]).per(6).where(kind: 'invoice').where("total IS NOT NULL")
   end
 
   def sort

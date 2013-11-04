@@ -1,7 +1,7 @@
 class EstimatesController < ApplicationController
 
   def index
-    @invoices = Invoice.order(:due_date).page(params[:page]).per(5).where(kind: 'estimate').where("total IS NOT NULL")
+    @invoices = Invoice.order(:due_date).page(params[:page]).per(6).where(kind: 'estimate').where("total IS NOT NULL")
   end
 
   def sort
@@ -36,7 +36,6 @@ class EstimatesController < ApplicationController
   end
 
   def make_invoice
-    binding.pry
     estimate = Invoice.find(params["data"]["estimate-id"])
     estimate.invoice
     #make invoice

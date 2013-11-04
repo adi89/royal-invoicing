@@ -12,6 +12,7 @@ class ContactsController < ApplicationController
     end
   end
 
+
   def company_ajax
     @existing_contact = Contact.find(params["data"]["contact-id"])
     @new_contact = Contact.new
@@ -28,11 +29,18 @@ class ContactsController < ApplicationController
 
   def update
     if request.xhr?
-      contact = Contact.find(params["id"])
-      attribute = params[:contact].keys.first
-      contact[attribute] = params[:contact].values.first
-      contact.save
-      render :text => params[:contact].values.first
+      if params[:_method]
+        @contact = Contact.find(params[:id])
+        @contact.update_attributes(contacts_params)
+        @company = @contact.company
+        render :js => "window.location = '/contacts/#{@contact.id}'"
+      else
+        contact = Contact.find(params["id"])
+        attribute = params[:contact].keys.first
+        contact[attribute] = params[:contact].values.first
+        contact.save
+        render :text => params[:contact].values.first
+      end
     end
   end
 
@@ -45,15 +53,20 @@ class ContactsController < ApplicationController
     if request.xhr?
       @contact = Contact.find(params[:id])
       render :new, layout: false
+    else
+      @contact = Contact.find(params[:id])
+      @photo = @contact.photo.to_s
+      @contact.build_company
+      render :new
     end
   end
 
+
   def create
     if remotipart_submitted?
-      binding.pry
       @contact = Contact.create(contacts_params)
       current_user.contacts << @contact if @contact.valid?
-       # render :added_contact, layout: false, content_type: 'text/html'
+      # render :added_contact, layout: false, content_type: 'text/html'
     end
   end
 
@@ -63,4 +76,3 @@ class ContactsController < ApplicationController
     params.require(:contact).permit(:name, :email, :job_title, :address, :twitter_handle, :phone_number, :website, :photo, company_attributes: [:name])
   end
 end
-

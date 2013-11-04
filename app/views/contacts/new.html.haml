@@ -4,7 +4,7 @@
       = form_for @contact, :html => { :multipart => true }, :remote => true do |f|
         = f.text_field :name, placeholder: "name", class: "form-control"
         = f.text_field :email, placeholder: "email", class: "form-control"
-        = f.telephone_field :phone_number, placeholder: 'phone number'
+        = f.telephone_field :phone_number, placeholder: 'phone number', class: "form-control"
         = f.fields_for :company do |company|
           =company.text_field :name, placeholder: "company name", class: "form-control"
         = f.text_field :job_title, placeholder: "job title", class: "form-control"
@@ -13,7 +13,11 @@
         -if @contact.new_record?
           = f.label :photo, class: "add-contact-photo-label"
         -else
-          =f.label :photo, as: "do nothing to keep current photo", class: "add-contact-photo-label"
+          - if @photo
+            .add-contact-photo-label
+              =  "#{@photo}"
+          -else
+            =f.label :photo, as: "do nothing to keep current photo", class: "add-contact-photo-label"
         = f.file_field :photo
 
         %br

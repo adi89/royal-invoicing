@@ -1,235 +1,303 @@
 .call-to-action-invoice-estimate {
-float: right;
-margin-top: 2.5%;
+float:right;
+margin-top:2.5%
 }
 
-.contact-labelz{
-  display: block;
+.contact-labelz {
+display:block
 }
 
-
-#contact-addition{
-display: inline-block!important;
+#contact-addition {
+display:inline-block!important
 }
 
-#contact-addition-box{
-display: inline-block!important;
-padding: 2px;
-border: 1px solid grey;
-background-color: pink;
-text-align: center;
-margin: 10px;
+#contact-addition-box {
+display:inline-block!important;
+padding:2px;
+border:1px solid grey;
+background-color:#ffc0cb;
+text-align:center;
+margin:10px
 }
 
-#landing-begin h1{
-  font-size: 400%;
+#landing-begin h1 {
+font-size:400%
 }
 
-#company-form-addition{
-margin: 0!important;
-height: 75px;
+#company-form-addition {
+margin:0!important;
+height:75px
 }
 
-#line-items-table th{
-  font-size: 1em;
-  margin-right: 10px;
-  text-align: center;
-}
-.add-line-item{
-  display: inline-block;
-}
-.line-item-title{
-  display: inline-block;
+#line-items-table th {
+font-size:1em;
+margin-right:10px;
+text-align:center
 }
 
-.due-date-label{
-  display: block;
+.add-line-item {
+display:inline-block
 }
 
-/*#line-items-table .remove-button-table{
-  text-align: center!important;
-}*/
-#line-items-table td{
-  font-size: .75em;
-  margin-right: 10px;
+.line-item-title {
+display:inline-block
 }
 
-#line-items-table input{
-  margin-right: 10px;
-  margin-bottom: 10px;
+.due-date-label {
+display:block
 }
 
-#line-items-table td:nth-child(5n){
-  text-align: center;
-  top: -2px;
-  position: relative!important;
+#line-items-table td {
+font-size:.75em;
+margin-right:10px
 }
 
-#sum{
-  float: right;
-  margin-top: 0;
-}
-#sum h3{
-  margin-top: 0;
+#line-items-table input {
+margin-right:10px;
+margin-bottom:10px
 }
 
-.post-buttons{
-  display: block;
-}
-.billing-doc{
-  background-image: url('airmail-top.png'), url('airmail-bottom.png');
-  background-repeat: no-repeat;
-  background-color: lightgoldenrodyellow;
-  background-position: 0 0, 0 bottom;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  float: left;
-  width: 100%;
+#line-items-table td:nth-child(5n) {
+text-align:center;
+top:-2px;
+position:relative!important
 }
 
-#contact-pic img{
-  width: 250px;
+#sum {
+float:right;
+margin-top:0
 }
 
-#contact-pic{
-  width: 250px;
-  float: right;
-  display: inline-block;
-}
-#basic-bio-container{
-  background-position: 0 0, 0 bottom;
-  background: url('http://fc04.deviantart.net/fs70/f/2013/148/5/8/3x5_notecard_by_minty_melodies-d66zrul.jpg') no-repeat;
-  background-size: 100%;
-  float: left;
-  clear: both;
-  overflow: auto;
-  min-height: 400px;
-  width: 100%
+#sum h3 {
+margin-top:0
 }
 
-#contact-name{
-  display: inline-block;
-  position: relative;
-  float: left;
-  top: 20px;
-  padding-left: 5px;
-}
-#contact-name h2{
-  display: inline;
+.post-buttons {
+display:block
 }
 
-.contact-details{
-  clear: left;
-  list-style-type: none;
-  top: 35px;
-  position: relative;
-}
-.contact-details li{
-  font-size: 120%;
-  margin-bottom: 10px;
-}
-.billing-doc-header{
-float: left;
-position: relative;
-}
-.show-description{
-  clear: both;
-  margin: 2%;
-  padding: 2%;
+.billing-doc {
+background-image:url(airmail-top.png),url(airmail-bottom.png);
+background-repeat:no-repeat;
+background-color:#fafad2;
+background-position:0 0,0 bottom;
+padding-top:20px;
+padding-bottom:20px;
+float:left;
+width:100%
 }
 
-.line-item-show-row td{
-  padding-right: 5%;
-  margin: 5%;
+#contact-pic img {
+width:250px
 }
-#line-items-show-table{
-  width: 100%;
-  border-spacing: 10px;
+
+#contact-pic {
+width:250px;
+float:right;
+display:inline-block
 }
+
+#basic-bio-container {
+background-position:0 0,0 bottom;
+background:url(http://fc04.deviantart.net/fs70/f/2013/148/5/8/3x5_notecard_by_minty_melodies-d66zrul.jpg) no-repeat;
+background-size:100%;
+float:left;
+clear:both;
+overflow:auto;
+min-height:400px;
+width:100%
+}
+
+#contact-name {
+display:inline-block;
+position:relative;
+float:left;
+top:20px;
+padding-left:5px
+}
+
+#contact-name h2 {
+display:inline
+}
+
+.contact-details {
+clear:left;
+list-style-type:none;
+top:35px;
+position:relative
+}
+
+.contact-details li {
+font-size:120%;
+margin-bottom:10px
+}
+
+.billing-doc-header {
+float:left;
+position:relative
+}
+
+.show-description {
+clear:both;
+margin:2%;
+padding:2%
+}
+
+// .line-item-show-row td {
+// padding-right:5%;
+// margin:5%
+// }
+
+#line-items-show-table {
+width:100%;
+border-spacing:10px
+}
+
 table {
-  border-spacing: 10px;
-}
-.table-show-header{
-  border-bottom: 1px solid grey;
+border-spacing:10px
 }
 
-.total-cost{
-  float:  right;
-  padding: 2%;
-  font-size: 150%;
-  font-weight: bold;
+.table-show-header {
+border-bottom:1px solid grey
 }
 
-.show-mailer-button, .make-invoice, .paid-invoice{
-float: right;
-display: inline-block;
+.total-cost {
+float:right;
+padding:2%;
+font-size:150%;
+font-weight:700
+}
+
+.show-mailer-button,.make-invoice,.paid-invoice {
+float:right;
+display:inline-block;
+position:relative;
+top:-40px;
+margin-right:20px
+}
+
+.sent-show-mailer {
+display:inline-block;
+padding:6px 12px;
+margin-bottom:0;
+font-size:14px;
+font-weight:400;
+line-height:1.428571429;
+text-align:center;
+white-space:nowrap;
+vertical-align:middle;
+cursor:pointer;
+border:1px solid transparent;
+border-radius:4px;
+-webkit-user-select:none;
+-moz-user-select:none;
+-ms-user-select:none;
+-o-user-select:none;
+user-select:none;
+color:#333;
+background-color:#AFB09C;
+border-color:#ccc
+}
+
+.invoices {
+clear:both;
+color:purple;
+font-weight:200;
+width:100%
+}
+
+.invoices td {
+padding:10px;
+width:128px
+}
+
+#invoices-title {
+clear:both;
+margin-top:10%;
+border-bottom:1px dashed #000;
+font-style:italic;
+font-weight:100
+}
+
+#invoices-row td:third-child {
+font-size: 80%;
+}
+
+.see-all-invoice {
+float:right;
+display:inline
+}
+
+.see-all-invoice-link {
+font-size:65%
+}
+
+.hide {
+display:none
+}
+
+.back-all {
+float:right
+}
+
+.edit-invoice {
+float:right
+}
+
+.sherman-pic {
+width:100%;
+}
+
+.sherman-landing {
+padding-top:20px;
+margin-bottom:20px;
+padding-bottom:20px;
+background-color:#000;
 position: relative;
-top: -40px;
-margin-right: 20px;
 }
 
-.sent-show-mailer{
-    display: inline-block;
-  padding: 6px 12px;
-  margin-bottom: 0;
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 1.428571429;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-       -o-user-select: none;
-          user-select: none;
-  color: #333333;
-  background-color: #AFB09C;
-  border-color: #cccccc;
+.landing-one, .landing-invoice, .landing{
+  position: absolute;
+  float: left;
+  width: 50%;
+}
+.landing-one{
+  top: 20px;
+  color: white;
 }
 
+.landing-invoice{
+  top: 140px;
+  color: white;
+}
 .invoices{
-  clear: both;
-  color: purple;
-  font-weight: 200;
+  font-size: 120%;
+}
+
+.invoices table {
+  white-space: nowrap;
   width: 100%;
 }
-.invoices td{
-  padding: 10px;
-  width: 128px;
+
+#invoices-paginate, #estimates-paginate{
+  margin-left: 5%;
+  font-size: 120%;
 }
 
-#invoices-title{
-clear: both;
-margin-top: 15%;
-border-bottom: 1px dashed black;
-font-style: italic;
-font-weight: 100;
+#flash_notice{
+text-align: center;
+height: 40px;
+line-height: 40px;
+background: pink;
 }
 
-#invoices-row td:first-child{
-  padding-left: 0;
-  padding-right: 5%!important;
+.note-td{
+  font-size: 80%;
 }
 
-.see-all-invoice{
-  float: right;
-  display: inline;
+.pagination{
+  margin: 10px 0;
 }
-.see-all-invoice-link{
-  font-size: 65%;
-}
-
-.hide{
-  display: none;
-}
-.back-all{
-  float: right;
-}
-
-.edit-invoice{
-  float: right;
+#new_contact input{
+  margin-bottom: 10px;
 }
