@@ -3,7 +3,8 @@
     %tr.line-item-show-row#invoices-row{data: {id: invoice.id}}
       %td= invoice.due_date
       %td= link_to invoice.title, invoice_path(invoice)
-      %td= invoice.note
+      %td.note-td
+        = invoice.note
       %td
         - invoice.contacts.each do |contact|
           = link_to(contact.name, contact_path(contact))
@@ -13,7 +14,8 @@
     %tr.line-item-show-row#invoices-row{data: {id: invoice.id}}
       %td= invoice.created_at.strftime("%m-%d-%Y")
       %td= link_to invoice.title, invoice_path(invoice)
-      %td= invoice.note
+      %td.note-id
+        = invoice.note
       %td
         - invoice.contacts.each do |contact|
           = link_to(contact.name, contact_path(contact))

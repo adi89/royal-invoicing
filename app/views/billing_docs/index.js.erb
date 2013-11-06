@@ -1,5 +1,0 @@
-
-$('tbody#invoice-table-entries').html('<%= escape_javascript render(@billing_docs) %>');
-$('#invoices-paginate').html('<%= escape_javascript(paginate(@billing_docs, :remote => true).to_s) %>');
-
-console.log('hit that shit');
