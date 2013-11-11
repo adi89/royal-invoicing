@@ -41,9 +41,9 @@ describe Invoice do
     end
   end
   describe 'contacts sort' do
-    @invoice = Fabricate(:invoice)
-    @invoice.contacts << [Fabricate(:contact), Contact.create(name: 'odie', email: 'bronsolino@gmail.com', company_id: Company.first.id)]
     it 'sorts contacts' do
+      @invoice = Fabricate(:invoice)
+      @invoice.contacts << [Fabricate(:contact), Contact.create(name: 'odie', email: 'bronsolino@gmail.com', company_id: Company.first.id)]
       @category = Invoice.where(kind: 'invoice')
       attribute = "contacts"
       forward = 'false'

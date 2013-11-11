@@ -22,7 +22,11 @@ require 'spec_helper'
 
 describe User do
   before(:each) do
-    @user = Fabricate(:user)
+    # binding.pry
+    @group = Fabricate(:group)
+    @user = User.new(email: 'adi@gmail.com', password: 'akansha1' )
+    @user.group = @group
+    @user.save
   end
 
   describe '.create' do

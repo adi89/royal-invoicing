@@ -38,6 +38,7 @@ class ContactsController < ApplicationController
   end
 
   def save_company_data
+    binding.pry
     @contact = Contact.find(params["contact_id"])
     @contact.company = Company.find(params["contact"]["company_attributes"]["id"])
     @contact.save
@@ -52,6 +53,7 @@ class ContactsController < ApplicationController
       contact.save
       render :text => params[:contact].values.first
     else
+      binding.pry
      @contact = Contact.find(params[:id])
       company_name = contacts_params[:company_attributes][:name]
       update_params = contacts_params

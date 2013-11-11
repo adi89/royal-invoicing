@@ -28,6 +28,7 @@
 #  updated_at :datetime
 #
 Fabricator(:invoice) do
+  title 'example invoice'
   kind "invoice"
   total 432
   due_date '11-11-2013'

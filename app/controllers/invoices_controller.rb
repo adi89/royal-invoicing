@@ -36,11 +36,11 @@ class InvoicesController < ApplicationController
 
 
   def update
-    binding.pry
     invoice = Invoice.find(params[:id])
     flash[:notice] = "Successfully updated #{invoice.title.capitalize}"
     invoice.update(invoice_params)
     invoice.contacts.delete_all
+    binding.pry
     params["invoice"]["id"].shift #take out the first empty string
     params["invoice"]["id"].each do |i|
       invoice.contacts << Contact.find(i)
@@ -69,22 +69,23 @@ class InvoicesController < ApplicationController
     end
   end
 
-  def see_all
-    if request.xhr?
-      invoices_array = Invoice.where(kind: "invoice").where("total IS NOT NULL").sort_by(&:due_date).map{|i| i.id}
-      @invoice_ids = params["data"]["invoice_ids"].map{|i| i.to_i}
-      @invoice_ids.each do |i|
-        if invoices_array.include? i
-          invoices_array.delete(i)
-        end
-      end
-      @invoices = invoices_array.map{|i| Invoice.find(i)}
-      binding.pry
-      render :_invoice_table, content_type: "text/html", layout: false
-    end
-  end
+  # def see_all
+  #   if request.xhr?
+  #     invoices_array = Invoice.where(kind: "invoice").where("total IS NOT NULL").sort_by(&:due_date).map{|i| i.id}
+  #     @invoice_ids = params["data"]["invoice_ids"].map{|i| i.to_i}
+  #     @invoice_ids.each do |i|
+  #       if invoices_array.include? i
+  #         invoices_array.delete(i)
+  #       end
+  #     end
+  #     @invoices = invoices_array.map{|i| Invoice.find(i)}
+  #     binding.pry
+  #     render :_invoice_table, content_type: "text/html", layout: false
+  #   end
+  # end
 
   def create
+    binding.pry
     invoice  = Invoice.new(invoice_params)
     params["invoice"]["id"].shift #take out the first empty string
     params["invoice"]["id"].each do |i|
