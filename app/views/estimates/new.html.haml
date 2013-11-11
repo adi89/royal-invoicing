@@ -2,7 +2,7 @@
   .col-md-6.col-md-offset-3
     %h2= "New #{@kind.capitalize}"
     .form-group
-      = form_for @invoice do |f|
+      = form_for [@group, @invoice] do |f|
         .form-group
           = f.label :title
           = f.text_field :title, class: "form-control"
@@ -13,11 +13,12 @@
         .form-group
           = fields_for(@invoices_contacts) do |bd|
             = bd.label :name, "Contact Name <em>(Cmd+Click)</em>".html_safe
-            %br
-            = collection_select(:invoice, :id, @contacts, :id, :name, {:selected => @invoice.contacts.map{|i| i.id}}, {:prompt => 'cmd click', :multiple => true} )
+            #new-contact-estimate-option
+              = collection_select(:invoice, :id, @contacts, :id, :name, {:selected => @invoice.contacts.map{|i| i.id}}, {:prompt => 'cmd click', :multiple => true} )
+              = link_to "New Contact?", add_contact_estimate_path, class: "new-contact-estimate-form"
           #contact-addition
         %h4.line-item-title Line Items
-        = link_to 'Add Line Item', '#', class: 'btn btn-success btn-xs add-line-item'
+        = link_to 'Add Line Item', '#', class: 'btn btn-info btn-xs add-line-item'
         .form-group
           %table#line-items-table
             %tr
@@ -37,4 +38,7 @@
         #sum
         .form-group
           .post-buttons
-            = f.submit "Create #{@kind.capitalize}", :class => 'btn btn-info create-estimate-button', data: {id: @invoice.id}
+            -if @invoice.new_record?
+              = f.submit "Create #{@kind.capitalize}", :class => 'btn btn-success create-estimate-button', data: {id: @invoice.id, group_id: current_user.group.id}
+            -else
+              = f.submit "Edit #{@kind.capitalize}", :class => 'btn btn-success', data: {id: @invoice.id, group_id: current_user.group.id}

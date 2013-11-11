@@ -2,6 +2,7 @@ $ ->
   $('.landing-one').hide().fadeIn(2000)
   $('.landing-invoice').hide().fadeIn(3500)
   $('#flash_notice').fadeOut(4000)
+  $('.best_in_place').best_in_place()
 
   $('body').on 'keyup ', ".quantity-field, .price-field", (e) ->
     e.preventDefault()
@@ -92,6 +93,33 @@ $ ->
     $.get path, (data) ->
       console.log(data)
 
+
+  $('.new-contact-estimate-form').click (e) ->
+    e.preventDefault()
+    path = $(this).attr('href')
+    console.log('hit the contact estimate link')
+    $.get path, (data) ->
+      $("#invoice_id").toggle()
+      $('.new-contact-estimate-form').toggle()
+      $("#new-contact-estimate-option").append(data)
+      console.log(data)
+      $('.back-to-contact-list-estimates').click (e) ->
+        e.preventDefault()
+        $('#contact-form-addition').remove()
+        $("#invoice_id").toggle()
+        $('.new-contact-estimate-form').toggle()
+      $('.save-contact-data').click (e) ->
+        e.preventDefault()
+        path = $(this).data('path')
+        console.log(path)
+        form = $('form#new_contact')
+        $.post path, form.serialize(), (data) ->
+          console.log(data)
+          $('#contact-form-addition').remove()
+          $('#invoice_id').remove()
+          $('#new-contact-estimate-option').prepend(data)
+          $('.new-contact-estimate-form').toggle()
+
   $('.make-invoice').click (e) ->
     e.preventDefault()
     console.log("made invoice")
@@ -123,14 +151,19 @@ $ ->
     $(this).toggleClass('forward')
     forward = $(this).hasClass('forward')
     category = $(this).data('category')
-    path = '/contacts/sort'
-    $.post path, data:{'type':dataType, 'category':category, 'forward': forward, 'ids': ids}, (data) ->
+    groupId= $(this).data('group-id')
+
+    path = $(this).attr('href')
+    console.log("#{path}?type=#{dataType}&category=#{category}&forward=#{forward}")
+
+    $.get "#{path}?type=#{dataType}&category=#{category}&forward=#{forward}&ids=#{ids}", (data) ->
       $(".contact-item-row").empty().remove()
       $("#contact-table tbody").append($(data))
 
   $('.due-date-sort , .contact-sort, .total-sort, .status-sort').click (e) ->
     e.preventDefault()
     console.log('hit')
+    groupId = $(this).data('group-id')
     dataType = $(this).data('type')
     ids = []
     $.map $(".line-item-show-row"), (n) ->
@@ -140,23 +173,18 @@ $ ->
     forward = $(this).hasClass('forward')
     console.log(dataType)
     category = $(this).data('category')
-    path = '/invoices/sort'
-    $.post path, data:{'type':dataType, 'category':category, 'forward': forward, 'ids': ids}, (data) ->
-      $(".line-item-show-row").empty().remove()
-      $("#invoices-index-table tbody").append($(data))
+    path = $(this).attr('href')
+    console.log(path)
+    $.get "#{path}?type=#{dataType}&category=#{category}&forward=#{forward}&ids=#{ids}", (data) ->
+        $(".line-item-show-row").empty().remove()
+        $("#invoices-index-table tbody").append($(data))
 
   $('.create-estimate-button').click (e) ->
     e.preventDefault()
-    console.log('create estimate')
+    groupId = $(this).data('group-id')
     if $(this).data('id') == null
       form = $('form#new_invoice')
-      path = '/estimates'
-      $.post path, form.serialize(), (data) ->
-        console.log(data)
-    else
-      estimateId = $(this).data('id')
-      path = "/invoices/#{estimateId}"
-      form = $('form.edit_invoice')
+      path = "/groups/#{groupId}/estimates"
       console.log(path)
       $.post path, form.serialize(), (data) ->
         console.log(data)

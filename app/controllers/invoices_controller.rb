@@ -1,27 +1,25 @@
 class InvoicesController < ApplicationController
 
   def index
-    @invoices = Invoice.order(:due_date).page(params[:page]).per(6).where(kind: 'invoice').where("total IS NOT NULL")
+    # @invoices = Invoice.order(:due_date).page(params[:page]).per(6).where(kind: 'invoice').where("total IS NOT NULL")
+    @invoices = Kaminari.paginate_array(current_user.group.invoices('invoice')).page(params[:page]).per(6)
   end
 
   def sort
     if request.xhr?
-      @invoices = params["data"]["ids"].map{|i| Invoice.find(i)}
-      attribute = params["data"]["type"]
-      category = params["data"]["category"] == "invoices" ? @invoices : @estimates
-      forward = params['data']['forward']
-      instance_variable_set("@#{params['data']['category']}", Invoice.attribute_sort(attribute, category, forward))
-      if params["data"]["category"] == "invoices"
-        render :_sort_invoice, content_type: "text/html", layout: false
-      else
-        render :_estimate_table, content_type: "text/html", layout: false
-      end
+      @invoices = Invoice.where("id IN (#{params["ids"]})")
+      attribute = params["type"]
+      category = params["category"] == "invoices" ? @invoices : @estimates
+      forward = params['forward']
+      instance_variable_set("@#{params['category']}", Invoice.attribute_sort(attribute, category, forward))
+      render :sort_invoice, content_type: "text/html", layout: false
     end
   end
 
   def new
     @invoice = Invoice.new
-    @kind = params["kind"]
+    @kind = 'invoice'
+    @group = current_user.group
     @invoice.line_items.build
     @contacts = current_user.contacts
     @invoices_contacts = @invoice.contacts.build
@@ -29,36 +27,39 @@ class InvoicesController < ApplicationController
 
   def edit
     @invoice = Invoice.find(params[:id])
+    @group = current_user.group
     @kind = @invoice.kind
     @invoices_contacts = @invoice.contacts.build
     @contacts = current_user.contacts
-    render :new
+    render 'invoices/new'
   end
 
 
   def update
+    binding.pry
     invoice = Invoice.find(params[:id])
-      flash[:notice] = "Successfully updated #{invoice.title.capitalize}"
-      invoice.update(invoice_params)
-      invoice.contacts.delete_all
-      params["invoice"]["id"].shift #take out the first empty string
-      params["invoice"]["id"].each do |i|
-        invoice.contacts << Contact.find(i)
-      end
-      invoice.line_items.delete_all
-      invoice_params["line_items_attributes"].values.select{|i| i if !i.empty?}.each do |i|
-        invoice.line_items << LineItem.create(i)
-      end
-      invoice.total = invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)
-      if invoice.save
-        if invoice.kind == "invoice"
-           redirect_to(invoice_path(invoice))
-         else
-           render :js => "window.location = '/estimates/#{invoice.id}'"
-         end
+    flash[:notice] = "Successfully updated #{invoice.title.capitalize}"
+    invoice.update(invoice_params)
+    invoice.contacts.delete_all
+    params["invoice"]["id"].shift #take out the first empty string
+    params["invoice"]["id"].each do |i|
+      invoice.contacts << Contact.find(i)
+    end
+    invoice.line_items.delete_all
+    invoice_params["line_items_attributes"].values.select{|i| i if !i.empty?}.each do |i|
+      invoice.line_items << LineItem.create(i)
+    end
+    invoice.total = invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)
+    if invoice.save
+      binding.pry
+      if invoice.kind == "invoice"
+        redirect_to(group_invoice_path(current_user.group.id, invoice))
       else
-        render :new
+        redirect_to(group_estimate_path(current_user.group.id, invoice))
       end
+    else
+      render :new
+    end
   end
 
   def show
@@ -78,20 +79,22 @@ class InvoicesController < ApplicationController
         end
       end
       @invoices = invoices_array.map{|i| Invoice.find(i)}
+      binding.pry
       render :_invoice_table, content_type: "text/html", layout: false
     end
   end
 
   def create
-      invoice  = Invoice.new(invoice_params)
-      params["invoice"]["id"].shift #take out the first empty string
-      params["invoice"]["id"].each do |i|
-        invoice.contacts << Contact.find(i)
-      end
-      invoice.total = invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)
-      invoice.save
-      redirect_to invoice_path(invoice)
+    invoice  = Invoice.new(invoice_params)
+    params["invoice"]["id"].shift #take out the first empty string
+    params["invoice"]["id"].each do |i|
+      invoice.contacts << Contact.find(i)
     end
+    invoice.total = invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)
+    invoice.save
+    current_user.invoices << invoice
+    redirect_to group_invoice_path(current_user.group.id, invoice)
+  end
 
   def paid_invoice
     invoice = Invoice.find(params["data"]["invoice-id"])
@@ -103,5 +106,4 @@ class InvoicesController < ApplicationController
   def invoice_params
     params.require(:invoice).permit(:title, :note, :due_date, :kind, :contact_attributes => [:id, :name, :email], :line_items_attributes => [:quantity, :price, :note, :invoice_id],  :invoice_contacts_attributes => [:contact_id, :invoice_id])
   end
-
 end

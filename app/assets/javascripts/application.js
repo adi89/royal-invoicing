@@ -14,7 +14,9 @@
 //= require jquery.ui.all
 //= require jquery_ujs
 //= require jquery.remotipart
-//= require jquery.jeditable.mini
+//= require jquery_ujs
+//= require jquery.purr
+//= require best_in_place
 //= require bootstrap
 //= requre modals
 //= require sherman

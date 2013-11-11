@@ -304,10 +304,12 @@ html {
 body {
   font-family: 'Roboto Slab';
   font-size: 14px;
+  height: 100%;
   line-height: 1.428571429;
-  color: #333333;
+  color: #0B2C3C;
   background-color: #ffffff;
 }
+
 
 input,
 button,
@@ -2206,8 +2208,8 @@ fieldset[disabled] .btn-danger.active {
 
 .btn-success {
   color: #ffffff;
-  background-color: #00A0A0;
-  border-color: #00A0A0;
+  background-color: #F08C89;
+  border-color: #F08C89;
 }
 
 .btn-success:hover,
@@ -2216,8 +2218,8 @@ fieldset[disabled] .btn-danger.active {
 .btn-success.active,
 .open .dropdown-toggle.btn-success {
   color: #ffffff;
-  background-color: #00A0A0;
-  border-color: #00A0A0;
+  background-color: #F08C89;
+  border-color: #F08C89;
 }
 
 .btn-success:active,
@@ -2247,8 +2249,8 @@ fieldset[disabled] .btn-success.active {
 
 .btn-info {
   color: #ffffff;
-  background-color: #5bc0de;
-  border-color: #46b8da;
+  background-color: #11455E;
+  border-color: #11455E;
 }
 
 .btn-info:hover,
@@ -2257,8 +2259,8 @@ fieldset[disabled] .btn-success.active {
 .btn-info.active,
 .open .dropdown-toggle.btn-info {
   color: #ffffff;
-  background-color: #39b3d7;
-  border-color: #269abc;
+  background-color: #11455E;
+  border-color: #11455E;
 }
 
 .btn-info:active,
@@ -2282,8 +2284,8 @@ fieldset[disabled] .btn-info:active,
 .btn-info.disabled.active,
 .btn-info[disabled].active,
 fieldset[disabled] .btn-info.active {
-  background-color: #5bc0de;
-  border-color: #46b8da;
+  background-color: #11455E;
+  border-color: #11455E;
 }
 
 .btn-link {
@@ -4525,7 +4527,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
   color: white!important;
-  background-color: #080808;
+  background-color: blue;
 }
 
 .navbar-inverse .navbar-nav > .disabled > a,
@@ -4557,7 +4559,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
   color: #ffffff;
-  background-color: #080808;
+  background-color: #0B2C3C;
 }
 
 .navbar-inverse .navbar-nav > .dropdown > a:hover .caret {

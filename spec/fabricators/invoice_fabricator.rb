@@ -29,5 +29,7 @@
 #
 Fabricator(:invoice) do
   kind "invoice"
+  total 432
+  due_date '11-11-2013'
 end
 

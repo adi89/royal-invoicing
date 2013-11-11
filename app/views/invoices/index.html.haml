@@ -3,19 +3,19 @@
 .row
   .col-md-10.col-md-offset-1
     .call-to-action-invoice-estimate
-      = link_to 'Create Invoice', new_invoice_path(kind:  'invoice'), class: 'btn-success btn btn-lg'
+      = link_to 'Create Invoice', new_group_invoice_path(current_user.group.id), class: 'btn-success btn btn-lg'
       %br
     .invoices
       %h2
         #invoices-title
-          Invoices
+          = "#{current_user.group.name} Invoices"
       %table#invoices-index-table.table-striped.table-hover
         %thead.invoice-index-table-header
-          %th= link_to 'Due', '#', class: 'due-date-sort forward', data: {type: 'due_date', category: 'invoices'}
+          %th= link_to 'Due', sort_group_invoices_path(current_user.group.id), class: 'due-date-sort forward', data: {type: 'due_date', category: 'invoices', group_id: current_user.group.id, user_id: current_user.id}
           %th Title
           %th Note
-          %th= link_to " Contact(s)", "#", class: 'contact-sort forward', data: {type: 'contacts', category: 'invoices'}
-          %th= link_to 'Total ($)', '#', class: 'total-sort forward', data: {type: 'total', category: 'invoices'}
-          %th= link_to 'Status', '#', class: 'status-sort forward', data: {type: 'state', category: 'invoices'}
+          %th= link_to " Contact(s)", sort_group_invoices_path(current_user.group.id), class: 'contact-sort forward', data: {type: 'contacts', category: 'invoices', group_id: current_user.group.id}
+          %th= link_to 'Total ($)', sort_group_invoices_path(current_user.group.id), class: 'total-sort forward', data: {type: 'total', category: 'invoices', group_id: current_user.group.id}
+          %th= link_to 'Status', sort_group_invoices_path(current_user.group.id), class: 'status-sort forward', data: {type: 'state', category: 'invoices', group_id: current_user.group.id}
         %tbody#invoice-table-entries
           = render @invoices

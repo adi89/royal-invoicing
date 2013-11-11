@@ -38,4 +38,34 @@ describe Contact do
       expect(@contact.company.present?).to eq true
     end
   end
+  describe 'validations' do
+    it 'only creates concacts w unique emails' do
+      contact = Contact.create(name: "odie", email: @contact.email, company_id: @contact.company.id)
+      expect(contact.errors.messages[:email].first).to eq "has already been taken"
+      contact.email = "a_unique_email@gmail.com"
+      expect(contact.save).to eq true
+    end
+    it 'validates the presence of a name' do
+      contact = Contact.create(email: 'bronsolino@gmail.com', company_id: @contact.company.id)
+      expect(contact.new_record?).to eq true
+      contact.name = "yabish"
+      expect(contact.save).to eq true
+    end
+    it 'validates the presence of a company' do
+      contact= Contact.new(name: 'odie', email: 'bronsolino@gmail.com')
+      expect(contact.save).to eq false
+      contact.company = Company.create(name: "bambam")
+      expect(contact.save).to eq true
+    end
+  end
+  describe 'scope' do
+    it 'finds the top contacts' do
+      contact2 = Contact.create(name: 'odie', email: 'bronsolino@gmail.com', company_id: Company.first.id)
+      group = Group.create(name: 'sample')
+      user = User.create(email: 'hd@a.com', password: 'derpfjdy32', group_id: group.id)
+      user.contacts << [@contact, contact2]
+      @contact.invoices << Fabricate(:invoice)
+      expect(Contact.top_contacts(user).first).to eq @contact
+    end
+  end
 end

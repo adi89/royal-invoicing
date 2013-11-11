@@ -1,4 +1,4 @@
 %h2
   = "You sucessfully added #{@contact.name}."
 .added-contact-show-link
-  = link_to( "#{@contact.name} page", contact_path(@contact)).html_safe
+  = link_to( "#{@contact.name} page", group_contact_path(current_user.group.id, @contact)).html_safe

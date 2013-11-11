@@ -1,27 +1,49 @@
 class EstimatesController < ApplicationController
 
   def index
-    @invoices = Invoice.order(:due_date).page(params[:page]).per(6).where(kind: 'estimate').where("total IS NOT NULL")
+    @invoices = Kaminari.paginate_array(current_user.group.invoices('estimate')).page(params[:page]).per(6)
   end
 
   def sort
     if request.xhr?
-      @invoices = params["data"]["ids"].map{|i| Invoice.find(i)}
-      attribute = params["data"]["type"]
-      category = params["data"]["category"] == "invoices" ? @invoices : @estimates
-      forward = params['data']['forward']
-      instance_variable_set("@#{params['data']['category']}", Invoice.attribute_sort(attribute, category, forward))
-      if params["data"]["category"] == "invoices"
-        render :_sort_invoice, content_type: "text/html", layout: false
+      binding.pry
+      @invoices = params["ids"].split(',').map{|i| Invoice.find(i)}
+      attribute = params["type"]
+      category = params["category"] == "invoices" ? @invoices : @estimates
+      forward = params['forward']
+      instance_variable_set("@#{params['category']}", Invoice.attribute_sort(attribute, category, forward))
+        render :sort_invoice, content_type: "text/html", layout: false
+      end
+  end
+
+  def add_contact
+    if request.xhr?
+      @contact = Contact.new
+      @contact.build_company
+      @group = current_user.group
+      render :add_contact, content_type: "text/html", layout: false
+    end
+  end
+
+  def save_contact
+    if request.xhr?
+      @contact = Contact.new(contacts_params)
+      if @contact.save
+        current_user.contacts << @contact
+        @contacts = current_user.contacts
+        @invoice = Invoice.new
+        render :_save_contact, content_type: "text/html", layout: false
       else
-        render :_estimate_table, content_type: "text/html", layout: false
+        render nothing: true
       end
     end
   end
 
+
   def new
     @invoice = Invoice.new
-    @kind = params["kind"]
+    @kind = 'estimate'
+    @group = current_user.group
     @invoice.line_items.build
     @contacts = current_user.contacts
     @invoices_contacts = @invoice.contacts.build
@@ -30,6 +52,7 @@ class EstimatesController < ApplicationController
   def edit
     @invoice = Invoice.find(params[:id])
     @kind = @invoice.kind
+    @group = current_user.group
     @invoices_contacts = @invoice.contacts.build
     @contacts = current_user.contacts
     render :new
@@ -65,22 +88,26 @@ class EstimatesController < ApplicationController
   end
 
   def create
-      invoice  = Invoice.new(invoice_params)
-      params["invoice"]["id"].shift #take out the first empty string
-      params["invoice"]["id"].each do |i|
-        invoice.contacts << Contact.find(i)
-      end
-      invoice.total = invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)
-      if invoice.save
-        render :js => "window.location = '/estimates/#{invoice.id}'"
-      else
-        render :new
-      end
+    invoice  = Invoice.new(invoice_params)
+    params["invoice"]["id"].select!{|i| !i.blank?} #take out any empty strings
+    params["invoice"]["id"].each do |i|
+      invoice.contacts << Contact.find(i)
+    end
+    invoice.total = invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)
+    if invoice.save
+      current_user.invoices << invoice
+      render :js => "window.location.href = '#{group_estimate_path(current_user.group.id, invoice.id)}'"
+    else
+      render :new
+    end
   end
 
   private
   def invoice_params
     params.require(:invoice).permit(:title, :note, :due_date, :kind, :contact_attributes => [:id, :name, :email], :line_items_attributes => [:quantity, :price, :note, :invoice_id],  :invoice_contacts_attributes => [:contact_id, :invoice_id])
+  end
+  def contacts_params
+    params.require(:contact).permit(:name, :email, company_attributes: [:name])
   end
 
 

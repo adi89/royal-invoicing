@@ -2,7 +2,7 @@
   .col-md-6.col-md-offset-3
     %h2= "New #{@kind.capitalize}"
     .form-group
-      = form_for @invoice do |f|
+      = form_for [@group, @invoice] do |f|
         .form-group
           = f.label :title
           = f.text_field :title, class: "form-control"
@@ -19,7 +19,7 @@
             = collection_select(:invoice, :id, @contacts, :id, :name, {:selected => @invoice.contacts.map{|i| i.id}}, {:prompt => 'cmd click', :multiple => true} )
           #contact-addition
         %h4.line-item-title Line Items
-        = link_to 'Add Line Item', '#', class: 'btn btn-success btn-xs add-line-item'
+        = link_to 'Add Line Item', '#', class: 'btn btn-info btn-xs add-line-item'
         .form-group
           %table#line-items-table
             %tr
@@ -39,4 +39,4 @@
         #sum
         .form-group
           .post-buttons
-            = f.submit "Create #{@invoice.kind.capitalize}", :class => 'btn btn-info'
+            = f.submit "Create #{@invoice.kind.capitalize}", :class => 'btn btn-success'

@@ -30,13 +30,13 @@ class Contact < ActiveRecord::Base
   validates_associated :company
   validates_presence_of :company_id, :unless => Proc.new() {|r| r.company}
   validates_presence_of :name
-  validates_presence_of :email
+  validates_uniqueness_of :email
 
   def no_company(attributes)
     attributes["name"].blank?
   end
 
-  def self.top_contacts
-    Contact.all.sort_by{|i| i.invoices.count}.reverse.first(4)
-  end
+  def self.top_contacts(current_user)
+    current_user.group.users.includes(:contacts).map{|i| i.contacts}.flatten
+     end
 end

@@ -1,4 +1,6 @@
-.call-to-action-invoice-estimate {
+@import url(http://fonts.googleapis.com/css?family=Exo:900);
+
+.call-to-action-invoice-estimate, .add-contact-button {
 float:right;
 margin-top:2.5%
 }
@@ -36,7 +38,10 @@ text-align:center
 }
 
 .add-line-item {
-display:inline-block
+display:inline-block;
+margin-left: 5px;
+margin-bottom: 5px;
+
 }
 
 .line-item-title {
@@ -83,6 +88,7 @@ background-color:#fafad2;
 background-position:0 0,0 bottom;
 padding-top:20px;
 padding-bottom:20px;
+background-repeat-x: initial;
 float:left;
 width:100%
 }
@@ -201,7 +207,7 @@ border-color:#ccc
 
 .invoices {
 clear:both;
-color:purple;
+color: #0B2C3C;
 font-weight:200;
 width:100%
 }
@@ -308,9 +314,8 @@ margin-bottom: 20px;
 background-color: pink;
 }
 
-.add-contact-button{
-  float: right;
-}
+
+
 #contact{
   clear: both;
   margin-right: 5%;
@@ -318,6 +323,10 @@ background-color: pink;
   margin-top: 10%;
   margin-bottom: 10%;
   font-size: 120%;
+}
+
+.edit_contact input{
+  margin-bottom: 10px;
 }
 
 #contact table{
@@ -342,9 +351,14 @@ background-color: pink;
   opacity: 1;
 }
 .contact-profile{
-width: 300px;
+width: auto;
 height: 300px;
-font-size: 80%;
+font-size: 70%;
+word-wrap: break-word;
+}
+
+.contact-profile .contact-email{
+  overflow: auto;
 }
 .contact-container{
   height: 250px;
@@ -353,13 +367,79 @@ font-size: 80%;
   float: right;
 }
 
-#edit-body{
+.contact-name, .contact-phone-number{
   text-align: center;
+  width: 150px;
 }
+
+body{
+  background: url('paper_fibers.png');
+}
+
+// #edit-body{
+//   text-align: center;
+// }
 .edit-button{
   clear: both;
   margin-top: 4%;
 }
 #contact{
-  color: purple
+  color: #0B2C3C;
+}
+#invoice_id{
+  width: 50%;
+}
+.new-contact-estimate-form{
+  display: block;
+}
+
+.back-to-contact-list-estimates{
+  margin-bottom: 10px;
+  width: 37%;
+}
+
+// #footer{
+//   min-height: 10%;
+//   background-color: pink;
+// }
+
+.subvrt-header{
+font-family: 'Exo', sans-serif;
+display: inline;
+text-decoration: none;
+}
+.subvrt-header a{
+  color: white;
+}
+.subvrt-header a:hover{
+  text-decoration: none;
+  color: #F08C89;
+}
+.all-rights-reserved{
+  display: inline;
+  float: right;
+}
+
+#footer{
+  padding-top: 20px;
+  background-color: #0B2C3C;
+  margin-top: 3%;
+  color: white;
+  padding-bottom: 20px;
+  margin-bottom: 0;
+}
+#sherman-nav{
+padding-bottom: 20px;
+}
+.navbar-header, #navbar-content{
+position: relative;
+top: 10px;
+font-size: 1.25em;
+}
+.navbar-brand{
+  font-weight: 700;
+  font-size: 32px;
+  position: relative;
+  bottom: 12px;
+
 }

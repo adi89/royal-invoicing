@@ -19,16 +19,6 @@ $ ->
     dialog.children('.modal-header').children('.modal-title').text(title)
     gModal.modal('show')
 
-  # gModal.on 'click', '.create-contact-button', (e) ->
-  #   e.preventDefault()
-  #   form = $('form#new_contact')
-  #   console.log(form)
-  #   path = form.attr('action')
-  #   $.post path, form.serialize(), (data) ->
-  #     $('#create').hide()
-  #     $('#added-contact').html data
-  #     $('#added-contact').show()
-
   triggerModal = (path, title) ->
     $.get path, (data)  ->
       openModal(title, data)

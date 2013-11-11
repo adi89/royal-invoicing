@@ -1,39 +1,39 @@
 .row
   .col-md-7.col-md-offset-2
-    =link_to 'See All Contacts', contacts_path
+    =link_to 'See All Contacts', group_contacts_path(current_user.group.id)
     #basic-bio-container
       #contact-pic
         = image_tag @contact.photo.url
       #contact-name
         %h2="#{@contact.name.titleize}"
-        = link_to('edit', edit_contact_path(@contact), class: "edit-contact-form")
+        = link_to('edit', edit_group_contact_path(current_user.group.id, @contact), class: "edit-contact-form")
       %ul.contact-details
         %li
           %b
             Email :
-          = editable_field @contact, :email
+          = best_in_place @contact, :email, :path => group_contact_path(@group, @contact)
         %li
           %b
             Job Title :
-          = editable_field @contact, :job_title
+          = best_in_place @contact, :job_title, :path => group_contact_path(@group, @contact)
           at
           #company-biz
             = link_to @company.name, company_ajax_path, class: 'contact-show-company', data: {company_id: @company.id, contact_id: @contact.id}
         %li
           %b
             Phone Number :
-          = editable_field @contact, :phone_number
+          = best_in_place @contact, :phone_number, :path => group_contact_path(@group, @contact)
 
         %li
           %b
             Website :
-          = editable_field @contact, :website
+          = best_in_place @contact, :website, :path => group_contact_path(@group, @contact)
         %li
           %b
             Address :
-          = editable_field @contact, :address
+          = best_in_place @contact, :address, :path => group_contact_path(@group, @contact)
         %li
           %b
             Twitter Handle
-          = editable_field @contact, :twitter_handle
+          = best_in_place @contact, :twitter_handle, :path => group_contact_path(@group, @contact)
 

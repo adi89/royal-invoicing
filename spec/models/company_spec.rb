@@ -19,12 +19,9 @@ describe Company do
     it 'is valid' do
       expect(@company.valid?).to eq true
     end
-  end
-
-  describe "associations" do
-    it 'belongs to a contact' do
-      @company.contacts << Fabricate(:contact)
-      expect(@company.contacts.present?).to eq true
+    it 'has a unique name' do
+      subvrt = Company.new(name: "Subvrt")
+      expect(subvrt.save).to eq false
     end
   end
 end

@@ -25,7 +25,8 @@ gem 'carrierwave'
 
 gem 'rmagick'
 
-gem 'jeditable-rails'
+# gem 'jeditable-rails'
+gem 'best_in_place', github: "bernat/best_in_place"
 
 gem 'state_machine'
 

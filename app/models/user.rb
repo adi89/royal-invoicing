@@ -23,7 +23,17 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  has_many :contacts
   belongs_to :group
+  has_many :contacts
+  has_many :invoices_users
+  has_many :invoices, through: :invoices_users
+  validates_presence_of :group_id, :unless => Proc.new() {|r| r.group}
+  accepts_nested_attributes_for :group, :reject_if => :no_group
+  validates_associated :group
+
+
+  def no_group(attributes)
+    attributes["name"].blank?
+  end
+
 end

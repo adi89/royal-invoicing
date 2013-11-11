@@ -3,28 +3,18 @@
 .row
   .col-md-10.col-md-offset-1
     .call-to-action-invoice-estimate
-      = link_to 'Create Estimate', new_estimate_path(kind:  'estimate'), class: 'btn-success btn btn-lg'
+      = link_to 'Create Estimate', new_group_estimate_path(current_user.group.id), class: 'btn-success btn btn-lg'
       %br
     .invoices
       %h2
         #invoices-title
-          Estimates
+          = "#{current_user.group.name} Estimates"
       %table#invoices-index-table.table-striped.table-hover
         %thead.invoice-index-table-header
-          %th= link_to "Estimate Date", "#", class: 'due-date-sort forward', data: {type: 'contacts', category: 'invoices'}
+          %th= link_to "Estimate Date", sort_group_invoices_path(current_user.group.id), class: 'due-date-sort forward', data: {type: 'contacts', category: 'invoices'}
           %th Title
           %th Note
-          %th= link_to " Contact(s)", "#", class: 'contact-sort forward', data: {type: 'contacts', category: 'invoices'}
-          %th= link_to 'Total ($)', '#', class: 'total-sort forward', data: {type: 'total', category: 'invoices'}
+          %th= link_to " Contact(s)", sort_group_invoices_path(current_user.group.id), class: 'contact-sort forward', data: {type: 'contacts', category: 'invoices'}
+          %th= link_to 'Total ($)', sort_group_invoices_path(current_user.group.id), class: 'total-sort forward', data: {type: 'total', category: 'invoices'}
         %tbody#invoice-table-entries
           = render @invoices
-        / -@invoices.each do |invoice|
-        /   %tr.line-item-show-row#invoices-row
-        /     %td= invoice.due_date
-        /     %td= link_to invoice.title, billing_doc_path(invoice)
-        /     %td= invoice.note
-        /     %td
-        /       - invoice.contacts.each do |contact|
-        /         = link_to(contact.name, contact_path(contact))
-        /     %td= invoice.total
-        /     %td= invoice.state

@@ -2,7 +2,7 @@
   #flash-validation-contact
   .col-md-6.col-md-offset-3
     #create.form-group
-      = form_for @contact, :html => { :multipart => true }, :remote => true do |f|
+      = form_for [@group, @contact], :html => { :multipart => true }, :remote => true do |f|
         = f.text_field :name, placeholder: "name", class: "form-control"
         = f.text_field :email, placeholder: "email", class: "form-control"
         = f.telephone_field :phone_number, placeholder: 'phone number', class: "form-control"

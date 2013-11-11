@@ -2,12 +2,11 @@
   .col-md-3.contact-container
     .contact-profile
       .contact-photo
-        =link_to(image_tag(contact.photo, class: "contact-photo-index"), contact_path(contact))
+        =link_to(image_tag(contact.photo, class: "contact-photo-index"), group_contact_path(current_user.group.id, contact))
       .contact-name
-        <strong>name:   </strong>
-        = link_to contact.name, contact_path(contact)
+        = link_to contact.name, group_contact_path(current_user.group.id, contact)
       .contact-email
-        = "<strong>email:</strong>    #{contact.email}".html_safe
+        = "#{contact.email}".html_safe
       -if contact.phone_number
         .contact-phone-number
-          ="<strong>phone number:</strong>    #{number_to_phone(contact.phone_number, :groupings => [3, 3, 4])}".html_safe
+          ="#{number_to_phone(contact.phone_number, :groupings => [3, 3, 4])}".html_safe
