@@ -5,7 +5,7 @@
       .billing-doc-show-title
         %h2= @invoice.kind.capitalize
         = link_to 'Mail It', group_invoice_path(current_user.group.id, @invoice), class: "btn btn-default show-mailer-button"
-        = link_to 'Paid?', paid_invoice_path, class:   "btn btn-default paid-invoice", data: {id: @invoice.id}
+        = link_to 'Paid?', pay_path, class:   "btn btn-default paid-invoice", data: {id: @invoice.id}
       .billing-doc-header
         %p= "To : #{@invoice.contacts.map{|i| i.name}.join(' , ')}"
         %p= "From : #{current_user.email}"

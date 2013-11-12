@@ -8,6 +8,6 @@
 #
 
 class InvoicesContact < ActiveRecord::Base
- belongs_to :invoice
- belongs_to :contact
+  belongs_to :invoice
+  belongs_to :contact
 end

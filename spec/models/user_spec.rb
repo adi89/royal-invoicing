@@ -22,7 +22,6 @@ require 'spec_helper'
 
 describe User do
   before(:each) do
-    # binding.pry
     @group = Fabricate(:group)
     @user = User.new(email: 'adi@gmail.com', password: 'akansha1' )
     @user.group = @group
@@ -44,4 +43,5 @@ describe User do
       expect(@user.contacts.present?).to eq true
     end
   end
+
 end

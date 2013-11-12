@@ -1,11 +1,8 @@
-console.log("create page");
-
-  <% if @contact.valid? %>
-      $('#create').hide();
-      $('#added-contact').empty().append('<%= j render(:partial => 'added_contact') %>');
-      $('#added-contact').show();
-    <% else %>
-      <% flash[:error] = @errors.first %>
-      $('#flash-validation-contact').append("<%= @errors.first %>")
-      console.log("dude you gotta include a company name")
-    <% end %>
+<% if @contact.valid? %>
+    $('#create').hide();
+    $('#added-contact').empty().append('<%= j render(:partial => 'added_contact') %>');
+    $('#added-contact').show();
+<% else %>
+  <% flash[:error] = @contact.errors.full_messages.first %>
+  $('#flash-validation-contact').append("<%= @contact.errors.full_messages.first %>")
+<% end %>

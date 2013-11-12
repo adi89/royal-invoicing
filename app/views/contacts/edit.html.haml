@@ -2,7 +2,7 @@
   #flash-validation-contact
   .col-md-6.col-md-offset-3
     #create.form-group
-      = form_for [@group, @contact], :html => { :multipart => true } do |f|
+      = form_for [current_user.group, @contact], :html => { :multipart => true } do |f|
         = f.label :name
         = f.text_field :name, placeholder: "name", class: "form-control"
         = f.label :email
@@ -21,9 +21,9 @@
         -if @contact.new_record?
           = f.label :photo, class: "add-contact-photo-label"
         -else
-          - if @photo
+          - if @contact.photo.to_s
             .add-contact-photo-label
-              =  "#{@photo}"
+              =  "#{@contact.photo.to_s}"
           -else
             =f.label :photo, as: "do nothing to keep current photo", class: "add-contact-photo-label"
         = f.file_field :photo

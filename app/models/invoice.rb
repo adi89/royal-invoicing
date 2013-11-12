@@ -33,16 +33,12 @@ class Invoice < ActiveRecord::Base
   end
 
   state_machine :kind , initial: :pending do
-    event :invoice do
+    event :convert_to_invoice do
       transition all => :invoice
     end
-    event :estimate do
+    event :convert_to_estimate do
       transition :pending => :estimate
     end
-  end
-
-  def user_filter
-    self.select{|i| i.contacts.select{|j| j.user_id = current_user.id}}
   end
 
   def self.contacts_sort(attribute, category, forward)
@@ -54,21 +50,16 @@ class Invoice < ActiveRecord::Base
   end
 
   def self.attribute_sort(attribute, category, forward)
-    # binding.pry
     attribute_method = "#{attribute}_sort"
     if attribute_method != "contacts_sort"
-      Invoice.category_sorting(attribute, category, forward)
+      self.category_sorting(attribute, category, forward)
     else
-      Invoice.contacts_sort(attribute, category, forward)
+      self.contacts_sort(attribute, category, forward)
     end
   end
-  #category will give either @estimates or @invoices
-  #attribute will give... no shit.
 
+  def self.group_invoices(group, kind)
+    # self.users.map{|i| i.invoices.where(kind: kind).where('total is NOT NULL')}.flatten
+    Invoice.includes(:users).where(kind: kind).where('total is NOT NULL').where('users.group_id' =>  "#{group.id}")
+  end
 end
-
-
-# open/closed for invoice  (so true or false or null, don't show that column )
-# not applicable to estimate
-
-# invoice / estimate

@@ -27,13 +27,4 @@ describe Group do
       expect(@group.users.present?).to eq true
     end
   end
-
-  describe 'invoices' do
-    it 'filters invoices' do
-      user = Fabricate(:user)
-      @group.users << user
-      user.invoices << [Fabricate(:invoice),  Invoice.create(kind: 'estimate'),Invoice.create(kind: 'invoice')]
-      expect(@group.invoices('invoice').count).to eq 1
-    end
-  end
 end

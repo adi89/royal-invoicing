@@ -6,83 +6,65 @@ $ ->
 
   $('body').on 'keyup ', ".quantity-field, .price-field", (e) ->
     e.preventDefault()
-    console.log('hi')
     if $(this).hasClass('quantity-field') == true
       quantity = parseFloat($(this).val())
       price = parseFloat($(this).parent().next().children().first().val())
       total = (quantity * price).toFixed(2)
-      console.log(total)
       if isNaN(total) == false
         input = $(this).parent().next().next().children().first()
         $(input).empty().val(total).prop('disabled', true)
         sumTotal = 0
         $(".total-field").each (index, element) =>
           sumTotal += parseFloat($(element).val())
-          console.log(sumTotal)
         $("#sum").empty().append("<h3>Total : $#{sumTotal.toFixed(2)}</h3>")
     else
       price = parseFloat($(this).val())
       quantity = parseFloat($(this).parent().prev().children().first().val())
       total = (quantity * price).toFixed(2)
-      console.log(total)
       if isNaN(total) == false
         input = $(this).parent().next().children().first()
         $(input).empty().val(total).prop('disabled', true)
         sumTotal = 0
         $(".total-field").each (index, element) =>
           sumTotal += parseFloat($(element).val())
-          console.log(sumTotal)
         $("#sum").empty().append("<h3>Total : $#{sumTotal.toFixed(2)}</h3>")
-    console.log(quantity + " " + price)
 
   $('.due-date-field').datepicker()
 
   $(".contact-show-company").click (e) ->
     e.preventDefault()
-    console.log("gonna pass some ajax")
     path = $(this).attr('href')
     companyId = $(this).data("company-id")
     contactId = $(this).data("contact-id")
     $.post path, data:{'company-id': companyId, 'contact-id': contactId}, (data) ->
-      console.log(data)
       $('#company-biz').append(data)
       $('.contact-show-company').attr('href', "javascript:void(0)")
       $('.save-company-data').click (e) ->
         e.preventDefault()
-        console.log('saving company data')
         form = $('form#new_contact')
         id = $(this).data('contact_id')
         path = '/save_company_data'
         $.post path, form.serialize(), (data) ->
-         # data = JSON.parse(data)
-          console.log(data)
-          console.log(data.name)
           $('#company-form-addition').remove()
           $('.contact-show-company').attr('href', '/contact_company')
           $('.contact-show-company').text(data.name)
-
 
   $('.add-line-item').click (e) ->
     e.preventDefault()
     index = $('.line-item-row').size()
     lineItemRow = $('.line-item-row').first().clone()
-    console.log($(lineItemRow).parent())
     $(lineItemRow).find('.note-field').attr('name', "invoice[line_items_attributes][#{index}][note]")
     $(lineItemRow).find('.note-field').val("")
     $(lineItemRow).find('.quantity-field').attr('name', "invoice[line_items_attributes][#{index}][quantity]").val("")
     $(lineItemRow).find('.price-field').attr('name', "invoice[line_items_attributes][#{index}][price]").val("")
     $(lineItemRow).find("#total").val("")
-    console.log($(lineItemRow))
     $("#line-items-table tbody").append($(lineItemRow))
 
   $('body').on 'click',  '.remove-line-item', (e) ->
     e.preventDefault()
-    console.log('hit remove line item')
     if $('.line-item-row').size() > 1
-      console.log('remove')
       total = parseFloat($("#sum h3").text().replace( /^\D+/g, ''))
       itemVal = parseFloat($(this).parent().prev().children().val())
-      console.log(total - itemVal)
       $(this).parent().parent().remove()
       $("#sum h3").empty().append("<h3>Total : $#{total-itemVal}</h3>")
 
@@ -93,16 +75,13 @@ $ ->
     $.get path, (data) ->
       console.log(data)
 
-
   $('.new-contact-estimate-form').click (e) ->
     e.preventDefault()
     path = $(this).attr('href')
-    console.log('hit the contact estimate link')
     $.get path, (data) ->
       $("#invoice_id").toggle()
       $('.new-contact-estimate-form').toggle()
       $("#new-contact-estimate-option").append(data)
-      console.log(data)
       $('.back-to-contact-list-estimates').click (e) ->
         e.preventDefault()
         $('#contact-form-addition').remove()
@@ -111,10 +90,8 @@ $ ->
       $('.save-contact-data').click (e) ->
         e.preventDefault()
         path = $(this).data('path')
-        console.log(path)
         form = $('form#new_contact')
         $.post path, form.serialize(), (data) ->
-          console.log(data)
           $('#contact-form-addition').remove()
           $('#invoice_id').remove()
           $('#new-contact-estimate-option').prepend(data)
@@ -122,39 +99,31 @@ $ ->
 
   $('.make-invoice').click (e) ->
     e.preventDefault()
-    console.log("made invoice")
     $(this).removeClass('btn btn-default').addClass('sent-show-mailer')
     id = $(this).data('id')
     path = $(this).attr('href')
-    console.log(id)
     $.post path, data:{'estimate-id': id}, (data) ->
       console.log(data)
 
   $('.paid-invoice').click (e) ->
     e.preventDefault()
-    console.log("paid invoice")
     $(this).removeClass('btn btn-default').addClass('sent-show-mailer')
     id = $(this).data('id')
     path = $(this).attr('href')
-    console.log(path)
     $.post path, data:{'invoice-id': id}, (data) ->
       console.log(data)
 
   $('.company-sort').click (e) ->
     e.preventDefault()
-    console.log('hit')
     dataType = $(this).data('type')
     ids = []
     $.map $(".contact-item-row"), (n) ->
       ids.push($(n).data "id")
-    console.log(ids)
     $(this).toggleClass('forward')
     forward = $(this).hasClass('forward')
     category = $(this).data('category')
     groupId= $(this).data('group-id')
-
     path = $(this).attr('href')
-    console.log("#{path}?type=#{dataType}&category=#{category}&forward=#{forward}")
 
     $.get "#{path}?type=#{dataType}&category=#{category}&forward=#{forward}&ids=#{ids}", (data) ->
       $(".contact-item-row").empty().remove()
@@ -162,19 +131,15 @@ $ ->
 
   $('.due-date-sort , .contact-sort, .total-sort, .status-sort').click (e) ->
     e.preventDefault()
-    console.log('hit')
     groupId = $(this).data('group-id')
     dataType = $(this).data('type')
     ids = []
     $.map $(".line-item-show-row"), (n) ->
       ids.push($(n).data "id")
-    console.log(ids)
     $(this).toggleClass('forward')
     forward = $(this).hasClass('forward')
-    console.log(dataType)
     category = $(this).data('category')
     path = $(this).attr('href')
-    console.log(path)
     $.get "#{path}?type=#{dataType}&category=#{category}&forward=#{forward}&ids=#{ids}", (data) ->
         $(".line-item-show-row").empty().remove()
         $("#invoices-index-table tbody").append($(data))
@@ -185,11 +150,9 @@ $ ->
     if $(this).data('id') == null
       form = $('form#new_invoice')
       path = "/groups/#{groupId}/estimates"
-      console.log(path)
       $.post path, form.serialize(), (data) ->
         console.log(data)
 
   $('body').on 'click', '.back-all', (e) ->
     e.preventDefault()
     toRemove = $('.line-item-show-row').size()-5
-    console.log('back all')

@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :group, :reject_if => :no_group
   validates_associated :group
 
-
   def no_group(attributes)
     attributes["name"].blank?
   end

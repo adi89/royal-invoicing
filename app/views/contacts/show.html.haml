@@ -11,29 +11,29 @@
         %li
           %b
             Email :
-          = best_in_place @contact, :email, :path => group_contact_path(@group, @contact)
+          = best_in_place @contact, :email, :path => group_contact_path(current_user.group, @contact)
         %li
           %b
             Job Title :
-          = best_in_place @contact, :job_title, :path => group_contact_path(@group, @contact)
+          = best_in_place @contact, :job_title, :path => group_contact_path(current_user.group, @contact)
           at
           #company-biz
-            = link_to @company.name, company_ajax_path, class: 'contact-show-company', data: {company_id: @company.id, contact_id: @contact.id}
+            = link_to @contact.company.name, add_company_path, class: 'contact-show-company', data: {company_id: @contact.company.id, contact_id: @contact.id}
         %li
           %b
             Phone Number :
-          = best_in_place @contact, :phone_number, :path => group_contact_path(@group, @contact)
+          = best_in_place @contact, :phone_number, :path => group_contact_path(current_user.group, @contact)
 
         %li
           %b
             Website :
-          = best_in_place @contact, :website, :path => group_contact_path(@group, @contact)
+          = best_in_place @contact, :website, :path => group_contact_path(current_user.group, @contact)
         %li
           %b
             Address :
-          = best_in_place @contact, :address, :path => group_contact_path(@group, @contact)
+          = best_in_place @contact, :address, :path => group_contact_path(current_user.group, @contact)
         %li
           %b
             Twitter Handle
-          = best_in_place @contact, :twitter_handle, :path => group_contact_path(@group, @contact)
+          = best_in_place @contact, :twitter_handle, :path => group_contact_path(current_user.group, @contact)
 

@@ -12,7 +12,7 @@
       %table#invoices-index-table.table-striped.table-hover
         %thead.invoice-index-table-header
           %th= link_to 'Due', sort_group_invoices_path(current_user.group.id), class: 'due-date-sort forward', data: {type: 'due_date', category: 'invoices', group_id: current_user.group.id, user_id: current_user.id}
-          %th Title
+          %th Subject
           %th Note
           %th= link_to " Contact(s)", sort_group_invoices_path(current_user.group.id), class: 'contact-sort forward', data: {type: 'contacts', category: 'invoices', group_id: current_user.group.id}
           %th= link_to 'Total ($)', sort_group_invoices_path(current_user.group.id), class: 'total-sort forward', data: {type: 'total', category: 'invoices', group_id: current_user.group.id}

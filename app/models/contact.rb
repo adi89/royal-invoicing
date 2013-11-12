@@ -26,7 +26,6 @@ class Contact < ActiveRecord::Base
   has_many :estimates, through: :estimates_contacts
   accepts_nested_attributes_for :company, :reject_if => :no_company
   mount_uploader :photo, ContactUploader
-  # validates :photo, presence: true
   validates_associated :company
   validates_presence_of :company_id, :unless => Proc.new() {|r| r.company}
   validates_presence_of :name
@@ -39,4 +38,8 @@ class Contact < ActiveRecord::Base
   def self.top_contacts(current_user)
     current_user.group.users.includes(:contacts).map{|i| i.contacts}.flatten
      end
+
+  def self.group_contacts(group)
+    Contact.includes(:user).where("users.group_id" => "#{group.id}")
+  end
 end

@@ -16,6 +16,7 @@ describe InvoicesController do
       expect(response.status).to eq(200)
     end
   end
+
   describe 'Show page' do
     it 'renders gives us the show page' do
       login_user(@user)
@@ -24,6 +25,7 @@ describe InvoicesController do
       response.should render_template(:show)
     end
   end
+
   describe 'New invoice' do
     it 'renders the new page and has a 200 status ' do
       login_user(@user)
@@ -46,6 +48,7 @@ describe InvoicesController do
       expect(response.status).to eq (200)
     end
   end
+
   describe 'edit' do
     it 'gives us a 200 for edit' do
       login_user(@user)
@@ -54,6 +57,7 @@ describe InvoicesController do
       response.should render_template(:new)
     end
   end
+
   describe 'update' do
     it 'successfully edits invoice' do
       login_user(@user)
@@ -75,13 +79,15 @@ describe InvoicesController do
       #redirect occurs
     end
   end
+
   describe 'paid' do
     it 'brings you to paid action form js' do
       login_user(@user)
-      xhr :post, :paid_invoice, {use_route: "paid_invoice", "data" => {"invoice-id"=> @invoice.id}}
+      xhr :post, :pay, {use_route: "pay", "data" => {"invoice-id"=> @invoice.id}}
       expect(response.status).to eq 200
     end
   end
+
   describe 'create' do
     it 'creates an invoice#action' do
       company = Fabricate(:company)
@@ -100,4 +106,5 @@ describe InvoicesController do
       expect(response.status).to eq (302)
     end
   end
+
 end

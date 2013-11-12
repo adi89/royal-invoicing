@@ -14,6 +14,7 @@ describe ContactsController do
       expect(response.status).to eq(200)
     end
   end
+
   describe 'Show page' do
     it 'renders gives us the show page' do
       login_user(@contact.user)
@@ -22,6 +23,7 @@ describe ContactsController do
       response.should render_template(:show)
     end
   end
+
   describe 'New invoice' do
     it 'renders the new page and has a 200 status ' do
       login_user(@contact.user)
@@ -30,6 +32,7 @@ describe ContactsController do
       response.should render_template(:new)
     end
   end
+
   describe "sort" do
     it 'sorts the contacts successfully passing the sort action' do
       login_user(@contact.user)
@@ -38,26 +41,6 @@ describe ContactsController do
                         "forward" => "false",
                         "ids" => "#{@contact.id}}"
                         }
-      expect(response.status).to eq (200)
-    end
-  end
-  describe 'company_ajax' do
-    it 'does the company ajax action' do
-      login_user(@contact.user)
-      xhr :post, :company_ajax, {use_route: "company_ajax",
-                                 "data"=> {"contact-id" => "#{@contact.id}"}
-                                 }
-      expect(response.status).to eq (200)
-    end
-  end
-  describe 'save_company_ajax' do
-    it 'saves company data action' do
-      login_user(@contact.user)
-      xhr :post, :save_company_data, {use_route: "save_company_data", "contact_id"=> @contact.id,
-
-                                      "contact" => {"company_attributes" => {"id" => @contact.company.id }
-                                                    }
-                                      }
       expect(response.status).to eq (200)
     end
   end
@@ -77,23 +60,25 @@ describe ContactsController do
                       "action"=>"update",
                       "controller"=>"contacts"
                       }
-      expect(response.status).to eq (200)
+      expect(response.status).to eq (302)
     end
   end
+
   describe 'ajax create' do
     it 'it follows contact action logic and redirects' do
       login_user(@contact.user)
       xhr :post, :create, {use_route: :group_contacts, :group_id => @contact.user.group.id, "contact" =>
-                  {"name"=>"blah ",
-                   "email"=>"adi_singh_is_the_king@hotmail.com",
-                   "phone_number"=>"7324039102",
-                   "company_attributes"=>{"name"=>"adds"},
-                   "job_title"=>"jobjob",
-                   "address"=>"123 jay street",
-                   "twitter_handle"=>"@Jay_Dilla"
-                 }
-      }
+                           {"name"=>"blah ",
+                            "email"=>"adi_singh_is_the_king@hotmail.com",
+                            "phone_number"=>"7324039102",
+                            "company_attributes"=>{"name"=>"adds"},
+                            "job_title"=>"jobjob",
+                            "address"=>"123 jay street",
+                            "twitter_handle"=>"@Jay_Dilla"
+                            }
+                           }
       expect(response.status).to eq (200)
     end
   end
+
 end

@@ -23,9 +23,6 @@ Sherman::Application.routes.draw do
   get '/users/sign_up' => 'registrations#new', :as => :new_user_registration
 end
 
-  # scope "groups/:group_id" do
-  #   devise_for :users, :controllers => {:registrations => "registrations"}, :only =>
-    # as :user do
     devise_scope :user do
       delete 'groups/:group_id/signout' => 'devise/sessions#destroy', :as => :destroy_user_session
       put 'groups/:group_id/cancel' => 'registrations#cancel', :as => :cancel_user_registration
@@ -35,27 +32,26 @@ end
       get 'groups/:group_id/users/edit' => 'registrations#edit', :as => :edit_user_registration
     end
 
-
   root :to => 'home#index'
 
   resources :companies
-  # post 'groups/:group_id/invoices/sort' => 'invoices#sort'
 
   put 'groups/:group_id/estimates/:id' => 'estimates#update_estimate'
 
   get '/add_line_item_estimates' => 'estimates#add_line_item'
-  get '/add_contact_estimate' => 'estimates#add_contact', :as => :add_contact_estimate
 
-  post '/save_contact_estimate' => 'estimates#save_contact', :as =>
+  get '/add_contact_estimate' => 'contacts#add_contact_to_estimate', :as => :add_contact_estimate
+
+  post '/save_contact_estimate' => 'contacts#save_contact_to_estimate', :as =>
     :save_contact_estimate
 
-  post '/paid_invoice' => 'invoices#paid_invoice', :as => :paid_invoice
-  post '/make_invoice' => 'estimates#make_invoice', :as => :make_invoice
+  post '/pay' => 'invoices#pay', :as => :pay
 
-  # get '/groups/:group_id/contacts/sort' => 'contacts#sort'
+  post '/make_invoice' => 'estimates#make_into_invoice', :as => :make_into_invoice
 
-  post '/contact_company' => 'contacts#company_ajax', :as => :company_ajax
-  post '/save_company_data' => 'contacts#save_company_data', :as => :save_company_data
+  post '/contact_company' => 'companies#add_company', :as => :add_company
+
+  post '/save_company_data' => 'companies#save_company_data', :as => :save_company_data
 
   get '/add_line_item' => 'invoices#add_line_item'
 

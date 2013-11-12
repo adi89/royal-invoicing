@@ -12,4 +12,9 @@
         = content_tag :div, msg, id: "flash_#{name}"
       = yield
       = render 'shared/modal'
-      = render 'shared/footer'
+      .clearfix
+      .navbar.navbar-default#footer
+        .container
+          %h2.subvrt-header
+            = link_to 'Subvrt', "http://subvrt.com"
+          %h4.all-rights-reserved= "#{Time.now.year} All Rights Reserved"

@@ -1,0 +1,8 @@
+.row#company-form-addition{:'data-auth-token' => form_authenticity_token}
+  .col-md-4
+    #create.form-group
+      = form_for [current_user.group, @new_contact], :html => { :multipart => true }, :remote => true do |f|
+        = f.fields_for :company do |company|
+          =company.collection_select :id, Company.order(:name),:id,:name, include_blank: false
+        = hidden_field_tag :contact_id, @existing_contact_id
+        = f.submit('Save Company Data', :class => 'btn btn-success save-company-data')

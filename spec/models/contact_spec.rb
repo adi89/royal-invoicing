@@ -38,6 +38,7 @@ describe Contact do
       expect(@contact.company.present?).to eq true
     end
   end
+
   describe 'validations' do
     it 'only creates concacts w unique emails' do
       contact = Contact.create(name: "odie", email: @contact.email, company_id: @contact.company.id)
@@ -58,14 +59,21 @@ describe Contact do
       expect(contact.save).to eq true
     end
   end
+
   describe 'scope' do
-    it 'finds the top contacts' do
-      contact2 = Contact.create(name: 'odie', email: 'bronsolino@gmail.com', company_id: Company.first.id)
-      group = Group.create(name: 'sample')
-      user = User.create(email: 'hd@a.com', password: 'derpfjdy32', group_id: group.id)
-      user.contacts << [@contact, contact2]
+
+    before(:each) do
+    @contact2 = Contact.create(name: 'odie', email: 'bronsolino@gmail.com', company_id: Company.first.id)
+      @group = Group.create(name: 'sample')
+      @user = User.create(email: 'hd@a.com', password: 'derpfjdy32', group_id: @group.id)
+      @user.contacts << [@contact, @contact2]
       @contact.invoices << Fabricate(:invoice)
-      expect(Contact.top_contacts(user).first).to eq @contact
+    end
+    it 'finds the top contacts' do
+      expect(Contact.top_contacts(@user).first).to eq @contact
+    end
+    it 'gets the groups contacts' do
+      expect(Contact.group_contacts(@group)).to eq @group.users.map{|i| i.contacts}.flatten
     end
   end
 end

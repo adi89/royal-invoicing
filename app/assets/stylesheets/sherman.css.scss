@@ -1,445 +1,445 @@
-@import url(http://fonts.googleapis.com/css?family=Exo:900);
+@import "http://fonts.googleapis.com/css?family=Exo:900";
 
-.call-to-action-invoice-estimate, .add-contact-button {
-float:right;
-margin-top:2.5%
+.call-to-action-invoice-estimate,.add-contact-button {
+  float      : right;
+  margin-top : 2.5%
 }
 
 .contact-labelz {
-display:block
+  display : block
 }
 
 #contact-addition {
-display:inline-block!important
+  display : inline-block!important
 }
 
 #contact-addition-box {
-display:inline-block!important;
-padding:2px;
-border:1px solid grey;
-background-color:#ffc0cb;
-text-align:center;
-margin:10px
+  display          : inline-block!important;
+
+  margin           : 10px;
+  padding          : 2px;
+
+  background-color : #ffc0cb;
+  text-align       : center;
+  border           : 1px solid grey;
 }
 
 #landing-begin h1 {
-font-size:400%
+  font-size : 400%
 }
 
 #company-form-addition {
-margin:0!important;
-height:75px
+  height : 75px;
+  margin : 0!important;
 }
 
 #line-items-table th {
-font-size:1em;
-margin-right:10px;
-text-align:center
+  margin-right : 10px;
+  font-size    : 1em;
+  text-align   : center
 }
 
 .add-line-item {
-display:inline-block;
-margin-left: 5px;
-margin-bottom: 5px;
-
+  display       : inline-block;
+  margin-bottom : 5px;
+  margin-left   : 5px;
 }
 
 .line-item-title {
-display:inline-block
+  display : inline-block
 }
 
 .due-date-label {
-display:block
+  display : block;
 }
 
 #line-items-table td {
-font-size:.75em;
-margin-right:10px
+  margin-right : 10px;
+  font-size    : .75em;
 }
 
 #line-items-table input {
-margin-right:10px;
-margin-bottom:10px
+  margin-right  : 10px;
+  margin-bottom : 10px
 }
 
 #line-items-table td:nth-child(5n) {
-text-align:center;
-top:-2px;
-position:relative!important
+  position   : relative!important;
+  top        : -2px;
+  text-align : center;
 }
 
 #sum {
-float:right;
-margin-top:0
+  float      : right;
+  margin-top : 0
 }
 
 #sum h3 {
-margin-top:0
+  margin-top : 0
 }
 
 .post-buttons {
-display:block
+  display : block
 }
 
 .billing-doc {
-background-image:url(airmail-top.png),url(airmail-bottom.png);
-background-repeat:no-repeat;
-background-color:#fafad2;
-background-position:0 0,0 bottom;
-padding-top:20px;
-padding-bottom:20px;
-background-repeat-x: initial;
-float:left;
-width:100%
+  float               : left;
+
+  width               : 100%;
+  padding-top         : 20px;
+  padding-bottom      : 20px;
+
+  background-color    : #fafad2;
+  background-image    : url(airmail-top.png),url(airmail-bottom.png);
+  background-position : 0 0,0 bottom;
+  background-repeat   : no-repeat;
+  background-repeat-x : initial;
 }
 
 #contact-pic img {
-width:250px
+  width : 250px
 }
 
 #contact-pic {
-width:250px;
-float:right;
-display:inline-block
+  display : inline-block;
+  float   : right;
+  width   : 250px;
 }
 
 #basic-bio-container {
-background-position:0 0,0 bottom;
-background:url(http://fc04.deviantart.net/fs70/f/2013/148/5/8/3x5_notecard_by_minty_melodies-d66zrul.jpg) no-repeat;
-background-size:100%;
-float:left;
-clear:both;
-overflow:auto;
-min-height:400px;
-width:100%
+  float               : left;
+  clear               : both;
+
+  overflow            : auto;
+  min-height          : 400px;
+  width               : 100%;
+
+  background          : url(http://fc04.deviantart.net/fs70/f/2013/148/5/8/3x5_notecard_by_minty_melodies-d66zrul.jpg) no-repeat;
+  background-position : 0 0,0 bottom;
+  background-size     : 100%;
 }
 
 #contact-name {
-display:inline-block;
-position:relative;
-float:left;
-top:20px;
-padding-left:5px
+  position     : relative;
+  display      : inline-block;
+  float        : left;
+  top          : 20px;
+  padding-left : 5px
 }
 
 #contact-name h2 {
-display:inline
+  display : inline
 }
 
 .contact-details {
-clear:left;
-list-style-type:none;
-top:35px;
-position:relative
+  position        : relative;
+  clear           : left;
+  top             : 35px;
+  list-style-type : none;
 }
 
 .contact-details li {
-font-size:120%;
-margin-bottom:10px
+  margin-bottom : 10px;
+  font-size     : 120%;
 }
 
 .billing-doc-header {
-float:left;
-position:relative
+  position : relative;
+  float    : left;
 }
 
 .show-description {
-clear:both;
-margin:2%;
-padding:2%
+  clear   : both;
+  margin  : 2%;
+  padding : 2%
 }
 
-// .line-item-show-row td {
-// padding-right:5%;
-// margin:5%
-// }
-
 #line-items-show-table {
-width:100%;
-border-spacing:10px
+  width          : 100%;
+  border-spacing : 10px;
 }
 
 table {
-border-spacing:10px
+  border-spacing : 10px
 }
 
 .table-show-header {
-border-bottom:1px solid grey
+  border-bottom : 1px solid grey
 }
 
 .total-cost {
-float:right;
-padding:2%;
-font-size:150%;
-font-weight:700
+  float       : right;
+  padding     : 2%;
+  font-size   : 150%;
+  font-weight : 700
 }
 
 .show-mailer-button,.make-invoice,.paid-invoice {
-float:right;
-display:inline-block;
-position:relative;
-top:-40px;
-margin-right:20px
+  position     : relative;
+  display      : inline-block;
+  float        : right;
+  top          : -40px;
+  margin-right : 20px
 }
 
 .sent-show-mailer {
-display:inline-block;
-padding:6px 12px;
-margin-bottom:0;
-font-size:14px;
-font-weight:400;
-line-height:1.428571429;
-text-align:center;
-white-space:nowrap;
-vertical-align:middle;
-cursor:pointer;
-border:1px solid transparent;
-border-radius:4px;
--webkit-user-select:none;
--moz-user-select:none;
--ms-user-select:none;
--o-user-select:none;
-user-select:none;
-color:#333;
-background-color:#AFB09C;
-border-color:#ccc
+  display             : inline-block;
+  vertical-align      : middle;
+  margin-bottom       : 0;
+  padding             : 6px 12px;
+  cursor              : pointer;
+  background-color    : #AFB09C;
+  font-size           : 14px;
+  font-weight         : 400;
+  color               : #333;
+  line-height         : 1.428571429;
+  text-align          : center;
+  border              : 1px solid transparent;
+  border-color        : #ccc;
+  border-radius       : 4px;
+  white-space         : nowrap;
+  -webkit-user-select : none;
+  -moz-user-select    : none;
+  -ms-user-select     : none;
+  -o-user-select      : none;
+  user-select         : none;
 }
 
 .invoices {
-clear:both;
-color: #0B2C3C;
-font-weight:200;
-width:100%
+  clear       : both;
+  width       : 100%;
+  font-weight : 200;
+  color       : #0B2C3C;
 }
 
 .invoices td {
-padding:10px;
-width:128px
+  width   : 128px;
+  padding : 10px;
 }
 
 #invoices-title {
-clear:both;
-margin-top:10%;
-border-bottom:1px dashed #000;
-font-style:italic;
-font-weight:100
+  clear         : both;
+  margin-top    : 10%;
+  font-style    : italic;
+  font-weight   : 100;
+  border-bottom : 1px dashed #000;
 }
 
 #invoices-row td:third-child {
-font-size: 80%;
+  font-size : 80%;
 }
 
 .see-all-invoice {
-float:right;
-display:inline
+  display : inline;
+  float   : right;
 }
 
 .see-all-invoice-link {
-font-size:65%
+  font-size : 65%;
 }
 
 .hide {
-display:none
+  display : none
 }
 
 .back-all {
-float:right
+  float : right
 }
 
 .edit-invoice {
-float:right
+  float : right;
 }
 
 .sherman-pic {
-width:100%;
+  width : 100%;
 }
 
 .sherman-landing {
-padding-top:20px;
-margin-bottom:20px;
-padding-bottom:20px;
-background-color:#000;
-position: relative;
+  position         : relative;
+  margin-bottom    : 20px;
+  padding-top      : 20px;
+  padding-bottom   : 20px;
+  background-color : #000;
 }
 
-.landing-one, .landing-invoice, .landing{
-  position: absolute;
-  float: left;
-  width: 50%;
-}
-.landing-one{
-  top: 20px;
-  color: white;
+.landing-one,.landing-invoice,.landing {
+  position : absolute;
+  float    : left;
+  width    : 50%
 }
 
-.landing-invoice{
-  top: 140px;
-  color: white;
+.landing-one {
+  top   : 20px;
+  color : #fff
 }
-.invoices{
-  font-size: 120%;
+
+.landing-invoice {
+  top   : 140px;
+  color : #fff
+}
+
+.invoices {
+  font-size : 120%
 }
 
 .invoices table {
-  white-space: nowrap;
-  width: 100%;
+  width       : 100%;
+  white-space : nowrap;
 }
 
-#invoices-paginate, #estimates-paginate{
-  margin-left: 5%;
-  font-size: 120%;
+#invoices-paginate,#estimates-paginate {
+  margin-left : 5%;
+  font-size   : 120%
 }
 
-#flash_notice{
-text-align: center;
-height: 40px;
-line-height: 40px;
-background: pink;
+#flash_notice {
+  height      : 40px;
+  background  : #ffc0cb;
+  line-height : 40px;
+  text-align  : center;
 }
 
-.note-td{
-  font-size: 80%;
+.note-td {
+  font-size : 80%
 }
 
-.pagination{
-  margin: 10px 0;
-}
-#new_contact input{
-  margin-bottom: 10px;
+.pagination {
+  margin : 10px 0
 }
 
-#flash-validation-contact{
-text-align: center;
-margin-bottom: 20px;
-background-color: pink;
+#new_contact input {
+  margin-bottom : 10px
 }
 
-
-
-#contact{
-  clear: both;
-  margin-right: 5%;
-  margin-left: 5%;
-  margin-top: 10%;
-  margin-bottom: 10%;
-  font-size: 120%;
+#flash-validation-contact {
+  margin-bottom    : 20px;
+  background-color : #ffc0cb;
+  text-align       : center;
 }
 
-.edit_contact input{
-  margin-bottom: 10px;
+#contact {
+  clear     : both;
+  margin    : 10% 5%;
+  font-size : 120%;
 }
 
-#contact table{
-  width: 100%;
-  white-space: nowrap;
+.edit_contact input {
+  margin-bottom : 10px;
 }
 
-#contact-header{
-  border-bottom: 1px dashed black;
-  clear: both;
-  font-style: italic;
+#contact table {
+  width       : 100%;
+  white-space : nowrap;
 }
 
-.contact-photo-index{
-  width: 150px;
-  opacity: 0.7;
-  height: 150px;
-  border: 1px solid grey;
+#contact-header {
+  clear         : both;
+  font-style    : italic;
+  border-bottom : 1px dashed #000;
 }
 
-.contact-photo-index:hover{
-  opacity: 1;
-}
-.contact-profile{
-width: auto;
-height: 300px;
-font-size: 70%;
-word-wrap: break-word;
+.contact-photo-index {
+  height  : 150px;
+  width   : 150px;
+  opacity : .7;
+  border  : 1px solid grey;
 }
 
-.contact-profile .contact-email{
-  overflow: auto;
-}
-.contact-container{
-  height: 250px;
-}
-#contacts-paginate{
-  float: right;
+.contact-photo-index:hover {
+  opacity : 1;
 }
 
-.contact-name, .contact-phone-number{
-  text-align: center;
-  width: 150px;
+.contact-profile {
+  height    : 300px;
+  width     : auto;
+  font-size : 70%;
+  word-wrap : break-word;
 }
 
-body{
-  background: url('paper_fibers.png');
+.contact-profile .contact-email {
+  overflow : auto;
 }
 
-// #edit-body{
-//   text-align: center;
-// }
-.edit-button{
-  clear: both;
-  margin-top: 4%;
-}
-#contact{
-  color: #0B2C3C;
-}
-#invoice_id{
-  width: 50%;
-}
-.new-contact-estimate-form{
-  display: block;
+.contact-container {
+  height : 250px;
 }
 
-.back-to-contact-list-estimates{
-  margin-bottom: 10px;
-  width: 37%;
+#contacts-paginate {
+  float : right;
 }
 
-// #footer{
-//   min-height: 10%;
-//   background-color: pink;
-// }
-
-.subvrt-header{
-font-family: 'Exo', sans-serif;
-display: inline;
-text-decoration: none;
-}
-.subvrt-header a{
-  color: white;
-}
-.subvrt-header a:hover{
-  text-decoration: none;
-  color: #F08C89;
-}
-.all-rights-reserved{
-  display: inline;
-  float: right;
+.contact-name,.contact-phone-number {
+  width      : 150px;
+  text-align : center;
 }
 
-#footer{
-  padding-top: 20px;
-  background-color: #0B2C3C;
-  margin-top: 3%;
-  color: white;
-  padding-bottom: 20px;
-  margin-bottom: 0;
+body {
+  background : url(paper_fibers.png);
 }
-#sherman-nav{
-padding-bottom: 20px;
+.edit-button {
+  clear      : both;
+  margin-top : 4%;
 }
-.navbar-header, #navbar-content{
-position: relative;
-top: 10px;
-font-size: 1.25em;
-}
-.navbar-brand{
-  font-weight: 700;
-  font-size: 32px;
-  position: relative;
-  bottom: 12px;
 
+#contact {
+  color : #0B2C3C
+}
+
+#invoice_id {
+  width : 50%
+}
+
+.new-contact-estimate-form {
+  display : block
+}
+
+.back-to-contact-list-estimates {
+  width         : 37%;
+  margin-bottom : 10px;
+}
+
+.subvrt-header {
+  display         : inline;
+  font-family     : 'Exo',sans-serif;
+  text-decoration : none;
+}
+
+.subvrt-header a {
+  color : #fff
+}
+
+.subvrt-header a:hover {
+  color           : #F08C89;
+  text-decoration : none;
+}
+
+.all-rights-reserved {
+  display : inline;
+  float   : right;
+}
+
+#footer {
+  margin-top       : 3%;
+  margin-bottom    : 0;
+  padding-top      : 20px;
+  padding-bottom   : 20px;
+  background-color : #0B2C3C;
+  color            : #fff;
+}
+
+#sherman-nav {
+  padding-bottom : 20px;
+}
+
+.navbar-header,#navbar-content {
+  position  : relative;
+  top       : 10px;
+  font-size : 1.25em
+}
+
+.navbar-brand {
+  position    : relative;
+  bottom      : 12px;
+  font-size   : 32px;
+  font-weight : 700;
 }

@@ -24,4 +24,5 @@ describe Company do
       expect(subvrt.save).to eq false
     end
   end
+
 end

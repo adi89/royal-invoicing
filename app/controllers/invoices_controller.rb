@@ -1,8 +1,7 @@
 class InvoicesController < ApplicationController
 
   def index
-    # @invoices = Invoice.order(:due_date).page(params[:page]).per(6).where(kind: 'invoice').where("total IS NOT NULL")
-    @invoices = Kaminari.paginate_array(current_user.group.invoices('invoice')).page(params[:page]).per(6)
+    @invoices = Kaminari.paginate_array(Invoice.group_invoices(current_user.group, 'invoice')).page(params[:page]).per(6)
   end
 
   def sort
@@ -18,47 +17,42 @@ class InvoicesController < ApplicationController
 
   def new
     @invoice = Invoice.new
-    @kind = 'invoice'
-    @group = current_user.group
     @invoice.line_items.build
-    @contacts = current_user.contacts
     @invoices_contacts = @invoice.contacts.build
+    @contacts = Contact.group_contacts(current_user.group)
   end
 
   def edit
     @invoice = Invoice.find(params[:id])
-    @group = current_user.group
-    @kind = @invoice.kind
     @invoices_contacts = @invoice.contacts.build
-    @contacts = current_user.contacts
-    render 'invoices/new'
+    @contacts = Contact.group_contacts(current_user.group)
   end
 
-
   def update
-    invoice = Invoice.find(params[:id])
-    flash[:notice] = "Successfully updated #{invoice.title.capitalize}"
-    invoice.update(invoice_params)
-    invoice.contacts.delete_all
-    binding.pry
+    @invoice = Invoice.find(params[:id])
+    flash[:notice] = "Successfully updated #{@invoice.title.capitalize}"
+    @invoice.update(invoice_params)
+    @invoice.contacts.delete_all
     params["invoice"]["id"].shift #take out the first empty string
     params["invoice"]["id"].each do |i|
-      invoice.contacts << Contact.find(i)
+      @invoice.contacts << Contact.find(i)
     end
-    invoice.line_items.delete_all
+    @invoice.line_items.delete_all
     invoice_params["line_items_attributes"].values.select{|i| i if !i.empty?}.each do |i|
-      invoice.line_items << LineItem.create(i)
+      @invoice.line_items << LineItem.create(i)
     end
-    invoice.total = invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)
-    if invoice.save
-      binding.pry
-      if invoice.kind == "invoice"
-        redirect_to(group_invoice_path(current_user.group.id, invoice))
+    @invoice.total = @invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)
+    if @invoice.save
+      if @invoice.kind == "invoice"
+        flash[:notice] = "#{@invoice.title} updated successfully!"
+        redirect_to(group_invoices_path(current_user.group.id))
       else
-        redirect_to(group_estimate_path(current_user.group.id, invoice))
+        redirect_to(group_estimate_path(current_user.group.id, @invoice))
       end
     else
-      render :new
+      @invoices_contacts = @invoice.contacts.build
+      @contacts = Contact.group_contacts(current_user.group)
+      render :edit
     end
   end
 
@@ -69,38 +63,27 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # def see_all
-  #   if request.xhr?
-  #     invoices_array = Invoice.where(kind: "invoice").where("total IS NOT NULL").sort_by(&:due_date).map{|i| i.id}
-  #     @invoice_ids = params["data"]["invoice_ids"].map{|i| i.to_i}
-  #     @invoice_ids.each do |i|
-  #       if invoices_array.include? i
-  #         invoices_array.delete(i)
-  #       end
-  #     end
-  #     @invoices = invoices_array.map{|i| Invoice.find(i)}
-  #     binding.pry
-  #     render :_invoice_table, content_type: "text/html", layout: false
-  #   end
-  # end
-
   def create
-    binding.pry
-    invoice  = Invoice.new(invoice_params)
+    @invoice  = Invoice.new(invoice_params)
     params["invoice"]["id"].shift #take out the first empty string
     params["invoice"]["id"].each do |i|
-      invoice.contacts << Contact.find(i)
+      @invoice.contacts << Contact.find(i)
     end
-    invoice.total = invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)
-    invoice.save
-    current_user.invoices << invoice
-    redirect_to group_invoice_path(current_user.group.id, invoice)
+    @invoice.total = @invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)
+    if @invoice.save
+      current_user.invoices << @invoice
+      redirect_to group_invoice_path(current_user.group.id, @invoice)
+    else
+      flash[:notice]= "#{@invoice.errors.full_messages.first}"
+      @contacts = Contact.group_contacts(current_user.group)
+      render :new
+    end
   end
 
-  def paid_invoice
+  def pay
     invoice = Invoice.find(params["data"]["invoice-id"])
     invoice.pay
-    render  nothing: true, layout: false
+    render nothing: true, layout: false
   end
 
   private
