@@ -49,9 +49,9 @@ end
 
   post '/make_invoice' => 'estimates#make_into_invoice', :as => :make_into_invoice
 
-  post '/contact_company' => 'companies#add_company', :as => :add_company
+  post '/contact_company' => 'companies#new'
 
-  post '/save_company_data' => 'companies#save_company_data', :as => :save_company_data
+  post '/save_company_data' => 'companies#create', :as => :save_company_data
 
   get '/add_line_item' => 'invoices#add_line_item'
 

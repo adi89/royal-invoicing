@@ -36,7 +36,8 @@ $ ->
     path = $(this).attr('href')
     companyId = $(this).data("company-id")
     contactId = $(this).data("contact-id")
-    $.post path, data:{'company-id': companyId, 'contact-id': contactId}, (data) ->
+
+    $.get "#{path}?company-id=#{companyId}&contact-id=#{contactId}", (data) ->
       $('#company-biz').append(data)
       $('.contact-show-company').attr('href', "javascript:void(0)")
       $('.save-company-data').click (e) ->

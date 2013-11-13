@@ -1,22 +1,26 @@
 class CompaniesController < ApplicationController
 
-  def add_company
-    @existing_contact_id = params["data"]["contact-id"]
-    @new_contact = Contact.new
-    @new_contact.build_company
-    render :add_company, content_type: "text/html", layout: false
-  end
-
-  def save_company_data
-    @contact = Contact.find(params["contact_id"])
-    @contact.company = Company.find(params["contact"]["company_attributes"]["id"])
-    @contact.save
-    render :json => @contact.company
-  end
-
-  def update
+  def new
     if request.xhr?
-      render :text => params[:company].values.first
+      @existing_contact_id = params["contact-id"]
+      @new_contact = Contact.new
+      @new_contact.build_company
+      render content_type: "text/html", layout: false
+    else
+      redirect_to(group_contact_path(current_user.group, @existing_contact_id))
+    end
+  end
+
+  def create
+    if request.xhr?
+      @contact = Contact.find(params["contact_id"])
+      company = Company.find(params["contact"]["company_attributes"]["id"])
+      company.contacts << @contact
+      if company.save
+        render :json => company
+      end
+    else
+      redirect_to(group_contact_path(current_user.group, @contact))
     end
   end
 end
