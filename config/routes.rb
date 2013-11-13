@@ -40,8 +40,6 @@ end
 
   get '/add_line_item_estimates' => 'estimates#add_line_item'
 
-  get '/add_contact_estimate' => 'contacts#add_contact_to_estimate', :as => :add_contact_estimate
-
   post '/save_contact_estimate' => 'contacts#save_contact_to_estimate', :as =>
     :save_contact_estimate
 

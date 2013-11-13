@@ -1,0 +1,10 @@
+.row#contact-form-addition{:'data-auth-token' => form_authenticity_token}
+  .col-md-4
+    #create.form-group
+      = form_for [current_user.group, @contact], :html => { :multipart => true }, :remote => true do |f|
+        = f.text_field :name, placeholder: "name", class: "form-control"
+        = f.text_field :email, placeholder: "email", class: "form-control"
+        = f.fields_for :company do |company|
+          =company.text_field :name, placeholder: "company name", class: "form-control"
+        = f.submit('Save Contact Data', :class => 'btn btn-xs btn-success save-contact-data', data: {path: "/save_contact_estimate"})
+        =link_to 'back', '#', class: 'back-to-contact-list-estimates btn btn-xs btn-success'

@@ -79,7 +79,7 @@ $ ->
   $('.new-contact-estimate-form').click (e) ->
     e.preventDefault()
     path = $(this).attr('href')
-    $.get path, (data) ->
+    $.get "#{path}?type=mini", (data) ->
       $("#invoice_id").toggle()
       $('.new-contact-estimate-form').toggle()
       $("#new-contact-estimate-option").append(data)

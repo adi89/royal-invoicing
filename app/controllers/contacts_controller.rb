@@ -8,19 +8,13 @@ class ContactsController < ApplicationController
   def new
     @contact = Contact.new
     @contact.build_company
+    if (params['type'] == 'mini')
+      return render :mini_contact_form, layout: false
+    end
     if request.xhr?
       render layout: false
     end
   end
-
-  def add_contact_to_estimate
-    if request.xhr?
-      @contact = Contact.new
-      @contact.build_company
-      render :add_contact_to_estimate, content_type: "text/html", layout: false
-    end
-  end
-
 
   def save_contact_to_estimate
     if request.xhr?
