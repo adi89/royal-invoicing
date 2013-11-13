@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe BillingDoc do
   before(:each) do
-    @invoice = Fabricate(:invoice)
+    @invoice = Fabricate(:billing_doc)
   end
 
   describe '.create' do
@@ -31,7 +31,7 @@ describe BillingDoc do
 
   describe 'contacts sort' do
     it 'sorts contacts' do
-      @invoice = Fabricate(:invoice)
+      @invoice = Fabricate(:billing_doc)
       @invoice.contacts << [Fabricate(:contact), Contact.create(name: 'odie', email: 'bronsolino@gmail.com', company_id: Company.first.id)]
       @category = BillingDoc.where(kind: 'invoice')
       attribute = "contacts"

@@ -33,19 +33,16 @@ class InvoicesController < ApplicationController
     flash[:notice] = "Successfully updated #{@invoice.title.capitalize}" if @invoice.title
     @invoice.update(billing_doc_params)
     @invoice.contacts.delete_all
-    binding.pry
-    params["invoice"]["id"].shift #take out the first empty string
-    params["invoice"]["id"].each do |i|
+    params["billing_doc"]["id"].shift #take out the first empty string
+    params["billing_doc"]["id"].each do |i|
       @invoice.contacts << Contact.find(i)
     end
     @invoice.line_items.delete_all
     billing_doc_params["line_items_attributes"].values.select{|i| i if !i.empty?}.each do |i|
       @invoice.line_items << LineItem.create(i)
     end
-    binding.pry
     @invoice.total = @invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)
     if @invoice.save
-      binding.pry
       if @invoice.kind == "invoice"
         flash[:notice] = "#{@invoice.title} updated successfully!"
         redirect_to(group_invoices_path(current_user.group.id))
@@ -53,7 +50,6 @@ class InvoicesController < ApplicationController
         redirect_to(group_estimate_path(current_user.group.id, @invoice))
       end
     else
-      binding.pry
       @invoices_contacts = @invoice.contacts.build
       @contacts = Contact.group_contacts(current_user.group)
       render :edit
@@ -69,8 +65,8 @@ class InvoicesController < ApplicationController
 
   def create
     @invoice  = BillingDoc.new(billing_doc_params)
-    params["invoice"]["id"].shift #take out the first empty string
-    params["invoice"]["id"].each do |i|
+    params["billing_doc"]["id"].shift #take out the first empty string
+    params["billing_doc"]["id"].each do |i|
       @invoice.contacts << Contact.find(i)
     end
     @invoice.total = @invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)

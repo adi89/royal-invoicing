@@ -42,10 +42,9 @@ class EstimatesController < ApplicationController
   end
 
   def create
-    binding.pry
     @invoice  = BillingDoc.new(billing_doc_params)
-    params["invoice"]["id"].select!{|i| !i.blank?} #take out any empty strings
-    params["invoice"]["id"].each do |i|
+    params["billing_doc"]["id"].select!{|i| !i.blank?} #take out any empty strings
+    params["billing_doc"]["id"].each do |i|
       @invoice.contacts << Contact.find(i)
     end
     @invoice.total = @invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)

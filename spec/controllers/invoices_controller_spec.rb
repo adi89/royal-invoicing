@@ -2,9 +2,9 @@ require "spec_helper"
 include Devise::TestHelpers
 include ControllerMacros
 
-describe BillingDocsController do
+describe InvoicesController do
   before(:each) do
-    @invoice = Fabricate(:invoice)
+    @invoice = Fabricate(:billing_doc)
     @user = Fabricate(:user)
     @invoice.line_items << LineItem.create(price: 20, quantity: 20, note: 'none')
   end
@@ -54,7 +54,7 @@ describe BillingDocsController do
       login_user(@user)
       get :edit, {group_id: @user.group.id, id: @invoice.id, use_route: "edit_group_invoice"}
       expect(response.status).to eq (200)
-      response.should render_template(:new)
+      response.should render_template(:edit)
     end
   end
 
@@ -65,7 +65,7 @@ describe BillingDocsController do
       @invoice.contacts << Contact.create(name: 'joe', email: 'joeschmoe21@gmail.com', company_id: company.id)
       patch :update, {group_id: @user.group.id, id: @invoice.id, use_route: "patch_group_invoice",
                       "_method"=>"patch",
-                      "invoice"=>
+                      "billing_doc"=>
                       {"title"=>"dsfadsdasds",
                        "note"=>"fdasdds",
                        "due_date"=>"11/13/2013",
@@ -94,7 +94,7 @@ describe BillingDocsController do
       @invoice.contacts << Contact.create(name: 'joe', email: 'joeschmoe21@gmail.com', company_id: company.id)
       login_user(@user)
       post :create, {use_route: "group_invoices", group_id: @user.group.id,
-                     "invoice"=>
+                     "billing_doc"=>
                      {"title"=>"darkemosynthppop",
                       "note"=>"derp",
                       "due_date"=>"11/29/2013",

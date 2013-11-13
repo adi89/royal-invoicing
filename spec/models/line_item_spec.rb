@@ -25,8 +25,8 @@ describe LineItem do
   end
 
   describe "associations" do
-    it 'belongs to a invoice' do
-      expect(@line_item.invoice.present?).to eq true
+    it 'belongs to a billing_doc' do
+      expect(@line_item.billing_doc.present?).to eq true
     end
   end
 end

@@ -25,5 +25,5 @@
 Fabricator(:line_item) do
   quantity 2
   price 40.00
-  invoice
+  billing_doc
 end

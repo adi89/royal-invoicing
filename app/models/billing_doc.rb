@@ -59,7 +59,6 @@ class BillingDoc < ActiveRecord::Base
   end
 
   def self.group_invoices(group, kind)
-
     self.includes(:users).where(kind: kind).where('total is NOT NULL').where('users.group_id' =>  "#{group.id}")
   end
 end
