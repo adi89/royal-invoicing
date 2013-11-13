@@ -2,17 +2,26 @@ require 'sidekiq/web'
 Sherman::Application.routes.draw do
 
   resources :groups do
-    resources :invoices do
-      collection do
-        get 'sort' => 'invoices#sort'
-      end
-    end
-    resources :estimates, except: :update
     resources :contacts do
       collection do
         get 'sort' => 'contacts#sort'
       end
     end
+    get '/:kind' => 'billing_docs#index', as: :billing_docs_kind
+    post '/:kind' => 'billing_docs#create'
+    get '/billing_docs/sort' => 'billing_docs#sort'
+    get '/:kind/new' => 'billing_docs#new', as: :new_billing_doc
+    resources :billing_docs, except: [:index, :new, :create]
+
+
+  # /billing_docs/estimates
+  # /bl
+    # resources :invoices do
+    #   collection do
+    #     get 'sort' => 'invoices#sort'
+    #   end
+    # end
+    # resources :estimates, except: :update
   end
 
   devise_for :users, :controllers => {:registrations => "registrations"}, :skip => [:sessions, :registrations]
@@ -36,16 +45,16 @@ end
 
   resources :companies
 
-  put 'groups/:group_id/estimates/:id' => 'estimates#update_estimate'
+  # put 'groups/:group_id/estimates/:id' => 'estimates#update_estimate'
 
   get '/add_line_item_estimates' => 'estimates#add_line_item'
 
   post '/save_contact_estimate' => 'contacts#create', :as =>
     :save_contact_estimate
 
-  post '/pay' => 'invoices#pay', :as => :pay
+  post '/pay' => 'billing_docs#pay', :as => :pay
 
-  post '/make_invoice' => 'estimates#make_into_invoice', :as => :make_into_invoice
+  post '/make_invoice' => 'billing_docs#make_into_invoice', :as => :make_into_invoice
 
   post '/contact_company' => 'companies#new'
 

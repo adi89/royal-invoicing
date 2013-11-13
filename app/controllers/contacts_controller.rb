@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
 
   def index
-    @contacts = Contact.group_contacts(current_user.group).page(params[:page]).per(3)
+    @contacts = Contact.group_contacts(current_user.group).page(params[:page]).per(6)
     @top_contacts = Contact.top_contacts(current_user)
   end
 

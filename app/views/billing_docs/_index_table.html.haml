@@ -1,0 +1,21 @@
+-if @kind == 'invoice'
+  %table#invoices-index-table.table-striped.table-hover
+    %thead.invoice-index-table-header
+      %th= link_to 'Due', group_billing_docs_sort_path(current_user.group.id), class: 'due-date-sort forward', data: {type: 'due_date', category: 'invoices', group_id: current_user.group.id, user_id: current_user.id}
+      %th Subject
+      %th Note
+      %th= link_to " Contact(s)", group_billing_docs_sort_path(current_user.group.id), class: 'contact-sort forward', data: {type: 'contacts', category: 'invoices', group_id: current_user.group.id}
+      %th= link_to 'Total ($)', group_billing_docs_sort_path(current_user.group.id), class: 'total-sort forward', data: {type: 'total', category: 'invoices', group_id: current_user.group.id}
+      %th= link_to 'Status', group_billing_docs_sort_path(current_user.group.id), class: 'status-sort forward', data: {type: 'state', category: 'invoices', group_id: current_user.group.id}
+    %tbody#invoice-table-entries
+      = render @invoices
+-elsif @kind == 'estimate'
+  %table#invoices-index-table.table-striped.table-hover
+    %thead.invoice-index-table-header
+      %th= link_to "Estimate Date", group_billing_docs_sort_path(current_user.group.id), class: 'due-date-sort forward', data: {type: 'contacts', category: 'invoices'}
+      %th Subject
+      %th Note
+      %th= link_to " Contact(s)", group_billing_docs_sort_path(current_user.group.id), class: 'contact-sort forward', data: {type: 'contacts', category: 'invoices'}
+      %th= link_to 'Total ($)', group_billing_docs_sort_path(current_user.group.id), class: 'total-sort forward', data: {type: 'total', category: 'invoices'}
+    %tbody#invoice-table-entries
+      = render @invoices

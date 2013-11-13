@@ -1,3 +1,0 @@
-
-$('tbody#invoice-table-entries').html('<%= escape_javascript render(@invoices) %>');
-$('#invoices-paginate').html('<%= escape_javascript(paginate(@invoices, :remote => true).to_s) %>');

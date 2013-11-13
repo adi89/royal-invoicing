@@ -7,9 +7,9 @@
         %li
           = link_to "Manage Contacts", group_contacts_path(current_user.group.id)
         %li
-          =link_to 'Invoices', group_invoices_path(current_user.group.id)
+          =link_to 'Invoices', group_billing_docs_kind_path(current_user.group.id, 'invoice')
         %li
-          =link_to 'Estimates', group_estimates_path(current_user.group.id)
+          =link_to 'Estimates', group_billing_docs_kind_path(current_user.group.id, 'estimate')
         %li.dropdown
           %a.dropdown-toggle{href: '#', data: {toggle: 'dropdown'}}
             ="#{current_user.email}"

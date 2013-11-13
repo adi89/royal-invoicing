@@ -36,7 +36,7 @@ class Contact < ActiveRecord::Base
   end
 
   def self.top_contacts(current_user)
-    current_user.group.users.includes(:contacts).map{|i| i.contacts}.flatten
+    current_user.group.users.includes(:contacts).map{|i| i.contacts}.flatten.first(4)
      end
 
   def self.group_contacts(group)

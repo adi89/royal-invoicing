@@ -1,7 +1,7 @@
 $ ->
   $('.landing-one').hide().fadeIn(2000)
   $('.landing-invoice').hide().fadeIn(3500)
-  $('#flash_notice').fadeOut(4000)
+  $('#flash_notice').fadeOut(5000)
   $('.best_in_place').best_in_place()
 
   $('body').on 'keyup ', ".quantity-field, .price-field", (e) ->
@@ -144,15 +144,6 @@ $ ->
     $.get "#{path}?type=#{dataType}&category=#{category}&forward=#{forward}&ids=#{ids}", (data) ->
         $(".line-item-show-row").empty().remove()
         $("#invoices-index-table tbody").append($(data))
-
-  $('.create-estimate-button').click (e) ->
-    e.preventDefault()
-    groupId = $(this).data('group-id')
-    if $(this).data('id') == null
-      form = $('form#new_billing_doc')
-      path = "/groups/#{groupId}/estimates"
-      $.post path, form.serialize(), (data) ->
-        console.log(data)
 
   $('body').on 'click', '.back-all', (e) ->
     e.preventDefault()
