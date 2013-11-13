@@ -1,21 +1,8 @@
-# == Schema Information
-#
-# Table name: invoices
-#
-#  id         :integer          not null, primary key
-#  total      :decimal(, )
-#  note       :text
-#  state      :string(255)
-#  kind       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#  title      :string(255)
-#  due_date   :string(255)
-#
+
 
 require 'spec_helper'
 
-describe Invoice do
+describe BillingDoc do
   before(:each) do
     @invoice = Fabricate(:invoice)
   end
@@ -46,20 +33,20 @@ describe Invoice do
     it 'sorts contacts' do
       @invoice = Fabricate(:invoice)
       @invoice.contacts << [Fabricate(:contact), Contact.create(name: 'odie', email: 'bronsolino@gmail.com', company_id: Company.first.id)]
-      @category = Invoice.where(kind: 'invoice')
+      @category = BillingDoc.where(kind: 'invoice')
       attribute = "contacts"
       forward = 'false'
-      expect(Invoice.contacts_sort(attribute, @category, forward).first.contacts.first.name).to eq 'Kurt Russell'
+      expect(BillingDoc.contacts_sort(attribute, @category, forward).first.contacts.first.name).to eq 'Kurt Russell'
     end
   end
 
   describe 'category sort' do
     it 'categorizes category' do
-    @category = Invoice.where(kind: 'invoice')
+    @category = BillingDoc.where(kind: 'invoice')
     attribute = 'due_date'
     forward = 'false'
-    Invoice.create(kind: 'invoice', total: 300, due_date: '10-2-2013')
-    expect(Invoice.category_sorting(attribute, @category, forward).first.due_date).to eq '11-11-2013'
+    BillingDoc.create(kind: 'invoice', total: 300, due_date: '10-2-2013')
+    expect(BillingDoc.category_sorting(attribute, @category, forward).first.due_date).to eq '11-11-2013'
     end
   end
 

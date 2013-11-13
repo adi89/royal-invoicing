@@ -53,10 +53,10 @@ $ ->
     e.preventDefault()
     index = $('.line-item-row').size()
     lineItemRow = $('.line-item-row').first().clone()
-    $(lineItemRow).find('.note-field').attr('name', "invoice[line_items_attributes][#{index}][note]")
+    $(lineItemRow).find('.note-field').attr('name', "billing_doc[line_items_attributes][#{index}][note]")
     $(lineItemRow).find('.note-field').val("")
-    $(lineItemRow).find('.quantity-field').attr('name', "invoice[line_items_attributes][#{index}][quantity]").val("")
-    $(lineItemRow).find('.price-field').attr('name', "invoice[line_items_attributes][#{index}][price]").val("")
+    $(lineItemRow).find('.quantity-field').attr('name', "billing_doc[line_items_attributes][#{index}][quantity]").val("")
+    $(lineItemRow).find('.price-field').attr('name', "billing_doc[line_items_attributes][#{index}][price]").val("")
     $(lineItemRow).find("#total").val("")
     $("#line-items-table tbody").append($(lineItemRow))
 
@@ -148,7 +148,7 @@ $ ->
     e.preventDefault()
     groupId = $(this).data('group-id')
     if $(this).data('id') == null
-      form = $('form#new_invoice')
+      form = $('form#new_billing_doc')
       path = "/groups/#{groupId}/estimates"
       $.post path, form.serialize(), (data) ->
         console.log(data)

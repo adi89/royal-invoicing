@@ -28,7 +28,7 @@ class ContactsController < ApplicationController
       if @contact.save
         current_user.contacts << @contact
         @contacts = current_user.contacts
-        @invoice = Invoice.new
+        @invoice = BillingDoc.new
         render :save_contact_to_estimate, content_type: "text/html", layout: false
       else
         render nothing: true

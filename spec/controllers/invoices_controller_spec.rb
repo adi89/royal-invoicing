@@ -2,7 +2,7 @@ require "spec_helper"
 include Devise::TestHelpers
 include ControllerMacros
 
-describe InvoicesController do
+describe BillingDocsController do
   before(:each) do
     @invoice = Fabricate(:invoice)
     @user = Fabricate(:user)
@@ -38,12 +38,12 @@ describe InvoicesController do
   describe 'sort' do
     it 'gives us the sort ajax req' do
       login_user(@user)
-      @user.invoices << @invoice
+      @user.billing_docs << @invoice
       xhr :get, :sort, {group_id: @user.group.id, use_route: "sort_group_invoices",
                         "type"=>"due_date",
                         "category" => "invoices",
                         "forward" => "false",
-                        "ids" => "#{@user.invoices.map{|i| i.id}}"
+                        "ids" => "#{@user.billing_docs.map{|i| i.id}}"
                         }
       expect(response.status).to eq (200)
     end
@@ -73,7 +73,7 @@ describe InvoicesController do
                        "kind"=>"invoice",
                        "line_items_attributes"=> {"0" => {"note"=> @invoice.line_items.first.note, "quantity"=> 20, "price"=>"32.32", "id"=> @invoice.line_items.first.id}}},
                       "total"=> "300",
-                      "commit"=>"Create Invoice"
+                      "commit"=>"Create BillingDoc"
                       }
       expect(response.status).to eq(302)
       #redirect occurs

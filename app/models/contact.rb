@@ -20,8 +20,8 @@
 class Contact < ActiveRecord::Base
   belongs_to :company
   belongs_to :user
-  has_many :invoices_contacts
-  has_many :invoices, through: :invoices_contacts
+  has_many :billing_docs_contacts
+  has_many :billing_docs, through: :billing_docs_contacts
   has_many :estimates_contacts
   has_many :estimates, through: :estimates_contacts
   accepts_nested_attributes_for :company, :reject_if => :no_company

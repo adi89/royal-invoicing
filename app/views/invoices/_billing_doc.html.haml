@@ -1,0 +1,21 @@
+-if billing_doc.kind == "invoice"
+  %tr.line-item-show-row#invoices-row{data: {id: billing_doc.id}}
+    %td= billing_doc.due_date
+    %td= link_to billing_doc.title, group_invoice_path(current_user.group.id, billing_doc)
+    %td.note-td
+      = billing_doc.note
+    %td
+      - billing_doc.contacts.each do |contact|
+        = link_to(contact.name, group_contact_path(current_user.group.id, contact))
+    %td= billing_doc.total
+    %td= billing_doc.state
+-elsif billing_doc.kind == "estimate"
+  %tr.line-item-show-row#invoices-row{data: {id: billing_doc.id}}
+    %td= billing_doc.created_at.strftime("%m-%d-%Y")
+    %td= link_to billing_doc.title, group_estimate_path(current_user.group, billing_doc)
+    %td.note-td
+      = billing_doc.note
+    %td
+      - billing_doc.contacts.each do |contact|
+        = link_to(contact.name, group_contact_path(current_user.group.id, billing_doc))
+    %td= billing_doc.total

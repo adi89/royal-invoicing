@@ -67,7 +67,7 @@ describe Contact do
       @group = Group.create(name: 'sample')
       @user = User.create(email: 'hd@a.com', password: 'derpfjdy32', group_id: @group.id)
       @user.contacts << [@contact, @contact2]
-      @contact.invoices << Fabricate(:invoice)
+      @contact.billing_docs << Fabricate(:invoice)
     end
     it 'finds the top contacts' do
       expect(Contact.top_contacts(@user).first).to eq @contact

@@ -1,18 +1,3 @@
-# == Schema Information
-#
-# Table name: invoices
-#
-#  id         :integer          not null, primary key
-#  total      :decimal(, )
-#  note       :text
-#  state      :string(255)
-#  kind       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#  title      :string(255)
-#  due_date   :string(255)
-#
-
 
 # == Schema Information
 #
@@ -27,7 +12,7 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
-Fabricator(:invoice) do
+Fabricator(:billing_doc) do
   title 'example invoice'
   kind "invoice"
   total 432
