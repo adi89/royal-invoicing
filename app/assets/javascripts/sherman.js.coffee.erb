@@ -92,7 +92,7 @@ $ ->
         e.preventDefault()
         path = $(this).data('path')
         form = $('form#new_contact')
-        $.post path, form.serialize(), (data) ->
+        $.post "#{path}?type=mini", form.serialize(), (data) ->
           $('#contact-form-addition').remove()
           $('#invoice_id').remove()
           $('#new-contact-estimate-option').prepend(data)

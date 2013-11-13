@@ -16,20 +16,6 @@ class ContactsController < ApplicationController
     end
   end
 
-  def save_contact_to_estimate
-    if request.xhr?
-      @contact = Contact.new(contacts_params)
-      if @contact.save
-        current_user.contacts << @contact
-        @contacts = current_user.contacts
-        @invoice = BillingDoc.new
-        render :save_contact_to_estimate, content_type: "text/html", layout: false
-      else
-        render nothing: true
-      end
-    end
-  end
-
   def sort
     if request.xhr?
       @contacts = params["ids"].split(',').map{|i| Contact.find(i)}
@@ -80,9 +66,27 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @contact = Contact.new(contacts_params)
-    if @contact.save
-      current_user.contacts << @contact if @contact.valid?
+    if request.xhr?
+      @contact = Contact.new(contacts_params)
+      if params["type"] == "mini" #estimate form call
+        if @contact.save
+        current_user.contacts << @contact
+        @contacts = current_user.contacts
+        @invoice = BillingDoc.new
+        render :contact_collection_select, content_type: "text/html", layout: false
+        else
+          render nothing: true
+        end
+      else #main modal
+        if @contact.save
+          current_user.contacts << @contact if @contact.valid?
+        else
+          flash[:notice] = "#{@invoice.errors.full_messages}"
+          render :js => "window.location.href = '#{new_group_contact_path(current_user.group.id)}'"
+        end
+      end
+    else
+      redirect_to group_contacts_path(current_user.group.id)
     end
   end
 
