@@ -59,7 +59,7 @@ class InvoicesController < ApplicationController
   def show
     @invoice = BillingDoc.find(params['id'])
     if request.xhr?
-      InvoicesPostEmailersWorker.perform_async(@invoice.id, {:user_id => current_user.id})
+      InvoicesMailerEmailersWorker.perform_async(@invoice.id, {:user_id => current_user.id})
     end
   end
 

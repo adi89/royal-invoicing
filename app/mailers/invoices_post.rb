@@ -1,4 +1,4 @@
-class BillingDocsPostMailer < ActionMailer::Base
+class InvoicesMailer < ActionMailer::Base
   default :from => "adityas@eden.rutgers.edu"
   def publish_post(billing_doc_id, user_id)
     @user = User.find(user_id)
