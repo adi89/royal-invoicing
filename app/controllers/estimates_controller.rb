@@ -1,7 +1,7 @@
 class EstimatesController < ApplicationController
 
   def index
-    @invoices = Kaminari.paginate_array(BillingDoc.group_invoices(current_user.group, 'estimate')).page(params[:page]).per(6)
+    @invoices = BillingDoc.group_invoices(current_user.group, 'estimate').page(params[:page]).per(6)
   end
 
   def sort

@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
 
   def index
-    @contacts = Kaminari.paginate_array(Contact.group_contacts(current_user.group)).page(params[:page]).per(6)
+    @contacts = Contact.group_contacts(current_user.group).page(params[:page]).per(3)
     @top_contacts = Contact.top_contacts(current_user)
   end
 
