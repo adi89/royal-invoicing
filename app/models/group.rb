@@ -9,6 +9,6 @@
 #
 
 class Group < ActiveRecord::Base
-  has_many :users, :inverse_of => :group
+  has_many :users
   validates :name, presence: true
 end

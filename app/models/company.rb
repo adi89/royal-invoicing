@@ -9,7 +9,7 @@
 #
 
 class Company < ActiveRecord::Base
-  has_many :contacts, :inverse_of => :company
+  has_many :contacts
   validates :name, presence: true
   validates_uniqueness_of :name
 end
