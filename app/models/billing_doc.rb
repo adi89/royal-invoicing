@@ -1,12 +1,13 @@
 # == Schema Information
 #
-# Table name: invoices
+# Table name: billing_docs
 #
 #  id         :integer          not null, primary key
 #  total      :decimal(, )
 #  note       :text
 #  state      :string(255)
 #  kind       :string(255)
+#  group_id   :integer
 #  created_at :datetime
 #  updated_at :datetime
 #  title      :string(255)
@@ -17,8 +18,7 @@ class BillingDoc < ActiveRecord::Base
   has_many :billing_docs_contacts
   has_many :contacts, through: :billing_docs_contacts
   has_many :line_items
-  has_many :billing_docs_users
-  has_many :users, through: :billing_docs_users
+  belongs_to :group
 
   accepts_nested_attributes_for :contacts
   accepts_nested_attributes_for :line_items
@@ -41,20 +41,32 @@ class BillingDoc < ActiveRecord::Base
     end
   end
 
-  def self.contacts_sort(attribute, category, forward)
-    forward == "true" ? category.sort_by{|i| i.contacts.map{|j| j.name}} : category.sort_by{|i| i.contacts.map{|j| j.name}}.reverse
+  def self.invoice
+    where(kind: 'invoice')
   end
 
-  def self.category_sorting(attribute, category, forward)
-    forward == "true" ? category.order("#{attribute} asc") :  category.order("#{attribute} desc")
+  def self.estimate
+    where(kind: 'estimate')
   end
 
-  def self.attribute_sort(attribute, category, forward)
-    attribute_method = "#{attribute}_sort"
-    if attribute_method != "contacts_sort"
-      self.category_sorting(attribute, category, forward)
+  def self.sort_by_ids(ids)
+    where("id IN (#{ids})")
+  end
+
+  def self.sort_by_attribute(attribute, direction)
+      self.order("#{attribute} #{direction}")
+  end
+
+  def self.sort_by_contacts(attribute, direction)
+      self.includes(:contacts).order("contacts.name #{direction}")
+  end
+
+  def self.attribute_sort(attribute, forward)
+    case attribute
+    when "contacts"
+      self.sort_by_contacts(attribute, forward)
     else
-      self.contacts_sort(attribute, category, forward)
+      self.sort_by_attribute(attribute, forward)
     end
   end
 

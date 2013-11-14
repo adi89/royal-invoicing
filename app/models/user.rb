@@ -25,8 +25,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   belongs_to :group
   has_many :contacts
-  has_many :billing_docs_users
-  has_many :billing_docs, through: :billing_docs_users
   validates_presence_of :group_id, :unless => Proc.new() {|r| r.group}
   accepts_nested_attributes_for :group, :reject_if => :no_group
   validates_associated :group

@@ -5,6 +5,7 @@ class CreateBillingDocs < ActiveRecord::Migration
       t.text :note
       t.string :state
       t.string :type
+      t.references :group
       t.timestamps
     end
   end

@@ -22,10 +22,8 @@ require 'spec_helper'
 
 describe User do
   before(:each) do
-    @group = Fabricate(:group)
-    @user = User.new(email: 'adi@gmail.com', password: 'akansha1' )
-    @user.group = @group
-    @user.billing_docs << Fabricate(:billing_doc)
+    @user = Fabricate(:user)
+    @user.group.billing_docs << Fabricate(:billing_doc)
     @user.save
   end
 
@@ -39,13 +37,5 @@ describe User do
     it 'belongs to a group' do
       expect(@user.group.present?).to eq true
     end
-    it 'has many contacts' do
-      @user.contacts << Contact.create(email: 'alf@alfworld.com')
-      expect(@user.contacts.present?).to eq true
-    end
-    it 'has many billing_docs' do
-      expect(@user.billing_docs.present?).to eq true
-    end
   end
-
 end

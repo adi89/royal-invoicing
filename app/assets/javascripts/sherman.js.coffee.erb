@@ -132,13 +132,16 @@ $ ->
 
   $('.due-date-sort , .contact-sort, .total-sort, .status-sort').click (e) ->
     e.preventDefault()
+    $(this).toggleClass('forward')
     groupId = $(this).data('group-id')
     dataType = $(this).data('type')
     ids = []
     $.map $(".line-item-show-row"), (n) ->
       ids.push($(n).data "id")
-    $(this).toggleClass('forward')
-    forward = $(this).hasClass('forward')
+    if $(this).hasClass('forward')
+      forward = 'asc'
+    else
+      forward = 'desc'
     category = $(this).data('category')
     path = $(this).attr('href')
     $.get "#{path}?type=#{dataType}&category=#{category}&forward=#{forward}&ids=#{ids}", (data) ->

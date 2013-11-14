@@ -1,10 +1,10 @@
 # == Schema Information
 #
-# Table name: invoices_contacts
+# Table name: billing_docs_contacts
 #
-#  id         :integer          not null, primary key
-#  invoice_id :integer
-#  contact_id :integer
+#  id             :integer          not null, primary key
+#  billing_doc_id :integer
+#  contact_id     :integer
 #
 
 class BillingDocsContact < ActiveRecord::Base

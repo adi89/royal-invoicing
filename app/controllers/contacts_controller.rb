@@ -1,8 +1,8 @@
 class ContactsController < ApplicationController
 
   def index
-    @contacts = Contact.group_contacts(current_user.group).page(params[:page]).per(6)
-    @top_contacts = Contact.top_contacts(current_user)
+    @contacts = current_user.group.contacts.page(params[:page]).per(6)
+    @top_contacts = Contact.top_contacts(current_user.group)
   end
 
   def new
@@ -18,13 +18,13 @@ class ContactsController < ApplicationController
 
   def sort
     if request.xhr?
-      @contacts = params["ids"].split(',').map{|i| Contact.find(i)}
+      @contacts = Contact.where("id IN (#{params["ids"]})")
       attribute = params["type"]
       forward = params['forward']
       if forward == "false"
-        @contacts = @contacts.sort_by{|i| i.company.name}.reverse
+        @contacts = @contacts.order('name desc')
       else
-        @contacts = @contacts.sort_by{|i| i.company.name}
+        @contacts = @contacts.order('name asc')
       end
       render :sort_contact, content_type: "text/html", layout: false
     end
@@ -70,16 +70,16 @@ class ContactsController < ApplicationController
       @contact = Contact.new(contacts_params)
       if params["type"] == "mini" #estimate form call
         if @contact.save
-        current_user.contacts << @contact
-        @contacts = current_user.contacts
-        @invoice = BillingDoc.new
-        render :contact_collection_select, content_type: "text/html", layout: false
+          current_user.group.contacts << @contact
+          @contacts = current_user.group.contacts
+          @invoice = BillingDoc.new
+          render :contact_collection_select, content_type: "text/html", layout: false
         else
           render nothing: true
         end
       else #main modal
         if @contact.save
-          current_user.contacts << @contact if @contact.valid?
+          current_user.group.contacts << @contact if @contact.valid?
         else
           flash[:notice] = "#{@invoice.errors.full_messages}"
           render :js => "window.location.href = '#{new_group_contact_path(current_user.group.id)}'"

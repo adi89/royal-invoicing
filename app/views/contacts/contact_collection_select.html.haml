@@ -1,1 +1,1 @@
-= collection_select(:invoice, :id, current_user.contacts, :id, :name, {:selected => @invoice.contacts.map{|i| i.id}}, {:prompt => 'cmd click', :multiple => true} )
+= collection_select(:invoice, :id, current_user.group.contacts, :id, :name, {:selected => @invoice.contacts.map{|i| i.id}}, {:prompt => 'cmd click', :multiple => true} )

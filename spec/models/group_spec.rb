@@ -22,9 +22,15 @@ describe Group do
   end
 
   describe "associations" do
-    it 'has many users' do
-      @group.users << Fabricate(:user)
-      expect(@group.users.present?).to eq true
+    it 'has many contacts' do
+      company = Company.create(name: 'company')
+      @group.contacts << Contact.create(name: "adi", email: "adi89@gmail.com", company_id: company.id)
+      expect(@group.contacts.present?).to eq true
+      expect(@group.contacts.first.company.present?).to eq true
+    end
+    it 'has many billing_docs' do
+      @group.billing_docs << Fabricate(:billing_doc)
+      expect(@group.billing_docs.present?).to eq true
     end
   end
 end

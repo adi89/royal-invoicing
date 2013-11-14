@@ -10,7 +10,7 @@ class CreateContacts < ActiveRecord::Migration
       t.string :twitter_handle
       t.string :photo
       t.references :company
-      t.references :user
+      t.references :group
       t.timestamps
     end
   end

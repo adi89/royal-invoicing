@@ -10,5 +10,8 @@
 
 class Group < ActiveRecord::Base
   has_many :users
+  has_many :billing_docs
+  has_many :contacts
+  has_many :companies
   validates :name, presence: true
 end

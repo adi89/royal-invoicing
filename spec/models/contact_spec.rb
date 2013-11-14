@@ -12,7 +12,7 @@
 #  twitter_handle :string(255)
 #  photo          :string(255)
 #  company_id     :integer
-#  user_id        :integer
+#  group_id       :integer
 #  created_at     :datetime
 #  updated_at     :datetime
 #
@@ -31,8 +31,8 @@ describe Contact do
   end
 
   describe "associations" do
-    it 'belongs to a user' do
-      expect(@contact.user.present?).to eq true
+    it 'belongs to a group' do
+      expect(@contact.group.present?).to eq true
     end
     it 'belongs to a company' do
       expect(@contact.company.present?).to eq true
@@ -65,15 +65,12 @@ describe Contact do
     before(:each) do
     @contact2 = Contact.create(name: 'odie', email: 'bronsolino@gmail.com', company_id: Company.first.id)
       @group = Group.create(name: 'sample')
-      @user = User.create(email: 'hd@a.com', password: 'derpfjdy32', group_id: @group.id)
-      @user.contacts << [@contact, @contact2]
+      # @user = User.create(email: 'hd@a.com', password: 'derpfjdy32', group_id: @group.id)
+      @group.contacts << [@contact, @contact2]
       @contact.billing_docs << Fabricate(:billing_doc)
     end
     it 'finds the top contacts' do
-      expect(Contact.top_contacts(@user).first).to eq @contact
-    end
-    it 'gets the groups contacts' do
-      expect(Contact.group_contacts(@group)).to eq @group.users.map{|i| i.contacts}.flatten
+      expect(Contact.top_contacts(@group).first).to eq @contact
     end
   end
 end

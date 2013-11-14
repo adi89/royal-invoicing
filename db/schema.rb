@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131106202929) do
+ActiveRecord::Schema.define(version: 20131025170105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20131106202929) do
     t.text     "note"
     t.string   "state"
     t.string   "kind"
+    t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
@@ -32,13 +33,9 @@ ActiveRecord::Schema.define(version: 20131106202929) do
     t.integer "contact_id"
   end
 
-  create_table "billing_docs_users", force: true do |t|
-    t.integer "billing_doc_id"
-    t.integer "user_id"
-  end
-
   create_table "companies", force: true do |t|
     t.string   "name"
+    t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -53,7 +50,7 @@ ActiveRecord::Schema.define(version: 20131106202929) do
     t.string   "twitter_handle"
     t.string   "photo"
     t.integer  "company_id"
-    t.integer  "user_id"
+    t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -35,8 +35,8 @@ describe BillingDoc do
       @invoice.contacts << [Fabricate(:contact), Contact.create(name: 'odie', email: 'bronsolino@gmail.com', company_id: Company.first.id)]
       @category = BillingDoc.where(kind: 'invoice')
       attribute = "contacts"
-      forward = 'false'
-      expect(BillingDoc.contacts_sort(attribute, @category, forward).first.contacts.first.name).to eq 'Kurt Russell'
+      forward = 'asc'
+      expect(BillingDoc.sort_by_contacts(attribute, forward).first.contacts.first.name).to eq 'Kurt Russell'
     end
   end
 
@@ -44,9 +44,9 @@ describe BillingDoc do
     it 'categorizes category' do
     @category = BillingDoc.where(kind: 'invoice')
     attribute = 'due_date'
-    forward = 'false'
+    forward = 'desc'
     BillingDoc.create(kind: 'invoice', total: 300, due_date: '10-2-2013')
-    expect(BillingDoc.category_sorting(attribute, @category, forward).first.due_date).to eq '11-11-2013'
+    expect(BillingDoc.sort_by_attribute(attribute, forward).first.due_date).to eq '11-11-2013'
     end
   end
 

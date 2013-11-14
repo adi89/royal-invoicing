@@ -3,19 +3,22 @@ class BillingDocsController < ApplicationController
   def index
     @kind = params[:kind]
     if params[:kind] == "invoice"
-      @invoices = BillingDoc.group_invoices(current_user.group, 'invoice').page(params[:page]).per(6)
+      # current_user.group.billing_docs.invoice
+      @invoices = current_user.group.billing_docs.invoice.page(params[:page]).per(6)
     else
-      @invoices = BillingDoc.group_invoices(current_user.group, 'estimate').page(params[:page]).per(6)
+      @invoices = current_user.group.billing_docs.estimate.page(params[:page]).per(6)
     end
   end
 
   def sort
     if request.xhr?
-      @invoices = BillingDoc.where("id IN (#{params["ids"]})")
-      attribute = params["type"]
-      category = params["category"] == "invoices" ? @invoices : @estimates
       forward = params['forward']
-      instance_variable_set("@#{params['category']}", BillingDoc.attribute_sort(attribute, category, forward))
+      attribute = params["type"]
+      if params['category'] == 'invoices'
+        @invoices = current_user.group.billing_docs.invoice.attribute_sort(attribute, forward)
+      else
+        @invoices = current_user.group.billing_docs.estimate.attribute_sort(attribute, forward)
+      end
       render :sort_invoice, content_type: "text/html", layout: false
     end
   end
@@ -24,7 +27,7 @@ class BillingDocsController < ApplicationController
     @invoice = BillingDoc.new()
     @invoice.line_items.build
     @invoices_contacts = @invoice.contacts.build
-    @contacts = Contact.group_contacts(current_user.group)
+    @contacts = current_user.group.contacts
     if params[:kind] == "invoice"
       render 'new_invoice'
     else
@@ -35,7 +38,7 @@ class BillingDocsController < ApplicationController
   def edit
     @invoice = BillingDoc.find(params[:id])
     @invoices_contacts = @invoice.contacts.build
-    @contacts = Contact.group_contacts(current_user.group)
+    @contacts = current_user.group.contacts
     if @invoice.kind == 'invoice'
       render 'edit_invoice'
     else
@@ -97,7 +100,7 @@ class BillingDocsController < ApplicationController
     end
     @invoice.total = @invoice.line_items.map{|i| i.price * i.quantity}.reduce(:+)
     if @invoice.save
-      current_user.billing_docs << @invoice
+      current_user.group.billing_docs << @invoice
       redirect_to group_billing_doc_path(current_user.group.id, @invoice)
     else
       flash[:notice]= "#{@invoice.errors.full_messages.first}"

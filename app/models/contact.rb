@@ -12,18 +12,16 @@
 #  twitter_handle :string(255)
 #  photo          :string(255)
 #  company_id     :integer
-#  user_id        :integer
+#  group_id       :integer
 #  created_at     :datetime
 #  updated_at     :datetime
 #
 
 class Contact < ActiveRecord::Base
   belongs_to :company
-  belongs_to :user
+  belongs_to :group
   has_many :billing_docs_contacts
   has_many :billing_docs, through: :billing_docs_contacts
-  has_many :estimates_contacts
-  has_many :estimates, through: :estimates_contacts
   accepts_nested_attributes_for :company, :reject_if => :no_company
   mount_uploader :photo, ContactUploader
   validates_associated :company
@@ -35,11 +33,7 @@ class Contact < ActiveRecord::Base
     attributes["name"].blank?
   end
 
-  def self.top_contacts(current_user)
-    current_user.group.users.includes(:contacts).map{|i| i.contacts}.flatten.first(4)
-     end
-
-  def self.group_contacts(group)
-    Contact.includes(:user).where("users.group_id" => "#{group.id}")
+  def self.top_contacts(grouping)
+   grouping.contacts.joins(:billing_docs).order('count(billing_docs.id) ASC').group('contacts.id')
   end
 end

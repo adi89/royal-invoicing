@@ -12,7 +12,7 @@
 #  twitter_handle :string(255)
 #  photo          :string(255)
 #  company_id     :integer
-#  user_id        :integer
+#  group_id       :integer
 #  created_at     :datetime
 #  updated_at     :datetime
 #
@@ -21,6 +21,6 @@ Fabricator(:contact) do
   name "Kurt Russell"
   email "kurt_russell@yahoo.com"
   job_title "Pliskin"
-  user
+  group
   company
 end
