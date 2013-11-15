@@ -443,3 +443,19 @@ body {
   font-size   : 32px;
   font-weight : 700;
 }
+
+#container {
+min-height: 100%;
+margin-bottom: -120px;
+position: relative;
+}
+
+#footer {
+height: 80px;
+position: relative;
+}
+
+.clearfooter{
+  height: 60px;
+  clear: both;
+}
