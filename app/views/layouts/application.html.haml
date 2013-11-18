@@ -10,8 +10,9 @@
       = render 'shared/nav'
       - flash.each do |name, msg|
         = content_tag :div, msg, id: "flash_#{name}"
-      = yield
-      = render 'shared/modal'
+      #main
+        = yield
+        = render 'shared/modal'
       .clearfooter
     .navbar.navbar-default#footer
       .container#footer-container

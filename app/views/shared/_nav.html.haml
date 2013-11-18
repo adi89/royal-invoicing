@@ -1,7 +1,12 @@
 %nav.navbar.navbar-inverse#sherman-nav{role: 'navigation'}
-  .collapse.navbar-collapse.navbar-ex1-collapse#navbar-content
-    .navbar-header
-      = link_to('Sherman', root_path, html_options = {:class => 'navbar-brand'})
+  .navbar-header
+    %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", type: "button"}
+      %span.sr-only Toggle navigation
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    = link_to('Sherman', root_path, html_options = {:class => 'navbar-brand'})
+  .collapse.navbar-collapse.navbar-ex1-collapse
     %ul.nav.navbar-nav.navbar-right
       - if user_signed_in?
         %li

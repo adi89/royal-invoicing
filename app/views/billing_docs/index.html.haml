@@ -1,11 +1,13 @@
-#invoices-paginate
-  = paginate @invoices, :remote => true
 .row
-  .col-md-10.col-md-offset-1
+  .col-lg-12
+    #invoices-paginate
+      = paginate @invoices, :remote => true
     .call-to-action-invoice-estimate
       = link_to "Create #{@kind}", group_new_billing_doc_path(current_user.group.id, @kind), class: 'btn-success btn btn-lg'
       %br
-    .invoices
+.row
+  .col-lg-12
+    #invoices
       %h2
         #invoices-title
           = "#{current_user.group.name} #{@kind.pluralize.capitalize}"
