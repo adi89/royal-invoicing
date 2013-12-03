@@ -52,9 +52,10 @@ group :development, :test do
   gem 'pry-stack_explorer'
   gem 'database_cleaner'
   gem 'rspec-rails', '~> 2.0'
+  gem 'selenium-webdriver'
   gem 'fabrication'
   gem 'ffaker'
-  gem 'capybara'
+  gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
 end
 
 group :development do
