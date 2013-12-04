@@ -39,4 +39,17 @@ describe 'Registrations' do
       page.should_not have_link(user.email)
     end
   end
+  describe 'update' do
+    it 'updates the users profile' do
+      user = Fabricate(:user)
+      visit root_path
+      login_to_system(user)
+      page.should have_link(user.email)
+      click_link(user.email)
+      click_link "Edit profile"
+      fill_in "user_current_password", with: user.password
+      fill_in "user_group_attributes_name", with: "aka123"
+      click_button "Update"
+    end
+  end
 end

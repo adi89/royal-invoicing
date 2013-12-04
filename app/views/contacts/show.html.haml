@@ -18,7 +18,7 @@
           = best_in_place @contact, :job_title, :path => group_contact_path(current_user.group, @contact)
           at
           #company-biz
-            = link_to @contact.company.name, new_company_path, class: 'contact-show-company', data: {company_id: @contact.company.id, contact_id: @contact.id}
+            = link_to @contact.company.name, new_company_path, class: 'contact-show-company', id: "contact-company-show-link", data: {company_id: @contact.company.id, contact_id: @contact.id}
         %li
           %b
             Phone Number :

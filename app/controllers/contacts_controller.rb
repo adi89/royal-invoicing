@@ -42,7 +42,7 @@ class ContactsController < ApplicationController
       update_params = contacts_params
       update_params.delete(:company_attributes)
       if @contact.update_attributes(update_params)
-        @contact.company = Company.find_or_create_by_name(company_name)
+        @contact.company = Company.find_or_create_by(name: company_name)
         flash[:notice] = "#{@contact.name} updated successfully!"
         redirect_to(group_contacts_path(current_user.group))
       else
@@ -71,12 +71,10 @@ class ContactsController < ApplicationController
       if params["type"] == "mini" #estimate form call
         if @contact.save
           current_user.group.contacts << @contact
-          @contacts = current_user.group.contacts
-          @invoice = BillingDoc.new
-          render :contact_collection_select, content_type: "text/html", layout: false
-        else
-          render nothing: true
         end
+        @contacts = current_user.group.contacts
+        @invoice = BillingDoc.new
+        render :contact_collection_select, content_type: "text/html", layout: false
       else #main modal
         if @contact.save
           current_user.group.contacts << @contact if @contact.valid?

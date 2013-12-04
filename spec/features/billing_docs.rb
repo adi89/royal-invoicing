@@ -63,17 +63,19 @@ describe "BillingDocs" do
       page.should have_content "Paid?"
     end
   end
-  describe "POST groups/:id/invoice" do
-    it 'should post and create a new estimate', js: true do
-      user = Fabricate(:user)
-      contact = Contact.new(name: "John", email: "JSmith@gmail.com")
-      contact.company = Company.create(name: "Initech")
-      user.group.contacts << contact
-      user.save
+  describe "POST groups/:id/estimate" do
+    before(:each) do
+      @user = Fabricate(:user)
+      @contact = Contact.new(name: "John", email: "JSmith@gmail.com")
+      @contact.company = Company.create(name: "Initech")
+      @user.group.contacts << @contact
+      @user.save
       visit root_path
-      login_to_system(user)
+      login_to_system(@user)
       click_link "Estimates"
       click_link "Create estimate"
+    end
+    it 'should post and create a new estimate', js: true do
       fill_in("Title", with: "NewInvoiceTest")
       fill_in("Note", with: "lorem ipsum dolor")
       page.find_by_id('invoice_id').find("option[value='1']").select_option
@@ -83,8 +85,24 @@ describe "BillingDocs" do
       click_button "Create Estimate"
       page.should have_content "Make Invoice"
     end
+    it 'should make a new contact', js: true do
+      click_link "New Contact?"
+      fill_in "name", with: "Adi"
+      fill_in "email", with: "adi-s89@gmail.com"
+      fill_in "company name", with: "Subvrt"
+      click_button "Save Contact Data"
+      find("#invoice_id").should have_content "Adi"
+    end
+    it 'should add another line item', js: true do
+      click_link "Add Line Item"
+      page.all('.line-item-row').count.should eql(2)
+    end
+    it 'should delete that line item', js: true do
+      click_link "Add Line Item"
+      find('.line-item-row:last-child td .remove-line-item').click
+      page.all('.line-item-row').count.should eql(1)
   end
-
+end
   describe "show" do
     it 'should show the invoice', js: true do
       user = Fabricate(:user)
@@ -107,6 +125,20 @@ describe "BillingDocs" do
       click_link "Estimates"
       click_link(user.group.billing_docs.first.title)
       page.should have_link "Make Invoice"
+    end
+  end
+  describe "show" do
+    it 'should make into invoice', js: true do
+      user = Fabricate(:user)
+      user.group.billing_docs << Fabricate(:billing_doc, kind: "estimate")
+      user.save
+      visit root_path
+      login_to_system(user)
+      click_link "Estimates"
+      click_link(user.group.billing_docs.first.title)
+      click_link "Make Invoice"
+      click_link "Invoices"
+      page.should have_content "#{user.group.billing_docs.first.title}"
     end
   end
   describe "edit/update invoice" do
@@ -143,17 +175,17 @@ describe "BillingDocs" do
       page.should have_content "Successfully updated"
     end
   end
-  # describe 'sorting' do
-  #   it 'should sort on the invoice index page', js: true do
-  #     Capybara.default_wait_time = 5
-  #     user = Fabricate(:user)
-  #     user.group.billing_docs << [Fabricate(:billing_doc), Fabricate(:billing_doc, due_date: "12/12/2013")]
-  #     user.save
-  #     visit root_path
-  #     login_to_system(user)
-  #     click_link "Invoices"
-  #     binding.pry
-  #     click_link "Due"
-  #   end
-  # end
+  describe 'sorting' do
+    it 'should sort on the invoice index page', js: true do
+      Capybara.default_wait_time = 5
+      user = Fabricate(:user)
+      user.group.billing_docs << [Fabricate(:billing_doc), Fabricate(:billing_doc, due_date: "12/12/2013")]
+      user.save
+      visit root_path
+      login_to_system(user)
+      click_link "Invoices"
+      click_link "Due"
+      find("#invoice-table-entries .line-item-show-row td:first-child", :text => "12/12/2013")
+    end
+  end
 end
