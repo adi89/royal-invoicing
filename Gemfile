@@ -49,6 +49,7 @@ group :development, :test do
   gem 'terminal-notifier-guard'
   gem 'pry'
   gem 'pry-debugger'
+  gem 'textacular', '~> 3.0', require: 'textacular/rails'
   gem 'pry-stack_explorer'
   gem 'database_cleaner'
   gem 'rspec-rails', '~> 2.0'

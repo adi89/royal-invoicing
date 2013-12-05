@@ -61,6 +61,15 @@ $ ->
     $(lineItemRow).find("#total").val("")
     $("#line-items-table tbody").append($(lineItemRow))
 
+  $('.search-billing-docs-button').click (e) ->
+    e.preventDefault()
+    searchTerm = $('.billing-doc-search-input').val()
+    path = $(this).attr("href")
+    $.get "#{path}?term=#{searchTerm}", (data) ->
+      console.log(data)
+      # $('table:first').remove()
+      $("#billing-doc-table").empty().append(data)
+
   $('body').on 'click',  '.remove-line-item', (e) ->
     e.preventDefault()
     if $('.line-item-row').size() > 1
@@ -130,7 +139,7 @@ $ ->
       $(".contact-item-row").empty().remove()
       $("#contact-table tbody").append($(data))
 
-  $('.due-date-sort , .contact-sort, .total-sort, .status-sort').click (e) ->
+  $('body').on 'click', '.due-date-sort , .contact-sort, .total-sort, .status-sort', (e) ->
     e.preventDefault()
     $(this).toggleClass('forward')
     groupId = $(this).data('group-id')
@@ -138,12 +147,14 @@ $ ->
     ids = []
     $.map $(".line-item-show-row"), (n) ->
       ids.push($(n).data "id")
+    console.log(ids)
     if $(this).hasClass('forward')
       forward = 'asc'
     else
       forward = 'desc'
     category = $(this).data('category')
     path = $(this).attr('href')
+    console.log "#{path}?type=#{dataType}&category=#{category}&forward=#{forward}&ids=#{ids}"
     $.get "#{path}?type=#{dataType}&category=#{category}&forward=#{forward}&ids=#{ids}", (data) ->
         $(".line-item-show-row").empty().remove()
         $("#invoices-index-table tbody").append($(data))

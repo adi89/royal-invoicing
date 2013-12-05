@@ -2,11 +2,22 @@ class BillingDocsController < ApplicationController
 
   def index
     @kind = params[:kind]
-    if params[:kind] == "invoice"
-      # current_user.group.billing_docs.invoice
-      @invoices = current_user.group.billing_docs.invoice.page(params[:page]).per(6)
+    binding.pry
+    if request.xhr?
+      if @kind == "invoice"
+        @invoices = current_user.group.billing_docs.invoice.fuzzy_search(params['term'])
+      else
+        @invoices = current_user.group.billing_docs.estimate.fuzzy_search(params['term'])
+      end
+      render partial: 'index_table', layout: false
+      #do this
     else
-      @invoices = current_user.group.billing_docs.estimate.page(params[:page]).per(6)
+      if params[:kind] == "invoice"
+        # current_user.group.billing_docs.invoice
+        @invoices = current_user.group.billing_docs.invoice.page(params[:page]).per(6)
+      else
+        @invoices = current_user.group.billing_docs.estimate.page(params[:page]).per(6)
+      end
     end
   end
 

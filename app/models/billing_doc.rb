@@ -13,7 +13,8 @@
 #  title      :string(255)
 #  due_date   :string(255)
 #
-
+require 'textacular/tasks'
+require 'textacular'
 class BillingDoc < ActiveRecord::Base
   has_many :billing_docs_contacts
   has_many :contacts, through: :billing_docs_contacts
@@ -22,6 +23,8 @@ class BillingDoc < ActiveRecord::Base
 
   accepts_nested_attributes_for :contacts
   accepts_nested_attributes_for :line_items
+
+  extend(Textacular)
 
   state_machine :state, initial: :unpaid do
     event :pay do

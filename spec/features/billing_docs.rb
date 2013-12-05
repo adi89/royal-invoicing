@@ -188,4 +188,16 @@ end
       find("#invoice-table-entries .line-item-show-row td:first-child", :text => "12/12/2013")
     end
   end
+  describe 'search' do
+    it 'should search amongst the billing doc type', js: true do
+      user = Fabricate(:user)
+      user.group.billing_docs << [Fabricate(:billing_doc), Fabricate(:billing_doc, due_date: "12/12/2013")]
+      visit root_path
+      login_to_system(user)
+      click_link "Invoices"
+      fill_in "billing_doc", with: "12/12/2013"
+      click_link "search"
+      page.should have_content "12/12/2013"
+    end
+  end
 end

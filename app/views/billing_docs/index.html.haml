@@ -5,10 +5,16 @@
     .call-to-action-invoice-estimate
       = link_to "Create #{@kind}", group_new_billing_doc_path(current_user.group.id, @kind), class: 'btn-success btn btn-lg'
       %br
+    .row#billing-search
+      .col-md-offset-4.col-md-4.billing-doc-search-bar
+        .form-group
+          = text_field_tag :billing_doc, nil, placeholder: "search #{@kind}", class: "form-control billing-doc-search-input"
+          = link_to "search", group_billing_docs_kind_path(current_user.group.id, @kind), class: "btn btn-default search-billing-docs-button"
 .row
   .col-lg-12
     #invoices
       %h2
         #invoices-title
           = "#{current_user.group.name} #{@kind.pluralize.capitalize}"
-      = render partial: 'index_table'
+      #billing-doc-table
+        = render partial: 'index_table'

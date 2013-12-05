@@ -15,6 +15,10 @@
   display : inline-block!important
 }
 
+.search-billing-docs-button, .billing-doc-search-input{
+  display: inline-block;
+}
+
 #contact-addition-box {
   display          : inline-block!important;
 
@@ -442,6 +446,16 @@ body {
   border-bottom:1px solid #fff
     }
 
+  #billing-search{
+    margin-top: 5%;
+    clear: both;
+    padding: 15px;
+  }
+
+  .billing-doc-search-input{
+   width: 320px;
+    }
+
   .show-billing-docs-container{
     margin-top: 25px;
     margin-bottom: 25px;
@@ -662,8 +676,12 @@ and (max-width : 480px) {
   h1{
     font-size: 80%;
     font-family: 'Roboto Slab'
-
   }
+
+  .search-billing-docs-button{
+    width: 100%;
+  }
+
   .sherman-landing h1{
     margin-left: 14%;
   }
@@ -802,6 +820,11 @@ and (max-width : 480px) {
   bottom: 7px;
   margin-bottom : 20px;
   margin-left   : 10px;
+  }
+    #billing-search{
+    margin-top: 5%;
+    clear: both;
+    padding: 1em;
   }
 
 /* Styles */
