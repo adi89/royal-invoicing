@@ -2,7 +2,6 @@ class BillingDocsController < ApplicationController
 
   def index
     @kind = params[:kind]
-    binding.pry
     if request.xhr?
       if @kind == "invoice"
         @invoices = current_user.group.billing_docs.invoice.fuzzy_search(params['term'])
