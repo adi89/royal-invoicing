@@ -79,7 +79,6 @@ class ContactsController < ApplicationController
         if @contact.save
           current_user.group.contacts << @contact if @contact.valid?
         else
-          binding.pry
           flash[:notice] = "#{@contact.errors.full_messages}"
           render :js => "window.location.href = '#{new_group_contact_path(current_user.group.id)}'"
         end
