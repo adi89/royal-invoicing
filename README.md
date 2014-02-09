@@ -20,3 +20,13 @@ So what you have is a record of your invoices, the total expenses, and even your
 3. Create/Migrate the database.
 4. The current email feature requires you have a Mandrill API key. However, you can also configure *setup_mail.rb* and use gmail instead of Mandrill.
 5. Boot up local host and enjoy!
+
+
+###Some info ###
+** Notable Gems used **
+- [Kaminari](https://github.com/amatsuda/kaminari): for pagination
+- [Sidekiq](https://github.com/mperham/sidekiq): asynchronous emails
+- [Devise](https://github.com/plataformatec/devise): build users
+- [Carrierwave](https://github.com/carrierwaveuploader/carrierwave)/[RMagick](https://github.com/rmagick/rmagick)/[Remotipart](https://github.com/JangoSteve/remotipart): ajax upload images for contacts
+- [Best-In-Place](https://github.com/bernat/best_in_place): dynamically change Contact fields. super cool.
+- [Textacular](https://github.com/textacular/textacular): search records by the value of any field.
