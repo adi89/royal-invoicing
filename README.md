@@ -21,6 +21,8 @@ So what you have is a record of your invoices, the total expenses, and even your
 4. The current email feature requires you have a Mandrill API key. However, you can also configure *setup_mail.rb* and use gmail instead of Mandrill.
 5. Boot up local host and enjoy!
 
+Here it is deployed [Sherman](http://secret-coast-3898.herokuapp.com)
+
 
 ###Some info ###
 ** Notable Gems used **
